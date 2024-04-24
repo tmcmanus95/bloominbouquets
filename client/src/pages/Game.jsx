@@ -33,13 +33,11 @@ export default function Game() {
 
   let lastSelectedIndex = null;
 
-  useEffect(() => {
-    if (wordsDictionaryFile && wordsDictionaryFile.length > 0) {
-      console.log("Words dictionary loaded");
-      setEnglishWords(wordsDictionaryFile);
-      createGrid();
-    }
-  }, [wordsDictionaryFile]);
+  if (wordsDictionaryFile && wordsDictionaryFile.length > 0) {
+    console.log("Words dictionary loaded");
+    setEnglishWords(wordsDictionaryFile);
+    createGrid();
+  }
   function isMobile() {
     return window.innerWidth <= 599;
   }
