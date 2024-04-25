@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { getRandomLetter } from "../utils/getRandomLetter";
 import CurrentWord from "./CurrentWord";
-import wordsDictionary from "../assets/words_dictionary.json";
+// import wordsDictionary from "../assets/words_dictionary.json";
 
 export default function GameBoard() {
   const [selectedIds, setSelectedIds] = useState([]);
   const [newGameBoard, setNewGameBoard] = useState([]);
   const [realWord, setRealWord] = useState(false);
-
+  const wordsDictionary = ["hi", "hello"];
   function isMobile() {
     return window.innerWidth <= 599;
   }
