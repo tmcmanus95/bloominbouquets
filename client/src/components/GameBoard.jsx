@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getRandomLetter } from "../utils/getRandomLetter";
 import CurrentWord from "./CurrentWord";
-import wordsDictionary from "../assets/wordsDictionary";
+import wordsDictionary from "../assets/wordlist";
 
 export default function GameBoard() {
   const [selectedIds, setSelectedIds] = useState([]);
@@ -92,6 +92,10 @@ export default function GameBoard() {
       userWord.length > 2 &&
       wordsDictionary.includes(userWord.toLowerCase())
     ) {
+      for (let i = 0; i < selectedIds.length; i++) {
+        newGameBoard[selectedIds[i]].letter = getRandomLetter();
+      }
+
       setRealWord(true);
       setTimeout(() => {
         setSelectedIds([]);
@@ -109,13 +113,15 @@ export default function GameBoard() {
       {/* <CurrentWord
         selectedLetters={selectedIds.map((id) => getTileById(id).letter)}
       /> */}
-      {realWord ? (
-        <h1 className="correct">
-          {selectedIds.map((id) => getTileById(id).letter)}
-        </h1>
-      ) : (
-        <h1>{selectedIds.map((id) => getTileById(id).letter)}</h1>
-      )}
+      <div className="current-word-container">
+        {realWord ? (
+          <h1 className="correct">
+            {selectedIds.map((id) => getTileById(id).letter)}
+          </h1>
+        ) : (
+          <h1>{selectedIds.map((id) => getTileById(id).letter)}</h1>
+        )}
+      </div>
 
       <div id="main-container">
         <div id="grid-container">

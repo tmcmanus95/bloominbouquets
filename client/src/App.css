@@ -97,6 +97,10 @@ body {
   background-color: lightblue;
 }
 
+.current-word-container {
+  display: flex;
+  height: 100px !important;
+}
 .flip-animation {
   transform: rotateX(360deg);
 }
