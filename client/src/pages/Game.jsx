@@ -1,4 +1,3 @@
-import wordsDictionaryFile from "../assets/words_dictionary.json";
 import { useEffect, useState } from "react";
 export default function Game() {
   return (

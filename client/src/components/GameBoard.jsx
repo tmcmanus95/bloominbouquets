@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getRandomLetter } from "../utils/getRandomLetter";
 import CurrentWord from "./CurrentWord";
-import wordsDictionary from "../assets/words_dictionary.json";
+import wordsDictionary from "../assets/wordsDictionary";
 
 export default function GameBoard() {
   const [selectedIds, setSelectedIds] = useState([]);
@@ -90,7 +90,7 @@ export default function GameBoard() {
     const userWord = word.join("");
     if (
       userWord.length > 2 &&
-      wordsDictionary.hasOwnProperty(userWord.toLowerCase())
+      wordsDictionary.includes(userWord.toLowerCase())
     ) {
       setRealWord(true);
       setTimeout(() => {
