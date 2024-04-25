@@ -8,12 +8,13 @@ import Error from "./pages/Error";
 import SignUp from "./pages/SignUp";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
+import Home from "./pages/Home.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
-      { index: true, element: <Game /> },
+      { index: true, element: <Home /> },
       {
         path: "/me",
         element: <Profile />,

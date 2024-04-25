@@ -27,4 +27,22 @@ export function getRandomLetter() {
     Y: 1.97,
     Z: 0.07,
   };
+
+  const totalFrequency = Object.values(letterFrequencies).reduce(
+    (sum, frequency) => sum + frequency,
+    0
+  );
+
+  const randomFrequency = Math.random() * totalFrequency;
+  let cumulativeFrequency = 0;
+
+  for (const [letter, frequency] of Object.entries(letterFrequencies)) {
+    cumulativeFrequency += frequency;
+    if (randomFrequency <= cumulativeFrequency) {
+      return letter;
+    }
+  }
+
+  // Fallback letter
+  return "E";
 }
