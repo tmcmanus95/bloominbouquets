@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { getRandomLetter } from "../utils/getRandomLetter";
 import CurrentWord from "./CurrentWord";
+import wordsDictionary from "../assets/words_dictionary.json";
 
 export default function GameBoard() {
   const [selectedIds, setSelectedIds] = useState([]);
   const [newGameBoard, setNewGameBoard] = useState([]);
+  const [realWord, setRealWord] = useState(false);
 
   function isMobile() {
     return window.innerWidth <= 599;
@@ -77,16 +79,43 @@ export default function GameBoard() {
   const selectedTile = (tile) => {
     const isSelected = selectedIds.includes(tile.id);
     return {
-      background: isSelected ? "pink" : "linen",
+      background: isSelected
+        ? realWord
+          ? "darkseagreen"
+          : "lightblue"
+        : "linen",
     };
   };
 
+  function checkWordValidity(word) {
+    const userWord = word.join("");
+    if (
+      userWord.length > 2 &&
+      wordsDictionary.hasOwnProperty(userWord.toLowerCase())
+    ) {
+      setRealWord(true);
+      setTimeout(() => {
+        setSelectedIds([]);
+        setRealWord(false);
+      }, 1000);
+    } else {
+      console.log("not a real word");
+      setSelectedIds([]);
+    }
+  }
   return (
     <>
       <h1>Current Word:</h1>
-      <CurrentWord
+      {/* <CurrentWord
         selectedLetters={selectedIds.map((id) => getTileById(id).letter)}
-      />
+      /> */}
+      {realWord ? (
+        <h1 className="correct">
+          {selectedIds.map((id) => getTileById(id).letter)}
+        </h1>
+      ) : (
+        <h1>{selectedIds.map((id) => getTileById(id).letter)}</h1>
+      )}
 
       <div id="main-container">
         <div id="grid-container">
@@ -104,6 +133,15 @@ export default function GameBoard() {
           ) : (
             <h1>Loading</h1>
           )}
+          <button
+            onClick={() => {
+              checkWordValidity(
+                selectedIds.map((id) => getTileById(id).letter)
+              );
+            }}
+          >
+            Submit
+          </button>
         </div>
       </div>
     </>

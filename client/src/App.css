@@ -61,13 +61,13 @@ body {
   background-color: darkseagreen;
 }
 
-span.correct {
+.correct {
   padding: 5px;
   background-color: darkseagreen;
   border-radius: 3px;
 }
 
-span.incorrect {
+.incorrect {
   padding: 5px;
   background-color: indianred;
   border-radius: 3px;
