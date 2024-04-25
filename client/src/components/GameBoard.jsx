@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { getRandomLetter } from "../utils/getRandomLetter";
 import CurrentWord from "./CurrentWord";
-// import wordsDictionary from "../assets/words_dictionary.json";
+import wordsDictionary from "../assets/words_dictionary.json";
 
 export default function GameBoard() {
   const [selectedIds, setSelectedIds] = useState([]);
   const [newGameBoard, setNewGameBoard] = useState([]);
   const [realWord, setRealWord] = useState(false);
-  const wordsDictionary = ["hi", "hello"];
   function isMobile() {
     return window.innerWidth <= 599;
   }
@@ -87,7 +86,7 @@ export default function GameBoard() {
     };
   };
 
-  function checkWordValidity(word) {
+  async function checkWordValidity(word) {
     const userWord = word.join("");
     if (
       userWord.length > 2 &&
@@ -103,6 +102,7 @@ export default function GameBoard() {
       setSelectedIds([]);
     }
   }
+
   return (
     <>
       <h1>Current Word:</h1>
@@ -134,8 +134,8 @@ export default function GameBoard() {
             <h1>Loading</h1>
           )}
           <button
-            onClick={() => {
-              checkWordValidity(
+            onClick={async () => {
+              await checkWordValidity(
                 selectedIds.map((id) => getTileById(id).letter)
               );
             }}
