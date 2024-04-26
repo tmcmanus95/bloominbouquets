@@ -14,12 +14,12 @@ export default function Navbar() {
     Auth.logout();
   };
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 mx-auto px-4 md:flex items-center bg-slate-200 gap-6 py-1">
-      <div className="flex w-full items-center">
+    <nav className="fixed top-0 left-0 right-0 z-50 mx-auto px-4 md:flex items-center dark:bg-slate-900 bg-slate-200 gap-6 py-1">
+      <div className="flex w-full items-center dark:text-white">
         <Link to="/">
           <img className="h-5 lg:h-10  mr-5" src={flowerIcon}></img>{" "}
         </Link>
-        <div className="md:hidden flex items-center ml-5 text-right">
+        <div className="md:hidden flex items-center ml-5 text-right dark:text-white">
           <GiHamburgerMenu
             onClick={toggleMenu}
             style={{ fontSize: "24px", cursor: "pointer" }}
@@ -43,7 +43,7 @@ export default function Navbar() {
         <div className="mx-5 flex justify-center align-center items-center"></div>
 
         {menuOpen && (
-          <div className="absolute inset-x-0 md:relative top-full md:top-auto md:left-auto md:flex flex-col items-center space-x-1 pb-3 md:pb-0 bg-gray-200">
+          <div className="absolute inset-x-0 md:relative top-full md:top-auto md:left-auto md:flex flex-col items-center space-x-1 pb-3 md:pb-0  dark:bg-slate-900 bg-slate-200">
             <Link
               onClick={toggleMenu}
               to="/about"

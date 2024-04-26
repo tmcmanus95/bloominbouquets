@@ -12,6 +12,8 @@ export default function GameBoard() {
   const [newGameBoard, setNewGameBoard] = useState([]);
   const [realWord, setRealWord] = useState(false);
   const [isFlipped, setIsFlipped] = useState(false);
+  const [validWord, setValidWord] = useState("");
+  const [invalidWord, setInvalidWord] = useState("");
   const { data: meData, error: meError } = useQuery(QUERY_ME);
   const [addWord, error] = useMutation(ADD_WORD);
   function isMobile() {
@@ -100,6 +102,7 @@ export default function GameBoard() {
       userWord.length > 2 &&
       wordsDictionary.includes(userWord.toLowerCase())
     ) {
+      setValidWord(userWord);
       const updatedBoard = newGameBoard.map((tile) =>
         selectedIds.includes(tile.id)
           ? { ...tile, isFlipped: true, letter: getRandomLetter() }
@@ -119,8 +122,10 @@ export default function GameBoard() {
 
         setSelectedIds([]);
         setRealWord(false);
+        setValidWord("");
       }, 1000);
     } else {
+      setInvalidWord(userWord);
       console.log("not a real word");
       setSelectedIds([]);
     }
@@ -139,18 +144,18 @@ export default function GameBoard() {
     }
   };
   return (
-    <div className="dark:bg-slate-600 dark:text-white bg-white mt-8 text-black">
+    <div className="dark:bg-slate-800 dark:text-white bg-white mt-8 text-black">
       <h1>Current Word:</h1>
       {/* <CurrentWord
         selectedLetters={selectedIds.map((id) => getTileById(id).letter)}
       /> */}
-      <div className="current-word-container">
+      <div className="current-word-container flex justify-center md:text-5xl text-2xl md:mb-10 mb-3">
         {realWord ? (
-          <h1 className="correct">
+          <h1 className="correct flex ">{validWord}</h1>
+        ) : (
+          <h1 className="flex">
             {selectedIds.map((id) => getTileById(id).letter)}
           </h1>
-        ) : (
-          <h1>{selectedIds.map((id) => getTileById(id).letter)}</h1>
         )}
       </div>
 
@@ -174,15 +179,18 @@ export default function GameBoard() {
           )}
         </div>
       </div>
-      <button
-        onClick={async () => {
-          await checkWordValidity(
-            selectedIds.map((id) => getTileById(id).letter)
-          );
-        }}
-      >
-        Submit
-      </button>
+      <div className="flex justify-center">
+        <button
+          className="flex dark:bg-blue-800 bg-blue-300 dark:text-white text-black"
+          onClick={async () => {
+            await checkWordValidity(
+              selectedIds.map((id) => getTileById(id).letter)
+            );
+          }}
+        >
+          Submit
+        </button>
+      </div>
       {meData ? <GameBoardWordList words={meData.me.words} /> : <></>}
     </div>
   );

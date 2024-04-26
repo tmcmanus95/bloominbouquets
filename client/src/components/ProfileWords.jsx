@@ -1,3 +1,21 @@
-export default function profileWords() {
-  return <h1>User Words</h1>;
+export default function ProfileWords({ words }) {
+  let sortedWords = words.slice().sort((a, b) => b.length - a.length);
+  console.log(sortedWords);
+  return (
+    <section className="ml-5 flex justify-center flex-col md:text-3xl text-2xl">
+      <h1 className="md:text-5xl">Best Words</h1>
+      <div className="flex justify-center flex-col">
+        {sortedWords ? (
+          sortedWords.map((word, index) => (
+            <p key={index}>
+              <span>{word.length} </span>
+              {word}
+            </p>
+          ))
+        ) : (
+          <></>
+        )}
+      </div>
+    </section>
+  );
 }
