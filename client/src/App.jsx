@@ -7,6 +7,8 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { Outlet } from "react-router-dom";
+import Navbar from "./components/Navbar";
+
 // import Footer from "./components/Footer";
 // import NavBar from "./components/Navbar";
 
@@ -37,7 +39,7 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <div style={{ maxWidth: "100%", overflowX: "hidden", height: "100%" }}>
-        {/* <NavBar /> */}
+        <Navbar />
         <Outlet />
 
         {/* <Footer /> */}

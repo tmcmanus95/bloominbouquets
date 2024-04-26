@@ -22,3 +22,12 @@ export const LOGIN_USER = gql`
     }
   }
 `;
+export const ADD_WORD = gql`
+  mutation Mutation($word: String!, $userId: ID!) {
+    addWord(word: $word, userId: $userId) {
+      _id
+      username
+      words
+    }
+  }
+`;

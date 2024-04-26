@@ -1,3 +1,9 @@
+import { useQuery } from "@apollo/client";
+import { QUERY_ME } from "../utils/queries";
 export default function Profile() {
-  return <h1>Profile Page Baby</h1>;
+  const { loading, data } = useQuery(QUERY_ME);
+  if (data) {
+    console.log(data);
+  }
+  return <div className="mt-20 flex justify-center"></div>;
 }

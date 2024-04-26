@@ -140,7 +140,8 @@ const resolvers = {
       }
     },
     addWord: async (_, { word, userId }, context) => {
-      //const userId = context
+      // const userId = context;
+      // console.log("context", context);
       try {
         const user = await User.findById(userId);
         if (!user) {
