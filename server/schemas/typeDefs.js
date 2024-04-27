@@ -31,7 +31,7 @@ type Mutation {
     removeUser: User
     login(email: String!, password: String!): Auth
     sendFriendRequest(recipientId: ID!, userId: ID!): User
-    acceptFriendRequest(recipientId: ID!, userId: ID!): User
+    acceptFriendRequest(requesterId: ID!, userId: ID!): User
     addFriend(newFriendId: ID!, userId: ID!): User
     addWord(word: String!, userId: ID!): User
     sendWord(giftedWords: String!, recipientId: ID!, userId: ID!): User

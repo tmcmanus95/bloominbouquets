@@ -3,6 +3,7 @@ import { useState } from "react";
 import Auth from "../utils/auth";
 import flowerIcon from "../assets/flowerfavicon.png";
 import { GiHamburgerMenu } from "react-icons/gi";
+import UserSearchBar from "./UserSearchBar";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -40,6 +41,10 @@ export default function Navbar() {
             Contact
           </Link>
         </div>
+        <div className="mx-5 flex justify-center align-center items-center">
+          <UserSearchBar />
+        </div>
+
         <div className="mx-5 flex justify-center align-center items-center"></div>
 
         {menuOpen && (

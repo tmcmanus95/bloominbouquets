@@ -12,6 +12,8 @@ import Contact from "./pages/Contact";
 import About from "./pages/About";
 import Home from "./pages/Home.jsx";
 import SendWord from "./pages/SendWord.jsx";
+import OtherProfile from "./pages/OtherProfile.jsx";
+import UserSearchResults from "./pages/UserSearchResults.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -22,10 +24,18 @@ const router = createBrowserRouter([
         path: "/me",
         element: <Profile />,
       },
+      {
+        path: "/user/:otherPersonsId",
+        element: <OtherProfile />,
+      },
       { path: "/sendABouquet", element: <SendWord /> },
       {
         path: "/login",
         element: <Login />,
+      },
+      {
+        path: "/usersearch/:searchTerm",
+        element: <UserSearchResults />,
       },
       {
         path: "/signup",
@@ -39,6 +49,7 @@ const router = createBrowserRouter([
         path: "/contact",
         element: <Contact />,
       },
+
       {
         path: "*",
         element: <Error />,

@@ -44,3 +44,18 @@ export const SEND_WORD = gql`
     }
   }
 `;
+export const SEND_FRIEND_REQUEST = gql`
+  mutation Mutation($recipientId: ID!, $userId: ID!) {
+    sendFriendRequest(recipientId: $recipientId, userId: $userId) {
+      _id
+    }
+  }
+`;
+export const ACCEPT_FRIEND_REQUEST = gql`
+  mutation Mutation($requesterId: ID!, $userId: ID!) {
+    acceptFriendRequest(requesterId: $requesterId, userId: $userId) {
+      _id
+      username
+    }
+  }
+`;

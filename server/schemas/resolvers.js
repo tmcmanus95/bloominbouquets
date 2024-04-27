@@ -20,7 +20,9 @@ const resolvers = {
     },
     me: async (parent, args, context) => {
       if (context.user) {
-        return User.findOne({ _id: context.user._id });
+        return User.findOne({ _id: context.user._id })
+          .populate("friendRequests")
+          .populate("friends");
       }
       throw AuthenticationError;
     },
@@ -55,7 +57,7 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    sendFriendRequest: async (_, { recipientId, userId }, context) => {
+    sendFriendRequest: async (_, { userId, recipientId }, context) => {
       try {
         const sender = await User.findById(userId);
         if (!sender) {
@@ -68,14 +70,15 @@ const resolvers = {
         }
 
         if (
-          sender.friends.includes(recipientId) ||
-          sender.friendRequests.includes(recipientId)
+          recipient.friends.includes(userId) ||
+          recipient.friendRequests.includes(userId)
         ) {
           throw new Error("Friend request already sent or already friends");
         }
 
-        sender.friendRequests.push(recipientId);
-        await sender.save();
+        recipient.friendRequests.push(userId);
+
+        await recipient.save();
 
         return true;
       } catch (error) {
@@ -101,6 +104,14 @@ const resolvers = {
         );
 
         await user.save();
+        const requester = await User.findById(requesterId);
+
+        requester.friends.push(userId);
+
+        requester.friendRequests = requester.friendRequests.filter(
+          (request) => request.toString() !== userId.toString()
+        );
+        await requester.save();
 
         return user;
       } catch (error) {

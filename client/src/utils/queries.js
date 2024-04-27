@@ -26,6 +26,38 @@ export const QUERY_ME = gql`
   }
 `;
 
+export const QUERY_USER = gql`
+  query Query($userId: ID!) {
+    user(userId: $userId) {
+      _id
+      username
+      friendRequests {
+        _id
+        username
+      }
+      friends {
+        _id
+        username
+      }
+      words
+      giftedWords {
+        giftedWords
+        sender {
+          _id
+          username
+        }
+      }
+    }
+  }
+`;
+export const QUERY_MY_ID = gql`
+  query Query {
+    me {
+      _id
+    }
+  }
+`;
+
 export const QUERY_MY_WORDS_AND_MY_FRIENDS = gql`
   query Query {
     me {
@@ -35,6 +67,15 @@ export const QUERY_MY_WORDS_AND_MY_FRIENDS = gql`
         _id
         username
       }
+    }
+  }
+`;
+
+export const QUERY_USERS = gql`
+  query SearchUsers($username: String) {
+    searchUsers(username: $username) {
+      _id
+      username
     }
   }
 `;
