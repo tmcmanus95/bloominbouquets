@@ -25,3 +25,16 @@ export const QUERY_ME = gql`
     }
   }
 `;
+
+export const QUERY_MY_WORDS_AND_MY_FRIENDS = gql`
+  query Query {
+    me {
+      _id
+      words
+      friends {
+        _id
+        username
+      }
+    }
+  }
+`;

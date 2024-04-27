@@ -104,9 +104,7 @@ export default function GameBoard() {
     ) {
       setValidWord(userWord);
       const updatedBoard = newGameBoard.map((tile) =>
-        selectedIds.includes(tile.id)
-          ? { ...tile, isFlipped: true, letter: getRandomLetter() }
-          : tile
+        selectedIds.includes(tile.id) ? { ...tile, isFlipped: true } : tile
       );
       setRealWord(true);
       setNewGameBoard(updatedBoard);

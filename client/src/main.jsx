@@ -11,6 +11,7 @@ import SignUp from "./pages/SignUp";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
 import Home from "./pages/Home.jsx";
+import SendWord from "./pages/SendWord.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -21,6 +22,7 @@ const router = createBrowserRouter([
         path: "/me",
         element: <Profile />,
       },
+      { path: "/sendABouquet", element: <SendWord /> },
       {
         path: "/login",
         element: <Login />,
@@ -29,7 +31,6 @@ const router = createBrowserRouter([
         path: "/signup",
         element: <SignUp />,
       },
-
       {
         path: "/about",
         element: <About />,
@@ -38,7 +39,6 @@ const router = createBrowserRouter([
         path: "/contact",
         element: <Contact />,
       },
-
       {
         path: "*",
         element: <Error />,

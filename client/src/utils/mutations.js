@@ -31,3 +31,16 @@ export const ADD_WORD = gql`
     }
   }
 `;
+
+export const SEND_WORD = gql`
+  mutation Mutation($giftedWords: String!, $recipientId: ID!, $userId: ID!) {
+    sendWord(
+      giftedWords: $giftedWords
+      recipientId: $recipientId
+      userId: $userId
+    ) {
+      _id
+      username
+    }
+  }
+`;
