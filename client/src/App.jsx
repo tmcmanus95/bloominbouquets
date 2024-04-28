@@ -40,7 +40,7 @@ function App() {
     <ApolloProvider client={client}>
       <div style={{ maxWidth: "100%", overflowX: "hidden", height: "100%" }}>
         <Navbar />
-        <div className="mt-8">
+        <div className="mt-16">
           <Outlet />
         </div>
 
