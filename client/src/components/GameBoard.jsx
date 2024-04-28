@@ -90,22 +90,29 @@ export default function GameBoard() {
     const isMostRecent =
       selectedIds.length > 0 && tile.id === selectedIds[selectedIds.length - 1];
 
-    let backgroundColor = "linen";
+    let backgroundColor = "ghostwhite";
+    let textColor = "black";
 
     if (isSelected && realWord) {
-      backgroundColor = "darkseagreen";
+      backgroundColor = "gold";
+      textColor = "#2d5421";
     } else if (isSelected && !realWord) {
-      backgroundColor = "lightblue";
+      backgroundColor = "#a8cc9e";
     } else if (isAdjacent) {
-      backgroundColor = "aliceblue";
+      backgroundColor = "#e2d1c4";
     }
 
-    if (isMostRecent) {
-      backgroundColor = "lightskyblue";
+    if (isMostRecent && realWord) {
+      backgroundColor = "gold";
+      textColor = "#2d5421";
+    } else if (isMostRecent) {
+      backgroundColor = "#4d9039";
+      textColor = "white";
     }
 
     return {
       background: backgroundColor,
+      color: textColor,
       transform: tile.isFlipped ? "rotateX(180deg)" : "none",
     };
   };
