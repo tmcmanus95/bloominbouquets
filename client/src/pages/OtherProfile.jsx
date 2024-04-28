@@ -1,9 +1,10 @@
 import { useQuery, useMutation } from "@apollo/client";
 import { useParams } from "react-router-dom";
-import { QUERY_USER, QUERY_MY_ID } from "../utils/queries";
+import { QUERY_USER } from "../utils/queries";
 import ProfileWords from "../components/ProfileWords";
 import { IoMdPersonAdd } from "react-icons/io";
 import { SEND_FRIEND_REQUEST } from "../utils/mutations";
+import { IoMdFlower } from "react-icons/io";
 
 export default function OtherProfile() {
   const { otherPersonsId } = useParams();
@@ -16,18 +17,17 @@ export default function OtherProfile() {
       userId: otherPersonsId,
     },
   });
-  const {
-    loading: queryIDLoading,
-    data: queryIDData,
-    error: queryIDError,
-  } = useQuery(QUERY_MY_ID);
+  let isFriend = false;
   let myId;
   const [sendFriendRequest, error] = useMutation(SEND_FRIEND_REQUEST);
   if (data) {
     console.log("user data", data);
-  }
-  if (queryIDData) {
-    myId = queryIDData.me._id;
+    myId = data.me._id;
+    for (let i = 0; i < data.me.friends.length; i++) {
+      if (data.me.friends[i]._id === otherPersonsId) {
+        isFriend = true;
+      }
+    }
   }
 
   const handleAddFriend = async () => {
@@ -45,7 +45,14 @@ export default function OtherProfile() {
         <div className="dark:bg-slate-800 dark:text-white">
           <div className="flex justify-center text-3xl">
             <h1 className="m-6">{data.user.username}</h1>
-            <IoMdPersonAdd onClick={handleAddFriend} />
+            {isFriend ? (
+              <>
+                <IoMdFlower />
+                <h6 className="text-xs">Friends</h6>
+              </>
+            ) : (
+              <IoMdPersonAdd onClick={handleAddFriend} />
+            )}
           </div>
           <div>
             <ProfileWords words={data.user.words} />

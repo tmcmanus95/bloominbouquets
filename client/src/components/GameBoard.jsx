@@ -20,8 +20,8 @@ export default function GameBoard() {
     return window.innerWidth <= 599;
   }
 
-  const numRows = isMobile() ? 5 : 10;
-  const numCols = isMobile() ? 5 : 10;
+  const numRows = isMobile() ? 7 : 12;
+  const numCols = isMobile() ? 7 : 12;
 
   const addLetter = (tile) => {
     const { id } = tile;
@@ -86,12 +86,26 @@ export default function GameBoard() {
 
   const selectedTile = (tile) => {
     const isSelected = selectedIds.includes(tile.id);
+    const isAdjacent = hasAdjacentSelected(tile);
+    const isMostRecent =
+      selectedIds.length > 0 && tile.id === selectedIds[selectedIds.length - 1];
+
+    let backgroundColor = "linen";
+
+    if (isSelected && realWord) {
+      backgroundColor = "darkseagreen";
+    } else if (isSelected && !realWord) {
+      backgroundColor = "lightblue";
+    } else if (isAdjacent) {
+      backgroundColor = "aliceblue";
+    }
+
+    if (isMostRecent) {
+      backgroundColor = "lightskyblue";
+    }
+
     return {
-      background: isSelected
-        ? realWord
-          ? "darkseagreen"
-          : "lightblue"
-        : "linen",
+      background: backgroundColor,
       transform: tile.isFlipped ? "rotateX(180deg)" : "none",
     };
   };
@@ -143,13 +157,12 @@ export default function GameBoard() {
   };
   return (
     <div className="dark:bg-slate-800 dark:text-white bg-white mt-8 text-black">
-      <h1>Current Word:</h1>
       {/* <CurrentWord
         selectedLetters={selectedIds.map((id) => getTileById(id).letter)}
       /> */}
-      <div className="current-word-container flex justify-center md:text-5xl text-2xl md:mb-10 mb-3">
+      <div className="current-word-container flex justify-center md:text-5xl text-2xl">
         {realWord ? (
-          <h1 className="correct flex ">{validWord}</h1>
+          <h1 className="correct flex align-center">{validWord}</h1>
         ) : (
           <h1 className="flex">
             {selectedIds.map((id) => getTileById(id).letter)}

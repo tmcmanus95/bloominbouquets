@@ -1,6 +1,7 @@
 export default function GameBoardWordList({ words }) {
   console.log(words);
   let sortedWords = words.slice().sort((a, b) => b.length - a.length);
+  sortedWords = sortedWords.slice(0, 10);
   console.log(sortedWords);
   return (
     <section className="ml-5 flex justify-center flex-col md:text-3xl text-2xl">

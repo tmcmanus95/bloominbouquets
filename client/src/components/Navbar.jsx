@@ -4,11 +4,17 @@ import Auth from "../utils/auth";
 import flowerIcon from "../assets/flowerfavicon.png";
 import { GiHamburgerMenu } from "react-icons/gi";
 import UserSearchBar from "./UserSearchBar";
+import { RiUserSearchLine } from "react-icons/ri";
+import { IoCloseOutline } from "react-icons/io5";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [userSearchOpen, setUserSearchOpen] = useState(false);
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
+  };
+  const toggleUserSearch = () => {
+    setUserSearchOpen(!userSearchOpen);
   };
   const logout = (event) => {
     event.preventDefault();
@@ -18,7 +24,7 @@ export default function Navbar() {
     <nav className="fixed top-0 left-0 right-0 z-50 mx-auto px-4 md:flex items-center dark:bg-slate-900 bg-slate-200 gap-6 py-1">
       <div className="flex w-full items-center dark:text-white">
         <Link to="/">
-          <img className="h-5 lg:h-10  mr-5" src={flowerIcon}></img>{" "}
+          <img className="h-5 lg:h-10 mr-5" src={flowerIcon}></img>{" "}
         </Link>
         <div className="md:hidden flex items-center ml-5 text-right dark:text-white">
           <GiHamburgerMenu
@@ -41,11 +47,16 @@ export default function Navbar() {
             Contact
           </Link>
         </div>
-        <div className="mx-5 flex justify-center align-center items-center">
-          <UserSearchBar />
-        </div>
+        {userSearchOpen ? (
+          <div className="mx-5 flex justify-center align-center items-center">
+            <UserSearchBar />
+            <IoCloseOutline onClick={toggleUserSearch} />
+          </div>
+        ) : (
+          <RiUserSearchLine onClick={toggleUserSearch} />
+        )}
 
-        <div className="mx-5 flex justify-center align-center items-center"></div>
+        {/* <div className="mx-5 flex justify-center align-center items-center"></div> */}
 
         {menuOpen && (
           <div className="absolute inset-x-0 md:relative top-full md:top-auto md:left-auto md:flex flex-col items-center space-x-1 pb-3 md:pb-0  dark:bg-slate-900 bg-slate-200">

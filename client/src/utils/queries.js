@@ -27,14 +27,10 @@ export const QUERY_ME = gql`
 `;
 
 export const QUERY_USER = gql`
-  query Query($userId: ID!) {
+  query SearchUsers($userId: ID!) {
     user(userId: $userId) {
       _id
       username
-      friendRequests {
-        _id
-        username
-      }
       friends {
         _id
         username
@@ -48,12 +44,12 @@ export const QUERY_USER = gql`
         }
       }
     }
-  }
-`;
-export const QUERY_MY_ID = gql`
-  query Query {
     me {
       _id
+      friends {
+        _id
+        username
+      }
     }
   }
 `;

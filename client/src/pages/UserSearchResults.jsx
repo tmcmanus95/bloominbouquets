@@ -11,14 +11,23 @@ export default function UserSearchResults() {
   }
   return (
     <div>
+      <h1 className="text-2xl ml-5 mt-20 text-decoration-line: underline">
+        User Results
+      </h1>
       {data ? (
         <div>
-          <Link to={`/user/${data.searchUsers._id}`}>
-            <h1>{data.searchUsers.username}</h1>
-          </Link>
+          {data.searchUsers ? (
+            <Link to={`/user/${data.searchUsers._id}`}>
+              <h1 className="ml-5">{data.searchUsers.username}</h1>
+            </Link>
+          ) : (
+            <h1 className="ml-5">
+              No users with the username "{searchTerm}" found
+            </h1>
+          )}
         </div>
       ) : (
-        <h1>Loading</h1>
+        <h1>Loading...</h1>
       )}
     </div>
   );
