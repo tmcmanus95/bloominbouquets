@@ -4,7 +4,8 @@ import { useMutation, useQuery } from "@apollo/client";
 import { ADD_WORD } from "../utils/mutations";
 import { QUERY_ME } from "../utils/queries";
 import CurrentWord from "./CurrentWord";
-import GameBoardWordList from "./GameBoardWordList";
+import GameBoardBestWordList from "./GameBoardBestWordList";
+import GameBoardMostRecentWordList from "./GameBoardMostRecentWordList";
 import wordsDictionary from "../assets/wordlist";
 
 export default function GameBoard() {
@@ -167,11 +168,11 @@ export default function GameBoard() {
       {/* <CurrentWord
         selectedLetters={selectedIds.map((id) => getTileById(id).letter)}
       /> */}
-      <div className="current-word-container flex justify-center md:text-5xl text-2xl">
+      <div className="current-word-container flex justify-center align-center md:text-5xl text-2xl">
         {realWord ? (
           <h1 className="correct flex align-center">{validWord}</h1>
         ) : (
-          <h1 className="flex">
+          <h1 className="flex align-center">
             {selectedIds.map((id) => getTileById(id).letter)}
           </h1>
         )}
@@ -210,7 +211,14 @@ export default function GameBoard() {
           Submit
         </button>
       </div>
-      {meData ? <GameBoardWordList words={meData.me.words} /> : <></>}
+      <div className="flex flex-row justify-center mt-5">
+        {meData ? <GameBoardBestWordList words={meData.me.words} /> : <></>}
+        {meData ? (
+          <GameBoardMostRecentWordList words={meData.me.words} />
+        ) : (
+          <></>
+        )}
+      </div>
     </div>
   );
 }

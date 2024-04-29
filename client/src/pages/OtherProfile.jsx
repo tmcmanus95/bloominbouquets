@@ -2,9 +2,9 @@ import { useQuery, useMutation } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import { QUERY_USER } from "../utils/queries";
 import ProfileWords from "../components/ProfileWords";
-import { IoMdPersonAdd } from "react-icons/io";
+import { IoMdPersonAdd, IoMdFlower } from "react-icons/io";
 import { SEND_FRIEND_REQUEST } from "../utils/mutations";
-import { IoMdFlower } from "react-icons/io";
+import { GiFlowerPot } from "react-icons/gi";
 
 export default function OtherProfile() {
   const { otherPersonsId } = useParams();
@@ -21,7 +21,6 @@ export default function OtherProfile() {
   let myId;
   const [sendFriendRequest, error] = useMutation(SEND_FRIEND_REQUEST);
   if (data) {
-    console.log("user data", data);
     myId = data.me._id;
     for (let i = 0; i < data.me.friends.length; i++) {
       if (data.me.friends[i]._id === otherPersonsId) {
@@ -37,7 +36,6 @@ export default function OtherProfile() {
         recipientId: otherPersonsId,
       },
     });
-    console.log("data");
   };
   return (
     <>
@@ -54,6 +52,13 @@ export default function OtherProfile() {
               <IoMdPersonAdd onClick={handleAddFriend} />
             )}
           </div>
+          {isFriend ? (
+            <div>
+              <GiFlowerPot />
+            </div>
+          ) : (
+            <></>
+          )}
           <div>
             <ProfileWords words={data.user.words} />
           </div>

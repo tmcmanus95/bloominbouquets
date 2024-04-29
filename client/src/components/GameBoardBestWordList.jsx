@@ -1,4 +1,4 @@
-export default function GameBoardWordList({ words }) {
+export default function GameBoardBestWordList({ words }) {
   console.log(words);
   let sortedWords = words.slice().sort((a, b) => b.length - a.length);
   sortedWords = sortedWords.slice(0, 10);

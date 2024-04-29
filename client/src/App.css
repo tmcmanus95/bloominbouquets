@@ -81,6 +81,7 @@
 .current-word-container {
   display: flex;
   height: 100px !important;
+  align-items: center;
 }
 
 .flip-animation {
