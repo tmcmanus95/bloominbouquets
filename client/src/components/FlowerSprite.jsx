@@ -1,3 +1,5 @@
+import seed from "../assets/flowersprites/seed.png";
+import sprout from "../assets/flowersprites/sprout.png";
 import grass from "../assets/flowersprites/grass.png";
 import dandelion from "../assets/flowersprites/dandelion.png";
 import daisy from "../assets/flowersprites/daisy.png";
@@ -13,6 +15,15 @@ export default function FlowerSprite({ wordLength }) {
   function setFlowerForWordLength(wordLength) {
     let flower;
     switch (wordLength) {
+      case 0:
+        flower = null;
+        break;
+      case 1:
+        flower = seed;
+        break;
+      case 2:
+        flower = sprout;
+        break;
       case 3:
         flower = grass;
         break;
@@ -44,7 +55,7 @@ export default function FlowerSprite({ wordLength }) {
         flower = goldenrose;
         break;
       default:
-        flower = null;
+        flower = goldenrose;
         break;
     }
     return flower;

@@ -171,10 +171,18 @@ export default function GameBoard() {
       /> */}
       <div className="current-word-container flex justify-center align-center md:text-5xl text-2xl">
         {realWord ? (
-          <h1 className="correct flex align-center">{validWord}</h1>
+          <h1 className="correct flex align-center">
+            {validWord}
+            <FlowerSprite wordLength={validWord.length} />
+          </h1>
         ) : (
           <h1 className="flex align-center">
             {selectedIds.map((id) => getTileById(id).letter)}
+            <FlowerSprite
+              wordLength={
+                selectedIds.map((id) => getTileById(id).letter).join("").length
+              }
+            />
           </h1>
         )}
       </div>
