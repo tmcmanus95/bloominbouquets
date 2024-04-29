@@ -20,8 +20,8 @@ export default function GameBoard() {
     return window.innerWidth <= 599;
   }
 
-  const numRows = isMobile() ? 7 : 12;
-  const numCols = isMobile() ? 7 : 12;
+  const numRows = isMobile() ? 7 : 10;
+  const numCols = isMobile() ? 7 : 10;
 
   const addLetter = (tile) => {
     const { id } = tile;
@@ -176,25 +176,26 @@ export default function GameBoard() {
           </h1>
         )}
       </div>
-
-      <div id="main-container">
-        <div id="grid-container">
-          {newGameBoard.length > 0 ? (
-            newGameBoard.map((tile) => (
-              <div
-                key={tile.id}
-                style={selectedTile(tile)}
-                className={`grid-item text-black ${
-                  isFlipped ? "flip-animation" : ""
-                }`}
-                onClick={() => addLetter(tile)}
-              >
-                {tile.letter}
-              </div>
-            ))
-          ) : (
-            <h1>Loading</h1>
-          )}
+      <div className="flex justify-center">
+        <div id="main-container">
+          <div id="grid-container">
+            {newGameBoard.length > 0 ? (
+              newGameBoard.map((tile) => (
+                <div
+                  key={tile.id}
+                  style={selectedTile(tile)}
+                  className={`grid-item text-black ${
+                    isFlipped ? "flip-animation" : ""
+                  }`}
+                  onClick={() => addLetter(tile)}
+                >
+                  {tile.letter}
+                </div>
+              ))
+            ) : (
+              <h1>Loading</h1>
+            )}
+          </div>
         </div>
       </div>
       <div className="flex justify-center">
