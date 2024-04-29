@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { SEND_WORD } from "../utils/mutations";
 import { QUERY_MY_WORDS_AND_MY_FRIENDS } from "../utils/queries";
+import FlowerSprite from "../components/FlowerSprite";
 export default function SendWord() {
   const { data, loading } = useQuery(QUERY_MY_WORDS_AND_MY_FRIENDS);
   const [sendWord, error] = useMutation(SEND_WORD);
@@ -13,16 +14,21 @@ export default function SendWord() {
   const [searchTerm, setSearchTerm] = useState("");
   const [words, setWords] = useState([]);
   const [wordsToSend, setWordsToSend] = useState([]);
-  const handleSendWord = async (word) => {
+  const handleSendWord = async (wordsToSend) => {
     let userId = data.me._id;
+    console.log(
+      `userId: ${userId} | recipientId: ${recipientId} | ${wordsToSend}`
+    );
+    const stringWordsToSend = wordsToSend.join(",");
     try {
       const { data } = await sendWord({
         variables: {
-          word: words,
+          giftedWords: stringWordsToSend,
           userId: userId,
           recipientId: recipientId,
         },
       });
+      console.log("data", data);
     } catch (error) {
       console.log("Could not send word");
     }
@@ -66,13 +72,20 @@ export default function SendWord() {
   console.log("words", words);
   console.log("friends", friends);
   return (
-    <div>
+    <div className="dark:bg-slate-700 dark:text-white">
       <h1>Send a Bouquet</h1>
-      <h1>{wordsToSend.join(" ")}</h1>
+      <div className="flex flex-row">
+        {wordsToSend.map((word, index) => (
+          <div key={index} className="flex flex-row">
+            <h1>{word}</h1>
+            <FlowerSprite wordLength={word.length} />
+          </div>
+        ))}
+      </div>
       <div className="items-center">
         <h1>Select Words to Send</h1>
         <input
-          className="text-xl md:text-3xl mx-2 md:mx-5 border-2 border-gray-400 pt-2 px-4 rounded"
+          className="text-black text-xl md:text-3xl mx-2 md:mx-5 border-2 border-gray-400 pt-2 px-4 rounded"
           type="text"
           placeholder="Search for a word..."
           value={searchTerm}
@@ -87,7 +100,7 @@ export default function SendWord() {
                   <li
                     key={word}
                     onClick={() => addWordToSend(word)}
-                    className={`cursor-pointer px-4 hover:bg-blue-300 hover:text-black`}
+                    className={`cursor-pointer text-black px-4 hover:bg-blue-300 hover:text-black`}
                   >
                     {word}
                   </li>
@@ -99,6 +112,12 @@ export default function SendWord() {
           <div>
             <h1>Sending a bouquet to: </h1>
             <h1>{recipientUsername}</h1>
+            <button
+              onClick={() => handleSendWord(wordsToSend)}
+              className="bg-blue-500 hover:bg-blue-700"
+            >
+              Send
+            </button>
           </div>
         ) : (
           <div>
@@ -106,7 +125,7 @@ export default function SendWord() {
           </div>
         )}
         <input
-          className="text-xl md:text-3xl mx-2 md:mx-5 border-2 border-gray-400 pt-2 px-4 rounded"
+          className="text-black text-xl md:text-3xl mx-2 md:mx-5 border-2 border-gray-400 pt-2 px-4 rounded"
           type="text"
           placeholder="Search for a friend..."
           value={searchUsername}
@@ -120,7 +139,7 @@ export default function SendWord() {
                 <li
                   key={friend._id}
                   onClick={() => handleSetRecpientId(friend)}
-                  className={`cursor-pointer px-4 hover:bg-blue-300 hover:text-black`}
+                  className={`cursor-pointer text-black px-4 hover:bg-blue-300 hover:text-black`}
                 >
                   {friend.username}
                 </li>

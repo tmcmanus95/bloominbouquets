@@ -6,6 +6,7 @@ import { IoMdPersonAdd, IoMdFlower } from "react-icons/io";
 import { SEND_FRIEND_REQUEST } from "../utils/mutations";
 import { GiFlowerPot } from "react-icons/gi";
 import { Link } from "react-router-dom";
+import UserReceivedWords from "../components/UserReceivedWords";
 
 export default function OtherProfile() {
   const { otherPersonsId } = useParams();
@@ -29,7 +30,7 @@ export default function OtherProfile() {
       }
     }
   }
-
+  console.log("data. ", data);
   const handleAddFriend = async () => {
     const { data } = await sendFriendRequest({
       variables: {
@@ -65,6 +66,9 @@ export default function OtherProfile() {
           )}
           <div>
             <ProfileWords words={data.user.words} />
+          </div>
+          <div>
+            <UserReceivedWords bouquets={data.user.giftedWords} />
           </div>
         </div>
       ) : (

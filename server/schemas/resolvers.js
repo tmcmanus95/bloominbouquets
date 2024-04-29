@@ -16,7 +16,8 @@ const resolvers = {
     user: async (parent, { userId }) => {
       return User.findOne({ _id: userId })
         .populate("friendRequests")
-        .populate("friends");
+        .populate("friends")
+        .populate("giftedWords");
     },
     me: async (parent, args, context) => {
       if (context.user) {
