@@ -1,3 +1,4 @@
+import FlowerSprite from "./FlowerSprite";
 export default function GameBoardMostRecentWordList({ words }) {
   console.log(words);
   let sortedWords = words.slice(words.length - 10, words.length);
@@ -10,10 +11,13 @@ export default function GameBoardMostRecentWordList({ words }) {
       <div className="flex justify-center flex-col ">
         {sortedWords ? (
           sortedWords.map((word, index) => (
-            <p key={index}>
-              <span>{word.length} </span>
-              {word}
-            </p>
+            <div className="flex flex-row">
+              <p key={index}>
+                <span>{word.length} </span>
+                {word}
+              </p>
+              <FlowerSprite wordLength={word.length} />
+            </div>
           ))
         ) : (
           <></>

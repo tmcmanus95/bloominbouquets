@@ -1,3 +1,4 @@
+import FlowerSprite from "./FlowerSprite";
 export default function GameBoardBestWordList({ words }) {
   console.log(words);
   let sortedWords = words.slice().sort((a, b) => b.length - a.length);
@@ -11,10 +12,13 @@ export default function GameBoardBestWordList({ words }) {
       <div className="flex justify-center flex-col ">
         {sortedWords ? (
           sortedWords.map((word, index) => (
-            <p key={index}>
-              <span>{word.length} </span>
-              {word}
-            </p>
+            <div className="flex flex-row">
+              <p key={index}>
+                <span>{word.length} </span>
+                {word}
+              </p>
+              <FlowerSprite wordLength={word.length} />
+            </div>
           ))
         ) : (
           <></>

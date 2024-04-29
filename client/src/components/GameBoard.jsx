@@ -7,6 +7,7 @@ import CurrentWord from "./CurrentWord";
 import GameBoardBestWordList from "./GameBoardBestWordList";
 import GameBoardMostRecentWordList from "./GameBoardMostRecentWordList";
 import wordsDictionary from "../assets/wordlist";
+import FlowerSprite from "./FlowerSprite";
 
 export default function GameBoard() {
   const [selectedIds, setSelectedIds] = useState([]);
