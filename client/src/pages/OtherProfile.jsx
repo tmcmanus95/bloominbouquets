@@ -5,6 +5,7 @@ import ProfileWords from "../components/ProfileWords";
 import { IoMdPersonAdd, IoMdFlower } from "react-icons/io";
 import { SEND_FRIEND_REQUEST } from "../utils/mutations";
 import { GiFlowerPot } from "react-icons/gi";
+import { Link } from "react-router-dom";
 
 export default function OtherProfile() {
   const { otherPersonsId } = useParams();
@@ -53,9 +54,12 @@ export default function OtherProfile() {
             )}
           </div>
           {isFriend ? (
-            <div>
-              <GiFlowerPot />
-            </div>
+            <Link to="/sendABouquet">
+              <div>
+                <GiFlowerPot />
+                <p>Send a bouquet to {data.user.username}</p>
+              </div>
+            </Link>
           ) : (
             <></>
           )}
