@@ -11,6 +11,7 @@ export default function SendWord() {
   const [recipientId, setRecipientId] = useState("");
   const [recipientUsername, setRecipientUsername] = useState("");
   const [selectedRecipient, setSelectedRecipient] = useState(false);
+  const [wordSent, setWordSent] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [words, setWords] = useState([]);
   const [wordsToSend, setWordsToSend] = useState([]);
@@ -29,12 +30,13 @@ export default function SendWord() {
         },
       });
       console.log("data", data);
+      setWordSent(true);
     } catch (error) {
       console.log("Could not send word");
     }
   };
 
-  const handleSetRecpientId = (recipient) => {
+  const handleSetRecipientId = (recipient) => {
     setRecipientId(recipient._id);
     setRecipientUsername(recipient.username);
     setSelectedRecipient(true);
@@ -72,81 +74,90 @@ export default function SendWord() {
   console.log("words", words);
   console.log("friends", friends);
   return (
-    <div className="dark:bg-slate-700 dark:text-white">
-      <h1>Send a Bouquet</h1>
-      <div className="flex flex-row">
-        {wordsToSend.map((word, index) => (
-          <div key={index} className="flex flex-row">
-            <h1>{word}</h1>
-            <FlowerSprite wordLength={word.length} />
+    <>
+      {wordSent ? (
+        <h1>Thanks for sending!</h1>
+      ) : (
+        <div className="dark:bg-slate-700 dark:text-white">
+          <h1>Send a Bouquet</h1>
+          <div className="flex flex-row">
+            {wordsToSend.map((word, index) => (
+              <div key={index} className="flex flex-row">
+                <h1>{word}</h1>
+                {/* Assuming FlowerSprite is a component */}
+                <FlowerSprite wordLength={word.length} />
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-      <div className="items-center">
-        <h1>Select Words to Send</h1>
-        <input
-          className="text-black text-xl md:text-3xl mx-2 md:mx-5 border-2 border-gray-400 pt-2 px-4 rounded"
-          type="text"
-          placeholder="Search for a word..."
-          value={searchTerm}
-          onChange={handleWordInputChange}
-        />
+          <div className="items-center">
+            <h1>Select Words to Send</h1>
+            <input
+              className="text-black text-xl md:text-3xl mx-2 md:mx-5 border-2 border-gray-400 pt-2 px-4 rounded"
+              type="text"
+              placeholder="Search for a word..."
+              value={searchTerm}
+              onChange={handleWordInputChange}
+            />
 
-        {searchTerm && (
-          <div>
-            <ul className="absolute mt-1 bg-white border border-gray-300 rounded z-10 left-1/2 transform -translate-x-1/2 w-full md:w-80">
-              {filteredWords &&
-                filteredWords.map((word) => (
-                  <li
-                    key={word}
-                    onClick={() => addWordToSend(word)}
-                    className={`cursor-pointer text-black px-4 hover:bg-blue-300 hover:text-black`}
-                  >
-                    {word}
-                  </li>
-                ))}
-            </ul>
-          </div>
-        )}
-        {selectedRecipient ? (
-          <div>
-            <h1>Sending a bouquet to: </h1>
-            <h1>{recipientUsername}</h1>
-            <button
-              onClick={() => handleSendWord(wordsToSend)}
-              className="bg-blue-500 hover:bg-blue-700"
-            >
-              Send
-            </button>
-          </div>
-        ) : (
-          <div>
-            <h1>Select a person to send a bouquet to</h1>
-          </div>
-        )}
-        <input
-          className="text-black text-xl md:text-3xl mx-2 md:mx-5 border-2 border-gray-400 pt-2 px-4 rounded"
-          type="text"
-          placeholder="Search for a friend..."
-          value={searchUsername}
-          onChange={handleFriendInputChange}
-        />
+            {searchTerm && (
+              <div>
+                <ul className="absolute mt-1 bg-white border border-gray-300 rounded z-10 left-1/2 transform -translate-x-1/2 w-full md:w-80">
+                  {filteredWords &&
+                    filteredWords.map((word) => (
+                      <li
+                        key={word}
+                        onClick={() => addWordToSend(word)}
+                        className={`cursor-pointer text-black px-4 hover:bg-blue-300 hover:text-black`}
+                      >
+                        {word}
+                      </li>
+                    ))}
+                </ul>
+              </div>
+            )}
 
-        {searchUsername && (
-          <ul className="absolute mt-1 bg-white border border-gray-300 rounded z-10 left-1/2 transform -translate-x-1/2 w-full md:w-80">
-            {filteredFriends &&
-              filteredFriends.map((friend) => (
-                <li
-                  key={friend._id}
-                  onClick={() => handleSetRecpientId(friend)}
-                  className={`cursor-pointer text-black px-4 hover:bg-blue-300 hover:text-black`}
+            {selectedRecipient ? (
+              <div>
+                <h1>Sending a bouquet to:</h1>
+                <h1>{recipientUsername}</h1>
+                <button
+                  onClick={() => handleSendWord(wordsToSend)}
+                  className="bg-blue-500 hover:bg-blue-700"
                 >
-                  {friend.username}
-                </li>
-              ))}
-          </ul>
-        )}
-      </div>
-    </div>
+                  Send
+                </button>
+              </div>
+            ) : (
+              <div>
+                <h1>Select a person to send a bouquet to</h1>
+              </div>
+            )}
+
+            <input
+              className="text-black text-xl md:text-3xl mx-2 md:mx-5 border-2 border-gray-400 pt-2 px-4 rounded"
+              type="text"
+              placeholder="Search for a friend..."
+              value={searchUsername}
+              onChange={handleFriendInputChange}
+            />
+
+            {searchUsername && (
+              <ul className="absolute mt-1 bg-white border border-gray-300 rounded z-10 left-1/2 transform -translate-x-1/2 w-full md:w-80">
+                {filteredFriends &&
+                  filteredFriends.map((friend) => (
+                    <li
+                      key={friend._id}
+                      onClick={() => handleSetRecipientId(friend)}
+                      className={`cursor-pointer text-black px-4 hover:bg-blue-300 hover:text-black`}
+                    >
+                      {friend.username}
+                    </li>
+                  ))}
+              </ul>
+            )}
+          </div>
+        </div>
+      )}
+    </>
   );
 }

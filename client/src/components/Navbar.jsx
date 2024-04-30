@@ -6,6 +6,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import UserSearchBar from "./UserSearchBar";
 import { RiUserSearchLine } from "react-icons/ri";
 import { IoCloseOutline } from "react-icons/io5";
+import { IoFlowerOutline } from "react-icons/io5";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -26,6 +27,7 @@ export default function Navbar() {
         <Link to="/">
           <img className="h-5 lg:h-10 mr-5" src={flowerIcon}></img>{" "}
         </Link>
+        <IoFlowerOutline />
         <div className="md:hidden flex items-center ml-5 text-right dark:text-white">
           <GiHamburgerMenu
             onClick={toggleMenu}

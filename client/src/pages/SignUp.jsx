@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../utils/mutations";
+import { ColorPicker } from "antd";
 import Auth from "../utils/auth";
 
 const Signup = () => {
@@ -9,10 +10,21 @@ const Signup = () => {
     username: "",
     email: "",
     password: "",
+    color: "",
   });
+
   const [addProfile, { error, data }] = useMutation(ADD_USER);
 
-  // update state based on form input changes
+  const handleColorSelect = (value) => {
+    const { r, g, b } = value.metaColor;
+    const colorValue = `rgb(${r.toFixed(0)}, ${g.toFixed(0)}, ${b.toFixed(0)})`;
+
+    setFormState({
+      ...formState,
+      color: colorValue,
+    });
+  };
+
   const handleChange = (event) => {
     const { name, value } = event.target;
 
@@ -22,7 +34,6 @@ const Signup = () => {
     });
   };
 
-  // submit form
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
@@ -78,6 +89,15 @@ const Signup = () => {
                 type="password"
                 value={formState.password}
                 onChange={handleChange}
+              />
+            </div>
+            <div className="flex flex-row align-center">
+              <h1>Profile flower color:</h1>
+              <ColorPicker
+                format="hex"
+                showText
+                defaultValue="#1677ff"
+                onChangeComplete={(value) => handleColorSelect(value)}
               />
             </div>
 

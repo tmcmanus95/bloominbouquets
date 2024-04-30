@@ -4,6 +4,7 @@ type User {
     username: String
     email: String
     password: String
+    color: String
     friendRequests: [User]
     friends: [User]
     words: [String]
@@ -27,8 +28,9 @@ type Query {
     searchUsers(username: String): User
 }
 type Mutation {
-    addUser(username: String!, email: String!, password: String!): Auth
+    addUser(username: String!, email: String!, password: String!, color: String): Auth
     removeUser: User
+    editUserColor(userId: ID!, color: String): User
     login(email: String!, password: String!): Auth
     sendFriendRequest(recipientId: ID!, userId: ID!): User
     acceptFriendRequest(requesterId: ID!, userId: ID!): User

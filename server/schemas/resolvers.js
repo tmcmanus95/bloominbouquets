@@ -32,11 +32,26 @@ const resolvers = {
     },
   },
   Mutation: {
-    addUser: async (parent, { username, email, password }) => {
-      const user = await User.create({ username, email, password });
+    addUser: async (parent, { username, email, password, color }) => {
+      const user = await User.create({ username, email, password, color });
+      console.log("new user", user);
       const token = signToken(user);
 
       return { token, user };
+    },
+    editUserColor: async (parent, { userId, color }, context) => {
+      try {
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: userId },
+          { $set: { color } },
+          { new: true }
+        );
+
+        return updatedUser;
+      } catch (error) {
+        console.error(error);
+        throw new Error("Failed to edit color");
+      }
     },
     removeUser: async (parent, { userId }) => {
       return User.findOneAndDelete({ _id: userId });
