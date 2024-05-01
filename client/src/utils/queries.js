@@ -76,3 +76,12 @@ export const QUERY_USERS = gql`
     }
   }
 `;
+export const NAVBAR_QUERY = gql`
+  query Query {
+    me {
+      _id
+      username
+      color
+    }
+  }
+`;

@@ -7,10 +7,14 @@ import UserSearchBar from "./UserSearchBar";
 import { RiUserSearchLine } from "react-icons/ri";
 import { IoCloseOutline } from "react-icons/io5";
 import { IoFlowerOutline } from "react-icons/io5";
+import { useQuery } from "@apollo/client";
+import { NAVBAR_QUERY } from "../utils/queries";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [userSearchOpen, setUserSearchOpen] = useState(false);
+  const { data, loading, error } = useQuery(NAVBAR_QUERY);
+
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
@@ -21,27 +25,44 @@ export default function Navbar() {
     event.preventDefault();
     Auth.logout();
   };
+  if (data) {
+    console.log("data", data);
+  }
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 mx-auto px-4 md:flex items-center dark:bg-slate-900 bg-slate-200 gap-6 py-1">
       <div className="flex w-full items-center dark:text-white">
         <Link to="/">
           <img className="h-5 lg:h-10 mr-5" src={flowerIcon}></img>{" "}
         </Link>
-        <IoFlowerOutline />
+        {data ? <IoFlowerOutline style={{ color: data.me.color }} /> : <></>}
         <div className="md:hidden flex items-center ml-5 text-right dark:text-white">
           <GiHamburgerMenu
             onClick={toggleMenu}
             style={{ fontSize: "24px", cursor: "pointer" }}
           />
         </div>
+
         <div className="hidden md:gap-5 md:flex md:flex-row ">
-          {Auth.loggedIn ? (
-            <Link to="/me" className="hover:bg-blue-300 lg:p-2 rounded-lg">
-              Welcome User
-            </Link>
+          {data ? (
+            <div className="hidden md:gap-5 md:flex md:flex-row">
+              {Auth.loggedIn ? (
+                <Link to="/me" className="hover:bg-blue-300 lg:p-2 rounded-lg">
+                  Welcome {data.me.username}
+                </Link>
+              ) : (
+                <Link className="hover:bg-blue-300 lg:p-2 rounded-lg" to="/">
+                  Bloomin Bouquets
+                </Link>
+              )}
+            </div>
           ) : (
-            <></>
+            <div className="hidden md:gap-5 md:flex md:flex-row">
+              <Link className="hover:bg-blue-300 lg:p-2 rounded-lg" to="/">
+                Bloomin Bouquets
+              </Link>
+            </div>
           )}
+
           <Link to="/about" className="hover:bg-blue-300 lg:p-2 rounded-lg">
             About
           </Link>
@@ -57,9 +78,7 @@ export default function Navbar() {
         ) : (
           <RiUserSearchLine onClick={toggleUserSearch} />
         )}
-
         {/* <div className="mx-5 flex justify-center align-center items-center"></div> */}
-
         {menuOpen && (
           <div className="absolute inset-x-0 md:relative top-full md:top-auto md:left-auto md:flex flex-col items-center space-x-1 pb-3 md:pb-0  dark:bg-slate-900 bg-slate-200">
             <Link

@@ -12,7 +12,7 @@ export default function GameBoardBestWordList({ words }) {
       <div className="flex justify-center flex-col ">
         {sortedWords ? (
           sortedWords.map((word, index) => (
-            <div className="flex flex-row md:text-2xl text-xl">
+            <div className="flex flex-row justify-end md:text-2xl text-lg">
               <p key={index}>
                 <span>{word.length} </span>
                 {word}

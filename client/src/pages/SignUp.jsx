@@ -17,11 +17,16 @@ const Signup = () => {
 
   const handleColorSelect = (value) => {
     const { r, g, b } = value.metaColor;
-    const colorValue = `rgb(${r.toFixed(0)}, ${g.toFixed(0)}, ${b.toFixed(0)})`;
+    function rgbToHex(r, g, b) {
+      return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+    }
 
+    const hexColor = rgbToHex(r, g, b);
+    let hex = hexColor.split(".");
+    console.log("hex", hex[0]);
     setFormState({
       ...formState,
-      color: colorValue,
+      color: hex[0],
     });
   };
 
