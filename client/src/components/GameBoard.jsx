@@ -165,7 +165,7 @@ export default function GameBoard() {
     }
   };
   return (
-    <div className="dark:bg-green-900 bg-green-100 dark:text-white bg-white mt-8 text-black">
+    <div className="dark:bg-green-900 bg-green-100 dark:text-white mt-8 text-black">
       {/* <CurrentWord
         selectedLetters={selectedIds.map((id) => getTileById(id).letter)}
       /> */}
@@ -210,7 +210,7 @@ export default function GameBoard() {
       </div>
       <div className="flex justify-center">
         <button
-          className="flex dark:bg-blue-800 bg-blue-300 dark:text-white text-black"
+          className="flex dark:bg-black bg-blue-300 dark:text-white text-black"
           onClick={async () => {
             await checkWordValidity(
               selectedIds.map((id) => getTileById(id).letter)

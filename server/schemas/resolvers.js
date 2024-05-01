@@ -174,8 +174,11 @@ const resolvers = {
         if (!user) {
           throw new Error("User not found");
         }
-
-        user.words.push(word);
+        if (!user.words.includes(word)) {
+          user.words.push(word);
+        } else {
+          console.log("word already there");
+        }
 
         await user.save();
 
