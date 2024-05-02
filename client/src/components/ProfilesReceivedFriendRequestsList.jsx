@@ -5,13 +5,13 @@ export default function ProfilesReceivedFriendRequestsList({
 }) {
   console.log("friend requests", friendRequests);
   return (
-    <section className="ml-5 flex justify-center flex-col md:text-3xl text-2xl">
-      <h1 className="md:text-5xl">Friend Requests</h1>
+    <section className="ml-5 flex justify-center flex-col md:text-xl text-xl">
+      <h1 className="md:text-xl">Friend Requests</h1>
       <div className="flex justify-center flex-col">
         {friendRequests ? (
-          friendRequests.map((friend, index) => (
+          friendRequests.map((friend) => (
             <IndividualFriendRequest
-              key={index}
+              key={friend._id}
               friendRequest={friend}
               userId={userId}
             />

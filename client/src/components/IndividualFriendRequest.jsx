@@ -4,7 +4,21 @@ import { useMutation } from "@apollo/client";
 import { ACCEPT_FRIEND_REQUEST } from "../utils/mutations";
 
 export default function IndividualFriendRequest({ friendRequest, userId }) {
-  const [acceptFriendRequest, error] = useMutation(ACCEPT_FRIEND_REQUEST);
+  const [acceptFriendRequest] = useMutation(ACCEPT_FRIEND_REQUEST, {
+    update(cache, { data: { acceptFriendRequest } }) {
+      const acceptedRequestId = acceptFriendRequest.requesterId;
+
+      cache.modify({
+        fields: {
+          friendRequests(existingRequests = []) {
+            return existingRequests.filter(
+              (request) => request._id !== acceptedRequestId
+            );
+          },
+        },
+      });
+    },
+  });
   const requesterId = friendRequest._id;
   console.log("requesterID,", requesterId);
   const handleAcceptFriendRequest = async () => {

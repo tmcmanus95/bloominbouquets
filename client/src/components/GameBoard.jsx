@@ -165,7 +165,7 @@ export default function GameBoard() {
     }
   };
   return (
-    <div className="dark:bg-green-900 bg-green-100 dark:text-white mt-8 text-black">
+    <div className="dark:bg-black bg-green-100 dark:text-white mt-8 text-black pb-20">
       {/* <CurrentWord
         selectedLetters={selectedIds.map((id) => getTileById(id).letter)}
       /> */}
@@ -210,7 +210,7 @@ export default function GameBoard() {
       </div>
       <div className="flex justify-center">
         <button
-          className="flex dark:bg-black bg-blue-300 dark:text-white text-black"
+          className="flex dark:bg-green-900 bg-blue-300 dark:text-white text-black"
           onClick={async () => {
             await checkWordValidity(
               selectedIds.map((id) => getTileById(id).letter)
@@ -221,12 +221,16 @@ export default function GameBoard() {
         </button>
       </div>
       <div className="flex flex-row justify-center mt-5">
-        {meData ? <GameBoardBestWordList words={meData.me.words} /> : <></>}
-        {meData ? (
-          <GameBoardMostRecentWordList words={meData.me.words} />
-        ) : (
-          <></>
-        )}
+        <div className="justify-start">
+          {meData ? <GameBoardBestWordList words={meData.me.words} /> : <></>}
+        </div>
+        <div className="justify-start">
+          {meData ? (
+            <GameBoardMostRecentWordList words={meData.me.words} />
+          ) : (
+            <></>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -10,6 +10,7 @@ import UserReceivedWords from "../components/UserReceivedWords";
 
 export default function OtherProfile() {
   const { otherPersonsId } = useParams();
+  let userBackgroundColor = "";
   const {
     loading,
     data,
@@ -24,6 +25,7 @@ export default function OtherProfile() {
   const [sendFriendRequest, error] = useMutation(SEND_FRIEND_REQUEST);
   if (data) {
     myId = data.me._id;
+    userBackgroundColor = data.user.color;
     for (let i = 0; i < data.me.friends.length; i++) {
       if (data.me.friends[i]._id === otherPersonsId) {
         isFriend = true;
@@ -44,7 +46,12 @@ export default function OtherProfile() {
       {data ? (
         <div className="dark:bg-slate-800 dark:text-white">
           <div className="flex justify-center text-3xl">
-            <h1 className="m-6">{data.user.username}</h1>
+            <h1
+              style={{ backgroundColor: userBackgroundColor }}
+              className="m-6"
+            >
+              {data.user.username}
+            </h1>
             {isFriend ? (
               <>
                 <IoMdFlower />

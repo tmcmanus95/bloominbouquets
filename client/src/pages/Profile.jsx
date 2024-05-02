@@ -8,8 +8,10 @@ import { ColorPicker } from "antd";
 
 export default function Profile() {
   const { loading, data } = useQuery(QUERY_ME);
+  let userBackgroundColor = "";
   if (data) {
     console.log("hey data", data);
+    userBackgroundColor = data.me.color;
   }
   const [editUserColor, error] = useMutation(EDIT_USER_COLOR);
   const handleEditUserColor = async (value) => {
@@ -36,19 +38,37 @@ export default function Profile() {
   return (
     <>
       {data ? (
-        <div className="dark:bg-slate-800 dark:text-white">
-          <div className="flex justify-center text-3xl">
-            <h1 className="m-6">{data.me.username}</h1>
-            <ColorPicker
-              onChangeComplete={(value) => handleEditUserColor(value)}
+        <div className="dark:bg-slate-800 dark:text-white ">
+          <div className="justify-center flex flex-col ">
+            <h1
+              style={{ backgroundColor: userBackgroundColor }}
+              className="m-6 md:p-4 p-2 rounded-lg"
+            >
+              {data.me.username}
+            </h1>
+            <div className="flex flex-row">
+              <p className="text-m mr-3">Current Color:</p>
+              <ColorPicker
+                onChangeComplete={(value) => handleEditUserColor(value)}
+                defaultValue={data.me.color}
+              />
+            </div>
+          </div>
+          <div>
+            <ProfilesReceivedFriendRequestsList
+              friendRequests={data.me.friendRequests}
+              userId={data.me._id}
             />
           </div>
-          <ProfileWords words={data.me.words} />
-          <ProfilesReceivedFriendRequestsList
-            friendRequests={data.me.friendRequests}
-            userId={data.me._id}
-          />
-          <ProfileFriends friends={data.me.friends} />
+
+          <div className="flex flex-row justify-center">
+            <div className="justify-start">
+              <ProfileWords words={data.me.words} />
+            </div>
+            <div className="justify-start">
+              <ProfileFriends friends={data.me.friends} />
+            </div>
+          </div>
         </div>
       ) : (
         <h1>Loading...</h1>
