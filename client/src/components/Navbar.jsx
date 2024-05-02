@@ -80,18 +80,18 @@ export default function Navbar() {
         )}
         {/* <div className="mx-5 flex justify-center align-center items-center"></div> */}
         {menuOpen && (
-          <div className="absolute inset-x-0 md:relative top-full md:top-auto md:left-auto md:flex flex-col items-center space-x-1 pb-3 md:pb-0  dark:bg-slate-900 bg-green-600">
+          <div className="absolute inset-x-0 md:relative top-full md:top-auto md:left-auto md:flex flex-col items-center  space-x-1 pb-3 md:pb-0  dark:bg-slate-900 bg-green-600">
             <Link
               onClick={toggleMenu}
               to="/about"
-              className="py-2 px-3 block w-full hover:bg-green-900"
+              className="py-2 px-3 block w-full hover:bg-green-900 hover:text-white"
             >
               About
             </Link>
             <Link
               onClick={toggleMenu}
               to="/contact"
-              className="py-2 px-3 block w-full hover:bg-green-900"
+              className="py-2 px-3 block w-full hover:bg-green-900 hover:text-white"
             >
               Contact
             </Link>
@@ -101,13 +101,13 @@ export default function Navbar() {
                 <Link
                   onClick={toggleMenu}
                   to="/me"
-                  className="py-2 px-3 block w-full hover:bg-green-900 "
+                  className="py-2 px-3 block w-full hover:bg-green-900 hover:text-white"
                 >
                   View My Profile
                 </Link>
                 <button
                   onClick={logout}
-                  className="btn text-left py-2 px-3 block w-full hover:bg-green-900 "
+                  className="btn text-left py-2 px-3 block w-full hover:bg-green-900 hover:text-white"
                 >
                   Logout
                 </button>

@@ -32,6 +32,16 @@ export const LOGIN_USER = gql`
     }
   }
 `;
+
+export const EDIT_USER_COLOR = gql`
+  mutation Mutation($userId: ID!, $color: String) {
+    editUserColor(userId: $userId, color: $color) {
+      _id
+      username
+      color
+    }
+  }
+`;
 export const ADD_WORD = gql`
   mutation Mutation($word: String!, $userId: ID!) {
     addWord(word: $word, userId: $userId) {
