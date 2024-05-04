@@ -165,7 +165,7 @@ export default function GameBoard() {
     }
   };
   return (
-    <div className="dark:bg-black bg-green-100 dark:text-white mt-8 text-black pb-20">
+    <div className="dark:bg-black bg-white dark:text-white mt-8 text-black pb-20">
       {/* <CurrentWord
         selectedLetters={selectedIds.map((id) => getTileById(id).letter)}
       /> */}
