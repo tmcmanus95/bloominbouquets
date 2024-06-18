@@ -6,7 +6,13 @@ export default function ProfileFriends({ friends }) {
       <div className="flex justify-center flex-col">
         {friends.map((friend, index) => (
           <Link to={`/user/${friend._id}`}>
-            <div key={index}>{friend.username}</div>
+            <div
+              style={{ backgroundColor: friend.color }}
+              className="text-white text-center rounded-lg m-2"
+              key={index}
+            >
+              {friend.username}{" "}
+            </div>
           </Link>
         ))}
       </div>

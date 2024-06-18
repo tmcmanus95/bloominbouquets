@@ -13,6 +13,7 @@ export const QUERY_ME = gql`
       friends {
         _id
         username
+        color
       }
       words
       giftedWords {

@@ -15,7 +15,6 @@ export default function Profile() {
   }
   const [editUserColor, error] = useMutation(EDIT_USER_COLOR);
   const handleEditUserColor = async (value) => {
-    console.log("value", value);
     const { r, g, b } = value.metaColor;
     function rgbToHex(r, g, b) {
       return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
@@ -47,7 +46,7 @@ export default function Profile() {
               {data.me.username}
             </h1>
             <div className="flex flex-row">
-              <p className="text-m mr-3">Current Color:</p>
+              <p className="text-m mr-3 ml-3">Current Color:</p>
               <ColorPicker
                 onChangeComplete={(value) => handleEditUserColor(value)}
                 defaultValue={data.me.color}
