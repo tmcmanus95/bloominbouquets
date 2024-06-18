@@ -34,7 +34,13 @@ export default function Navbar() {
         <Link to="/">
           <img className="h-5 lg:h-10 mr-5" src={flowerIcon}></img>{" "}
         </Link>
-        {data ? <IoFlowerOutline style={{ color: data.me.color }} /> : <></>}
+        {data ? (
+          <Link to="/me" onClick={toggleMenu}>
+            <IoFlowerOutline style={{ color: data.me.color }} />
+          </Link>
+        ) : (
+          <></>
+        )}
         <div className="md:hidden flex items-center ml-5 text-right dark:text-white">
           <GiHamburgerMenu
             onClick={toggleMenu}

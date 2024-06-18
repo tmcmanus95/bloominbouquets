@@ -32,7 +32,6 @@ export default function OtherProfile() {
       }
     }
   }
-  console.log("data. ", data);
   const handleAddFriend = async () => {
     const { data } = await sendFriendRequest({
       variables: {
@@ -63,9 +62,11 @@ export default function OtherProfile() {
           </div>
           {isFriend ? (
             <Link to="/sendABouquet">
-              <div>
+              <div className="flex flex-row ml-3 bg-green-100 p-3 w-72">
                 <GiFlowerPot />
-                <p>Send a bouquet to {data.user.username}</p>
+                <p className="flex text-center">
+                  Send a bouquet to {data.user.username}
+                </p>
               </div>
             </Link>
           ) : (
