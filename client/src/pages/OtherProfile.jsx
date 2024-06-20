@@ -6,10 +6,12 @@ import { IoMdPersonAdd, IoMdFlower } from "react-icons/io";
 import { SEND_FRIEND_REQUEST } from "../utils/mutations";
 import { GiFlowerPot } from "react-icons/gi";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import UserReceivedWords from "../components/UserReceivedWords";
 
 export default function OtherProfile() {
   const { otherPersonsId } = useParams();
+  const [friendRequestSent, setFriendRequestSent] = useState(false);
   let userBackgroundColor = "";
   const {
     loading,
@@ -39,6 +41,7 @@ export default function OtherProfile() {
         recipientId: otherPersonsId,
       },
     });
+    setFriendRequestSent(true);
   };
   return (
     <>
@@ -56,8 +59,10 @@ export default function OtherProfile() {
                 <IoMdFlower />
                 <h6 className="text-xs">Friends</h6>
               </>
-            ) : (
+            ) : !friendRequestSent ? (
               <IoMdPersonAdd onClick={handleAddFriend} />
+            ) : (
+              <></>
             )}
           </div>
           {isFriend ? (

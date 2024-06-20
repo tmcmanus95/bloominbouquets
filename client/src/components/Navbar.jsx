@@ -35,7 +35,7 @@ export default function Navbar() {
           <img className="h-5 lg:h-10 mr-5" src={flowerIcon}></img>{" "}
         </Link>
         {data ? (
-          <Link to="/me" onClick={toggleMenu}>
+          <Link to="/me">
             <IoFlowerOutline style={{ color: data.me.color }} />
           </Link>
         ) : (
