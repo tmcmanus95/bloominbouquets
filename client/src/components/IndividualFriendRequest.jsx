@@ -1,5 +1,8 @@
 import { CiCircleCheck } from "react-icons/ci";
 import { FaRegCircleXmark } from "react-icons/fa6";
+import { FaCheckCircle } from "react-icons/fa";
+import { IoIosCheckmarkCircle, IoIosCloseCircle } from "react-icons/io";
+
 import { useMutation } from "@apollo/client";
 import { ACCEPT_FRIEND_REQUEST } from "../utils/mutations";
 
@@ -37,10 +40,13 @@ export default function IndividualFriendRequest({ friendRequest, userId }) {
       <h1>User: {friendRequest.username}</h1>
       <h1 className="flex flex-row">
         <span>
-          <CiCircleCheck onClick={handleAcceptFriendRequest} />
+          <IoIosCheckmarkCircle
+            onClick={handleAcceptFriendRequest}
+            className="text-green-700 font-bold hover:text-green-900 hover:cursor-pointer"
+          />
         </span>
         <span>
-          <FaRegCircleXmark />
+          <IoIosCloseCircle className="text-red-700 hover:text-red-900 hover:cursor-pointer" />
         </span>
       </h1>
     </div>

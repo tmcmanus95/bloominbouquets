@@ -16,6 +16,12 @@ Each word corresponds to a flower. You can send flowers via text or in app.
 
 ## Technologies
 
+- MongoDB
+- Express
+- React
+- Node.js
+- Tailwind
+
 ## Contributions
 
 - [Color Selecting Element](https://ant.design/components/color-picker) from [Ant Design](https://ant.design/)
