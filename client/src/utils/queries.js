@@ -38,6 +38,7 @@ export const QUERY_USER = gql`
         username
       }
       words
+      color
       giftedWords {
         giftedWords
         sender {
@@ -48,6 +49,7 @@ export const QUERY_USER = gql`
     }
     me {
       _id
+      color
       friends {
         _id
         username

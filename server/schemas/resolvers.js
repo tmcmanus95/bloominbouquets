@@ -24,7 +24,14 @@ const resolvers = {
       return User.findOne({ _id: userId })
         .populate("friendRequests")
         .populate("friends")
-        .populate("giftedWords");
+        .populate("giftedWords")
+        .populate({
+          path: "giftedWords",
+          populate: {
+            path: "sender",
+            model: "User",
+          },
+        });
     },
     me: async (parent, args, context) => {
       if (context.user) {
