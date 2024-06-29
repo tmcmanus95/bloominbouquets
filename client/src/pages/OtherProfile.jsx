@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { QUERY_USER } from "../utils/queries";
 import ProfileWords from "../components/ProfileWords";
 import { IoMdPersonAdd, IoMdFlower } from "react-icons/io";
+
 import { SEND_FRIEND_REQUEST } from "../utils/mutations";
 import { GiFlowerPot } from "react-icons/gi";
 import { Link } from "react-router-dom";

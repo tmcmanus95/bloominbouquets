@@ -9,6 +9,7 @@ export const QUERY_ME = gql`
       friendRequests {
         _id
         username
+        color
       }
       friends {
         _id
