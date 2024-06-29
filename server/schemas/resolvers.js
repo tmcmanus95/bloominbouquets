@@ -10,6 +10,13 @@ const resolvers = {
         .populate({
           path: "giftedWords",
           model: "GiftedWords",
+        })
+        .populate({
+          path: "giftedWords",
+          populate: {
+            path: "sender",
+            model: "User",
+          },
         });
     },
 

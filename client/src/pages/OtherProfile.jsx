@@ -22,6 +22,7 @@ export default function OtherProfile() {
       userId: otherPersonsId,
     },
   });
+  console.log("other profiles data, ", data);
   let isFriend = false;
   let myId;
   const [sendFriendRequest, error] = useMutation(SEND_FRIEND_REQUEST);
