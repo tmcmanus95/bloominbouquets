@@ -51,7 +51,7 @@ export default function OtherProfile() {
     <div className="m-3">
       {data ? (
         <div className="dark:bg-slate-800 dark:text-white">
-          <div className="flex text-3xl border-2 border-black m-3 mt-10">
+          <div className="flex text-3xl border-2 border-black m-2 md:mt-16 mt-10">
             <div className="flex flex-row items-center">
               <IoMdFlower
                 className="text-5xl "
@@ -80,7 +80,7 @@ export default function OtherProfile() {
 
             {isFriend ? (
               <Link to="/sendABouquet">
-                <div className="flex flex-row ml-3 text-sm m-3 rounded-lg hover:pointer-cursor hover:border-2 hover:border-black bg-green-100 p-3 ">
+                <div className="flex flex-row ml-3 text-sm m-3 rounded-lg hover:pointer-cursor hover:bg-green-500 bg-green-100 dark:bg-green-500 dark:hover:bg-green-900 p-3 ">
                   <GiFlowerPot />
                   <p className="flex text-center">
                     Send a bouquet to {data.user.username}

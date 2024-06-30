@@ -4,14 +4,14 @@ export default function GameBoardMostRecentWordList({ words }) {
   let sortedWords = words.slice(words.length - 10, words.length);
   sortedWords.reverse();
   return (
-    <section className="ml-5 flex justify-center flex-col md:text-3xl text-2xl dark:bg-green-900 bg-green-100 p-3 rounded-lg border-solid border-2">
-      <h1 className="md:text-5xl text-decoration-line: underline mb-2  bg-green-700 text-white p-2">
+    <section className="ml-5 flex justify-center flex-col md:text-3xl text-2xl p-3  border-green-500 border-solid border-2">
+      <h1 className="md:text-3xl text-xl text-decoration-line: underline mb-2  p-2">
         Recent Words
       </h1>
       <div className="flex justify-center flex-col ">
         {sortedWords ? (
           sortedWords.map((word, index) => (
-            <div className="flex flex-row justify-end md:text-2xl text-lg">
+            <div className="flex flex-row justify-end md:text-2xl text-base">
               <p key={index}>
                 <span>{word.length} </span>
                 {word}

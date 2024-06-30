@@ -38,14 +38,17 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <div style={{ maxWidth: "100%", overflowX: "hidden", height: "100%" }}>
+      <section
+        style={{ maxWidth: "100%", overflowX: "hidden", height: "100%" }}
+        className="dark:bg-slate-900"
+      >
         <Navbar />
         <div className="md:mt-14 mt-8">
           <Outlet />
         </div>
 
         {/* <Footer /> */}
-      </div>
+      </section>
     </ApolloProvider>
   );
 }
