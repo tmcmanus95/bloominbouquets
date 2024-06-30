@@ -91,16 +91,36 @@ export default function GameBoard() {
     const isAdjacent = hasAdjacentSelected(tile);
     const isMostRecent =
       selectedIds.length > 0 && tile.id === selectedIds[selectedIds.length - 1];
-
-    let backgroundColor = "ghostwhite";
+    let backgroundColor;
     let textColor = "black";
+    if (
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+    ) {
+      backgroundColor = "black";
+      textColor = "white";
+    } else {
+      backgroundColor = "ghostwhite";
+    }
 
     if (isSelected && realWord) {
       backgroundColor = "gold";
       textColor = "#2d5421";
     } else if (isSelected && !realWord) {
+      if (
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches
+      ) {
+        textColor = "black";
+      }
       backgroundColor = "#a8cc9e";
     } else if (isAdjacent) {
+      if (
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches
+      ) {
+        textColor = "black";
+      }
       backgroundColor = "#e2d1c4";
     }
 
@@ -194,7 +214,7 @@ export default function GameBoard() {
                 <div
                   key={tile.id}
                   style={selectedTile(tile)}
-                  className={`grid-item text-black ${
+                  className={`grid-item text-black dark:text-white ${
                     isFlipped ? "flip-animation" : ""
                   }`}
                   onClick={() => addLetter(tile)}

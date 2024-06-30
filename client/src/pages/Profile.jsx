@@ -46,9 +46,9 @@ export default function Profile() {
   return (
     <div className="m-3">
       {data ? (
-        <div className="dark:bg-slate-800 dark:text-white ">
+        <div className="dark:text-white ">
           <div className="justify-center flex flex-col ">
-            <div className="md:text-4xl flex flex-row items-center justify-between border-black border-2 p-5 m-2 mt-2">
+            <div className="md:text-4xl flex flex-row items-center justify-between border-black dark:border-white border-2 p-5 m-2 mt-2">
               <div className="flex flex-row">
                 <IoFlowerOutline style={{ color: userBackgroundColor }} />
                 <h1>{data.me.username}</h1>

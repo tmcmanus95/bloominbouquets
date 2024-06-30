@@ -3,7 +3,7 @@ import { IoMdFlower } from "react-icons/io";
 
 export default function ProfileFriends({ friends }) {
   return (
-    <section className="flex justify-center flex-col md:text-xl text-sm border-2 border-black m-2">
+    <section className="flex justify-center flex-col md:text-xl text-sm border-2 border-black dark:border-white m-2">
       <h1 className="md:text-3xl text-center ">Friends</h1>
       <div className="grid grid-cols-3 md:grid-cols-8 justify-center ">
         {friends.map((friend, index) => (

@@ -5,7 +5,7 @@ export default function GameBoardBestWordList({ words }) {
   sortedWords = sortedWords.slice(0, 10);
   console.log(sortedWords);
   return (
-    <section className="ml-5 flex justify-center flex-col md:text-3xl text-2xl dark:bg-green-900 p-3 border-solid border-green-500 border-2">
+    <section className="ml-5 flex justify-center flex-col md:text-3xl text-2xl  p-3 border-solid border-green-500 border-2">
       <h1 className="md:text-3xl text-xl text-decoration-line: underline mb-2 p-2">
         <span>Best Words</span>
       </h1>

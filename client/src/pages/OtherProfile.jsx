@@ -50,8 +50,8 @@ export default function OtherProfile() {
   return (
     <div className="m-3">
       {data ? (
-        <div className="dark:bg-slate-800 dark:text-white">
-          <div className="flex text-3xl border-2 border-black m-2 md:mt-16 mt-10">
+        <div className="dark:text-white">
+          <div className="flex text-3xl border-2 border-black dark:border-white m-2 md:mt-16 mt-10">
             <div className="flex flex-row items-center">
               <IoMdFlower
                 className="text-5xl "

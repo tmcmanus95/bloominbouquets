@@ -34,9 +34,9 @@ export default function ProfilesReceivedFriendRequestsList({ userId }) {
   }, [data]);
   console.log("receivedfriendrequests", receivedFriendRequests);
   return (
-    <section className="flex justify-center flex-col md:text-xl text-base border-2 border-black m-2">
-      <h1 className="md:text-xl">Friend Requests</h1>
-      <div className="grid grid-cols-2 md:grid-cols-5 justify-center ">
+    <section className="flex justify-center flex-col md:text-xl text-base border-2 border-black dark:border-white m-2">
+      <h1 className="md:text-xl ml-2">Friend Requests</h1>
+      <div className="grid grid-cols-2 md:grid-cols-5 justify-center ml-2">
         {receivedFriendRequests.length > 0 ? (
           receivedFriendRequests.map((friend) => (
             <div>
@@ -57,7 +57,7 @@ export default function ProfilesReceivedFriendRequestsList({ userId }) {
           ))
         ) : (
           <div>
-            <h1>No friend requests</h1>
+            <h1 className="md:text-sm text-xs">No friend requests</h1>
           </div>
         )}
       </div>

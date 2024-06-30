@@ -23,7 +23,7 @@ export default function ProfileWords({ words }) {
     .sort((a, b) => b.length - a.length)
     .slice(0, sliceValue);
   return (
-    <section className="m-2 flex justify-center flex-col border-black border-2">
+    <section className="m-2 flex justify-center flex-col border-black dark:border-white border-2">
       <h1 className="md:text-3xl text-center">Best Words</h1>
       <div className="flex justify-center">
         <div className="grid grid-cols-2 md:grid-cols-8 content-start">
