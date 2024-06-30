@@ -73,7 +73,7 @@ export default function SendWord() {
     word.toLowerCase().includes(searchTerm.toLowerCase())
   );
   return (
-    <div className=" flex justify-center p-5">
+    <div className="flex justify-center">
       {wordSent ? (
         <h1>Thanks for sending!</h1>
       ) : (
@@ -101,7 +101,7 @@ export default function SendWord() {
               <></>
             )}
             <div className="flex flex-col">
-              <div className="flex flex-row">
+              <div className="flex md:flex-row flex-col">
                 <div className="flex flex-col">
                   <div>
                     <h1 className="mx-2 md:mx-5">Select Words to Send</h1>
@@ -115,7 +115,7 @@ export default function SendWord() {
 
                     {searchTerm && (
                       <div>
-                        <ul className="mt-1 bg-white border border-gray-300 w-full md:w-80 mx-2 md:mx-5">
+                        <ul className="mt-1 bg-white border border-gray-300 mx-2 md:mx-5">
                           {filteredWords &&
                             filteredWords.map((word) => (
                               <li
@@ -132,7 +132,7 @@ export default function SendWord() {
                   </div>
                 </div>
 
-                <div className="flex flex-col">
+                <div className="flex flex-col md:mt-0 mt-3">
                   <h1 className="mx-2 md:mx-5">Select Recipient</h1>
 
                   <input
@@ -144,7 +144,7 @@ export default function SendWord() {
                   />
 
                   {searchUsername && (
-                    <ul className="mt-1 bg-white border border-gray-300 mx-2 md:mx-5 w-full md:w-80">
+                    <ul className="mt-1 bg-white border border-gray-300 mx-2 md:mx-5 ">
                       {filteredFriends &&
                         filteredFriends.map((friend) => (
                           <li
