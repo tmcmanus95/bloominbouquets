@@ -25,6 +25,7 @@ type Query {
     users: [User]
     user(userId: ID!): User
     me: User
+    usersFriendRequests(userId: ID!): User
     searchUsers(username: String): User
 }
 type Mutation {

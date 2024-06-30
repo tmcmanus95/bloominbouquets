@@ -80,6 +80,18 @@ export const QUERY_USERS = gql`
     }
   }
 `;
+
+export const QUERY_USER_FRIEND_REQUESTS = gql`
+  query Query($userId: ID!) {
+    usersFriendRequests(userId: $userId) {
+      friendRequests {
+        _id
+        username
+        color
+      }
+    }
+  }
+`;
 export const NAVBAR_QUERY = gql`
   query Query {
     me {

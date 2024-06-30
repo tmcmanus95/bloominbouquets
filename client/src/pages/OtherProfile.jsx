@@ -48,7 +48,7 @@ export default function OtherProfile() {
     setFriendRequestSent(true);
   };
   return (
-    <>
+    <div className="m-3">
       {data ? (
         <div className="dark:bg-slate-800 dark:text-white">
           <div className="flex text-3xl border-2 border-black m-3 mt-10">
@@ -57,19 +57,27 @@ export default function OtherProfile() {
                 className="text-5xl "
                 style={{ color: friendColor }}
               />
-
-              <h1 className="">{data.user.username}</h1>
+              <div className="flex-col flex">
+                <h1 className="">{data.user.username}</h1>
+                {isFriend ? (
+                  <div className="flex flex-row">
+                    <IoMdFlower
+                      className="text-xs"
+                      style={{ color: userColor }}
+                    />
+                    <h6 className="text-xs">Friends</h6>
+                  </div>
+                ) : !friendRequestSent ? (
+                  <IoMdPersonAdd
+                    onClick={handleAddFriend}
+                    className="text-xs"
+                  />
+                ) : (
+                  <></>
+                )}
+              </div>
             </div>
-            {isFriend ? (
-              <>
-                <IoMdFlower className="text-xs" style={{ color: userColor }} />
-                <h6 className="text-xs">Friends</h6>
-              </>
-            ) : !friendRequestSent ? (
-              <IoMdPersonAdd onClick={handleAddFriend} />
-            ) : (
-              <></>
-            )}
+
             {isFriend ? (
               <Link to="/sendABouquet">
                 <div className="flex flex-row ml-3 text-sm m-3 rounded-lg hover:pointer-cursor hover:border-2 hover:border-black bg-green-100 p-3 ">
@@ -93,6 +101,6 @@ export default function OtherProfile() {
       ) : (
         <></>
       )}
-    </>
+    </div>
   );
 }

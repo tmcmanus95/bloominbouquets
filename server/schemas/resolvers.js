@@ -41,6 +41,9 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
+    usersFriendRequests: async (parent, { userId }) => {
+      return User.findOne({ _id: userId }).populate("friendRequests");
+    },
     searchUsers: async (parent, { username }) => {
       return User.findOne({ username: username });
     },

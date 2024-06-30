@@ -44,7 +44,7 @@ export default function Profile() {
     setToggleEdit(!toggleEdit);
   }
   return (
-    <>
+    <div className="m-3">
       {data ? (
         <div className="dark:bg-slate-800 dark:text-white ">
           <div className="justify-center flex flex-col ">
@@ -87,6 +87,6 @@ export default function Profile() {
       ) : (
         <h1>Loading...</h1>
       )}
-    </>
+    </div>
   );
 }
