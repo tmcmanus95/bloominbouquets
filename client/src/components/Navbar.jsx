@@ -69,8 +69,11 @@ export default function Navbar() {
             </div>
           )}
 
-          <Link to="/about" className="hover:bg-green-900 lg:p-2 rounded-lg">
-            About
+          <Link
+            to="/howToPlay"
+            className="hover:bg-green-900 lg:p-2 rounded-lg"
+          >
+            How To Play
           </Link>
           <Link to="/contact" className="hover:bg-green-900 lg:p-2 rounded-lg">
             Contact
@@ -89,10 +92,10 @@ export default function Navbar() {
           <div className="absolute inset-x-0 md:relative top-full md:top-auto md:left-auto md:flex flex-col items-center  space-x-1 pb-3 md:pb-0  dark:bg-slate-900 bg-green-600">
             <Link
               onClick={toggleMenu}
-              to="/about"
+              to="/howToPlay"
               className="py-2 px-3 block w-full hover:bg-green-900 hover:text-white"
             >
-              About
+              How To Play
             </Link>
             <Link
               onClick={toggleMenu}
