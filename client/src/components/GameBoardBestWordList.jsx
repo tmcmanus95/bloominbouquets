@@ -3,9 +3,9 @@ export default function GameBoardBestWordList({ words }) {
   let sortedWords = words.slice().sort((a, b) => b.length - a.length);
   sortedWords = sortedWords.slice(0, 10);
   return (
-    <section className=" flex justify-center flex-col md:text-3xl text-2xl  p-3 border-solid border-green-500 border-2">
-      <h1 className="md:text-3xl text-xl text-decoration-line: underline mb-2 p-2">
-        <span>Best Words</span>
+    <section className=" flex justify-center flex-col md:text-3xl text-2xl  p-3 border-solid border-green-500 border-2 overflow-hidden text-ellipsis">
+      <h1 className="md:text-3xl text-xl text-decoration-line: underline mb-2 p-2 text-center">
+        Best Words
       </h1>
       <div className="flex justify-center flex-col ">
         {sortedWords ? (
