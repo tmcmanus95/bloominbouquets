@@ -9,7 +9,7 @@ import Login from "./pages/Login";
 import Error from "./pages/Error";
 import SignUp from "./pages/SignUp";
 import Contact from "./pages/Contact";
-import About from "./pages/About";
+import HowToPlay from "./pages/HowToPlay.jsx";
 import Home from "./pages/Home.jsx";
 import SendWord from "./pages/SendWord.jsx";
 import OtherProfile from "./pages/OtherProfile.jsx";
@@ -42,8 +42,8 @@ const router = createBrowserRouter([
         element: <SignUp />,
       },
       {
-        path: "/about",
-        element: <About />,
+        path: "/howToPlay",
+        element: <HowToPlay />,
       },
       {
         path: "/contact",
