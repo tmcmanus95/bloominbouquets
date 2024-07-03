@@ -80,7 +80,7 @@ export default function OtherProfile() {
 
             {isFriend ? (
               <Link to="/sendABouquet">
-                <div className="flex flex-row ml-3 text-sm m-3 rounded-lg hover:pointer-cursor hover:bg-green-500 bg-green-100 dark:bg-green-500 dark:hover:bg-green-900 p-3 ">
+                <div className="flex flex-row ml-3 text-sm m-3 rounded-lg hover:pointer-cursor hover:bg-green-500 bg-green-100 dark:bg-green-500 dark:hover:bg-green-900 p-3 flex-wrap ">
                   <GiFlowerPot />
                   <p className="flex text-center">
                     Send a bouquet to {data.user.username}

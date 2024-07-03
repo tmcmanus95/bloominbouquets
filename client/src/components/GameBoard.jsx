@@ -179,7 +179,6 @@ export default function GameBoard() {
           userId: meData.me._id,
         },
       });
-      console.log("add word data", data);
     } catch (error) {
       console.log("Error adding word");
     }
@@ -241,10 +240,10 @@ export default function GameBoard() {
         </button>
       </div>
       <div className="flex flex-row justify-center mt-5">
-        <div className="justify-start">
+        <div>
           {meData ? <GameBoardBestWordList words={meData.me.words} /> : <></>}
         </div>
-        <div className="justify-start">
+        <div>
           {meData ? (
             <GameBoardMostRecentWordList words={meData.me.words} />
           ) : (
