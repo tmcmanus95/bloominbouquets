@@ -58,7 +58,7 @@ export default function OtherProfile() {
                 style={{ color: friendColor }}
               />
               <div className="flex-col flex">
-                <h1 className="">{data.user.username}</h1>
+                <h1 className="md:text-3xl text-xl">{data.user.username}</h1>
                 {isFriend ? (
                   <div className="flex flex-row">
                     <IoMdFlower
