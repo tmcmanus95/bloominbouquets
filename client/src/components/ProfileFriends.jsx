@@ -8,7 +8,7 @@ export default function ProfileFriends({ friends }) {
       <div className="grid grid-cols-3 md:grid-cols-8 justify-center ">
         {friends.map((friend, index) => (
           <div
-            className="flex flex-row justify-center p-1 rounded-lg border-2 m-2"
+            className="flex flex-row justify-center p-1 rounded-lg border-2 m-2 overflow-hidden"
             style={{ borderColor: friend.color }}
           >
             <Link
@@ -19,7 +19,7 @@ export default function ProfileFriends({ friends }) {
                 style={{ color: friend.color }}
                 className="flex flex-row"
               />
-              <div className="flex flex-row" key={index}>
+              <div className="flex flex-row " key={index}>
                 {friend.username}
               </div>
             </Link>

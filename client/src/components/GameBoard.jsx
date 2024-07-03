@@ -97,7 +97,7 @@ export default function GameBoard() {
       window.matchMedia &&
       window.matchMedia("(prefers-color-scheme: dark)").matches
     ) {
-      backgroundColor = "black";
+      backgroundColor = "#0b240a";
       textColor = "white";
     } else {
       backgroundColor = "ghostwhite";
