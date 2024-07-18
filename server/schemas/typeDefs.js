@@ -5,6 +5,9 @@ type User {
     email: String
     password: String
     color: String
+    dailyBoard: String
+    lastBoardGeneratedAt: String
+    seeds: Float
     friendRequests: [User]
     friends: [User]
     words: [String]
@@ -38,6 +41,7 @@ type Mutation {
     addFriend(newFriendId: ID!, userId: ID!): User
     addWord(word: String!, userId: ID!): User
     sendWord(giftedWords: String!, recipientId: ID!, userId: ID!): User
+    dailyRandomization(userId: ID!): User
 }
 `;
 module.exports = typeDefs;

@@ -32,7 +32,7 @@ export default function Navbar() {
     <nav className="fixed top-0 left-0 right-0 z-50 mx-auto px-4 md:flex items-center dark:bg-green-900 bg-green-600 gap-6 py-1">
       <div className="flex w-full items-center dark:text-white">
         <Link to="/">
-          <img className="h-5 lg:h-10 mr-5" src={flowerIcon}></img>{" "}
+          <img className="h-5 lg:h-10 mr-5" src="/flowerfavicon.png"></img>{" "}
         </Link>
         {data ? (
           <Link to="/me">

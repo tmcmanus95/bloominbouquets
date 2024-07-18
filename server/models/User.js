@@ -26,6 +26,10 @@ const userSchema = new Schema({
   dailyBoard: {
     type: String,
   },
+  lastBoardGeneratedAt: {
+    type: Date,
+    default: null,
+  },
   seeds: {
     type: Number,
     default: 0,

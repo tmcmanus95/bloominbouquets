@@ -1,6 +1,6 @@
 const { User, GiftedWords } = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
-
+const getDailyBoard = require("../utils/getDailyBoard");
 const resolvers = {
   Query: {
     users: async () => {
@@ -216,6 +216,17 @@ const resolvers = {
         return true;
       } catch (error) {
         throw new Error("could not send word");
+      }
+    },
+    dailyRandomization: async (_, { userId }, context) => {
+      try {
+        const user = await User.findById(userId);
+        const newBoard = getDailyBoard();
+        user.dailyBoard = newBoard;
+        await user.save();
+        return user;
+      } catch (err) {
+        console.log("could not get daily board", err);
       }
     },
   },
