@@ -23,6 +23,14 @@ const userSchema = new Schema({
   color: {
     type: String,
   },
+  dailyBoard: {
+    type: String,
+  },
+  seeds: {
+    type: Number,
+    default: 0,
+  },
+
   friendRequests: [
     {
       type: Schema.Types.ObjectId,

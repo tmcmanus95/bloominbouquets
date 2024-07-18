@@ -1,15 +1,15 @@
-import seed from "../assets/flowersprites/seed.png";
-import sprout from "../assets/flowersprites/sprout.png";
-import grass from "../assets/flowersprites/grass.png";
-import dandelion from "../assets/flowersprites/dandelion.png";
-import daisy from "../assets/flowersprites/daisy.png";
-import lily from "../assets/flowersprites/lily.png";
-import tulip from "../assets/flowersprites/tulip.png";
-import sunflower from "../assets/flowersprites/sunflower.png";
-import azalea from "../assets/flowersprites/azalea.png";
-import rose from "../assets/flowersprites/rose.png";
-import orchid from "../assets/flowersprites/orchid.png";
-import goldenrose from "../assets/flowersprites/goldenrose.png";
+import seed from "../../public/flowersprites/seed.png";
+// import sprout from "../assets/flowersprites/sprout.png";
+// import grass from "../assets/flowersprites/grass.png";
+// import dandelion from "../assets/flowersprites/dandelion.png";
+// import daisy from "../assets/flowersprites/daisy.png";
+// import lily from "../assets/flowersprites/lily.png";
+// import tulip from "../assets/flowersprites/tulip.png";
+// import sunflower from "../assets/flowersprites/sunflower.png";
+// import azalea from "../assets/flowersprites/azalea.png";
+// import rose from "../assets/flowersprites/rose.png";
+// import orchid from "../assets/flowersprites/orchid.png";
+// import goldenrose from "../assets/flowersprites/goldenrose.png";
 
 export default function FlowerSprite({ wordLength }) {
   function setFlowerForWordLength(wordLength) {
@@ -19,43 +19,43 @@ export default function FlowerSprite({ wordLength }) {
         flower = null;
         break;
       case 1:
-        flower = seed;
+        flower = "/flowersprites/seed.png";
         break;
       case 2:
-        flower = sprout;
+        flower = "/flowersprites/sprout.png";
         break;
       case 3:
-        flower = grass;
+        flower = "/flowersprites/grass.png";
         break;
       case 4:
-        flower = dandelion;
+        flower = "/flowersprites/dandelion.png";
         break;
       case 5:
-        flower = daisy;
+        flower = "/flowersprites/daisy.png";
         break;
       case 6:
-        flower = lily;
+        flower = "/flowersprites/lily.png";
         break;
       case 7:
-        flower = tulip;
+        flower = "/flowersprites/tulip.png";
         break;
       case 8:
-        flower = sunflower;
+        flower = "/flowersprites/sunflower.png";
         break;
       case 9:
-        flower = azalea;
+        flower = "/flowersprites/azalea.png";
         break;
       case 10:
-        flower = rose;
+        flower = "/flowersprites/rose.png";
         break;
       case 11:
-        flower = orchid;
+        flower = "/flowersprites/orchid.png";
         break;
       case 12:
-        flower = goldenrose;
+        flower = "/flowersprites/goldenrose.png";
         break;
       default:
-        flower = goldenrose;
+        flower = "/flowersprites/goldenrose.png";
         break;
     }
     return flower;
