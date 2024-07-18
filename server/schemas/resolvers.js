@@ -221,12 +221,32 @@ const resolvers = {
     dailyRandomization: async (_, { userId }, context) => {
       try {
         const user = await User.findById(userId);
-        const newBoard = getDailyBoard();
-        user.dailyBoard = newBoard;
-        await user.save();
+        if (!user) {
+          throw new Error("User not found");
+        }
+
+        const now = new Date();
+        const lastGenerated = user.lastBoardGeneratedAt;
+
+        const isSameDay = (date1, date2) => {
+          return (
+            date1.getFullYear() === date2.getFullYear() &&
+            date1.getMonth() === date2.getMonth() &&
+            date1.getDate() === date2.getDate()
+          );
+        };
+
+        if (!lastGenerated || !isSameDay(now, lastGenerated)) {
+          const newBoard = getDailyBoard();
+          user.dailyBoard = newBoard;
+          user.lastBoardGeneratedAt = now;
+          await user.save();
+        }
+
         return user;
       } catch (err) {
-        console.log("could not get daily board", err);
+        console.log("Could not get daily board", err);
+        throw new Error("Could not get daily board");
       }
     },
   },
