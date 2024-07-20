@@ -87,3 +87,16 @@ export const UPDATE_DAILY_BOARD = gql`
     }
   }
 `;
+
+export const SHUFFLE_BOARD = gql`
+  mutation Mutation($userId: ID!) {
+    shuffleBoard(userId: $userId) {
+      _id
+      username
+      dailyBoard
+      dailyShuffleCount
+      lastShuffleReset
+      goldenSeeds
+    }
+  }
+`;

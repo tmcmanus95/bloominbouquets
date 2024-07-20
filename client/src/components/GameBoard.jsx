@@ -3,7 +3,7 @@ import { getRandomLetter } from "../utils/getRandomLetter";
 import { useMutation, useQuery } from "@apollo/client";
 import { ADD_WORD } from "../utils/mutations";
 import { QUERY_ME, GET_DAILY_BOARD } from "../utils/queries";
-import { UPDATE_DAILY_BOARD } from "../utils/mutations";
+import { UPDATE_DAILY_BOARD, SHUFFLE_BOARD } from "../utils/mutations";
 import CurrentWord from "./CurrentWord";
 import GameBoardBestWordList from "./GameBoardBestWordList";
 import GameBoardMostRecentWordList from "./GameBoardMostRecentWordList";
@@ -14,6 +14,7 @@ import Auth from "../utils/auth";
 export default function GameBoard() {
   const [selectedIds, setSelectedIds] = useState([]);
   const [dailyGameBoardString, setDailyGameBoardString] = useState("");
+  const [areYouSureVisible, setAreYouSureVisible] = useState(false);
   const [dailyTail, setDailyTail] = useState("");
   const [localStorageBoard, setLocalStorageBoard] = useState(
     localStorage.getItem("dailyBoard")
@@ -30,7 +31,8 @@ export default function GameBoard() {
   const { data: dailyBoardData, error: dailyBoardError } =
     useQuery(GET_DAILY_BOARD);
   const [addWord, error] = useMutation(ADD_WORD);
-
+  const [shuffleBoard, { error: shuffleBoardError }] =
+    useMutation(SHUFFLE_BOARD);
   function isMobile() {
     return window.innerWidth <= 599;
   }
@@ -55,6 +57,9 @@ export default function GameBoard() {
   const hasAdjacentSelected = (tile) => {
     const { id } = tile;
     return selectedIds.some((selectedId) => isAdjacentTile(selectedId, id));
+  };
+  const toggleAreYouSure = () => {
+    setAreYouSureVisible(!areYouSureVisible);
   };
 
   const isAdjacentTile = (id1, id2) => {
@@ -276,8 +281,20 @@ export default function GameBoard() {
     }
   }
 
-  const shuffleBoard = async () => {
-    console.log("shuffling board");
+  const handleShuffleBoard = async () => {
+    try {
+      const { data } = await shuffleBoard({
+        variables: {
+          userId: dailyBoardData.dailyRandomization._id,
+        },
+      });
+      console.log("add word data", data);
+      setGoldenSeedAmount(data.shuffleBoard.goldenSeeds);
+      setDailyShuffleCount(data.shuffleBoard.dailyShuffleCount);
+      toggleAreYouSure();
+    } catch (error) {
+      console.log("Error adding word");
+    }
   };
 
   const handleAddWord = async (newWord) => {
@@ -349,12 +366,28 @@ export default function GameBoard() {
         >
           Submit
         </button>
-        <button
-          className="flex dark:bg-green-900 bg-green-300 hover:bg-green-500 dark:text-white text-black"
-          onClick={async () => await shuffleBoard()}
-        >
-          Shuffle
-        </button>
+        {isLoggedIn && (
+          <button
+            className="flex dark:bg-green-900 bg-green-300 hover:bg-green-500 dark:text-white text-black"
+            onClick={async () => await toggleAreYouSure()}
+          >
+            Shuffle {dailyShuffleCount}
+          </button>
+        )}
+        {areYouSureVisible && (
+          <div>
+            <h1>Shuffling will cost X amount</h1>
+            <button
+              className="flex dark:bg-green-900 bg-green-300 hover:bg-green-500 dark:text-white text-black"
+              onClick={async () => await handleShuffleBoard()}
+            >
+              Shuffle anyway {dailyShuffleCount}
+            </button>
+            <button onClick={async () => await toggleAreYouSure()}>
+              Cancel
+            </button>
+          </div>
+        )}
       </div>
       <div>{goldenSeedAmount}</div>
       {isLoggedIn ? (
