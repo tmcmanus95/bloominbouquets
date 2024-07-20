@@ -3,6 +3,7 @@ import { getRandomLetter } from "../utils/getRandomLetter";
 import { useMutation, useQuery } from "@apollo/client";
 import { ADD_WORD } from "../utils/mutations";
 import { QUERY_ME, GET_DAILY_BOARD } from "../utils/queries";
+import { UPDATE_DAILY_BOARD } from "../utils/mutations";
 import CurrentWord from "./CurrentWord";
 import GameBoardBestWordList from "./GameBoardBestWordList";
 import GameBoardMostRecentWordList from "./GameBoardMostRecentWordList";
@@ -11,19 +12,16 @@ import FlowerSprite from "./FlowerSprite";
 
 export default function GameBoard() {
   const [selectedIds, setSelectedIds] = useState([]);
-  const [dailyGameBoardData, setDailyGameBoardData] = useState("");
+  const [dailyGameBoardString, setDailyGameBoardString] = useState("");
+
   const [newGameBoard, setNewGameBoard] = useState([]);
   const [realWord, setRealWord] = useState(false);
   const [isFlipped, setIsFlipped] = useState(false);
   const [validWord, setValidWord] = useState("");
   const [invalidWord, setInvalidWord] = useState("");
+  const [updateBoard] = useMutation(UPDATE_DAILY_BOARD);
   const { data: dailyBoardData, error: dailyBoardError } =
     useQuery(GET_DAILY_BOARD);
-  if (dailyBoardData) {
-    console.log(dailyBoardData);
-  } else {
-    console.log("no dice");
-  }
   const [addWord, error] = useMutation(ADD_WORD);
   function isMobile() {
     return window.innerWidth <= 599;
@@ -94,9 +92,8 @@ export default function GameBoard() {
 
     if (dailyBoardData?.dailyRandomization?.dailyBoard) {
       const dailyGameBoardData = dailyBoardData.dailyRandomization.dailyBoard;
-      setDailyGameBoardData(dailyGameBoardData);
+      setDailyGameBoardString(dailyGameBoardData);
       initializeGameBoard(dailyGameBoardData);
-      console.log("daily game board ", dailyGameBoardData);
     }
   }, [numRows, numCols, dailyBoardData]);
 
@@ -166,7 +163,8 @@ export default function GameBoard() {
       setRealWord(true);
       setNewGameBoard(updatedBoard);
       handleAddWord(userWord);
-      setTimeout(() => {
+
+      setTimeout(async () => {
         const resetBoard = newGameBoard.map((tile) =>
           selectedIds.includes(tile.id)
             ? { ...tile, isFlipped: false, letter: getRandomLetter() }
@@ -174,10 +172,28 @@ export default function GameBoard() {
         );
 
         setNewGameBoard(resetBoard);
+        let tempString = "";
+        for (let i = 0; i < 100; i++) {
+          tempString += resetBoard[i].letter;
+        }
+        console.log("temp string", tempString);
+        setDailyGameBoardString(tempString);
 
         setSelectedIds([]);
         setRealWord(false);
         setValidWord("");
+
+        try {
+          const { data: updatedBoardData } = await updateBoard({
+            variables: {
+              userId: dailyBoardData.dailyRandomization._id,
+              dailyBoard: tempString,
+            },
+          });
+          console.log("updated board data", updatedBoardData);
+        } catch (error) {
+          console.error("Error updating board:", error);
+        }
       }, 1000);
     } else {
       setInvalidWord(userWord);
@@ -185,6 +201,7 @@ export default function GameBoard() {
       setSelectedIds([]);
     }
   }
+
   const handleAddWord = async (newWord) => {
     try {
       const { data } = await addWord({

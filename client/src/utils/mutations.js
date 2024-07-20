@@ -80,8 +80,8 @@ export const ACCEPT_FRIEND_REQUEST = gql`
   }
 `;
 export const UPDATE_DAILY_BOARD = gql`
-  mutation Mutation($userId: ID!, $dailyBoard: String) {
-    editDaysBoard(userId: $userId, dailyBoard: $dailyBoard) {
+  mutation Mutation($userId: ID!, $dailyBoard: String!) {
+    updateDailyBoard(userId: $userId, dailyBoard: $dailyBoard) {
       dailyBoard
     }
   }
