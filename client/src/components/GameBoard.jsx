@@ -338,26 +338,32 @@ export default function GameBoard() {
           Submit
         </button>
       </div>
-      <div className="flex flex-row justify-center mt-5">
-        <div>
-          {dailyBoardData ? (
-            <GameBoardBestWordList
-              words={dailyBoardData?.dailyRandomization?.words}
-            />
-          ) : (
-            <></>
-          )}
+      {isLoggedIn ? (
+        <div className="flex flex-row justify-center mt-5">
+          <div>
+            {dailyBoardData ? (
+              <GameBoardBestWordList
+                words={dailyBoardData?.dailyRandomization?.words}
+              />
+            ) : (
+              <></>
+            )}
+          </div>
+          <div>
+            {dailyBoardData ? (
+              <GameBoardMostRecentWordList
+                words={dailyBoardData?.dailyRandomization?.words}
+              />
+            ) : (
+              <></>
+            )}
+          </div>
         </div>
-        <div>
-          {dailyBoardData ? (
-            <GameBoardMostRecentWordList
-              words={dailyBoardData?.dailyRandomization?.words}
-            />
-          ) : (
-            <></>
-          )}
+      ) : (
+        <div className="flex flex-row justify-center mt-5">
+          Login to save words
         </div>
-      </div>
+      )}
     </div>
   );
 }
