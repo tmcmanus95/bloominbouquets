@@ -31,6 +31,14 @@ const userSchema = new Schema({
     type: Date,
     default: null,
   },
+  dailyShuffleCount: {
+    type: Number,
+    default: 0,
+  },
+  lastShuffleReset: {
+    type: Date,
+    default: null,
+  },
   goldenSeeds: {
     type: Number,
     default: 0,

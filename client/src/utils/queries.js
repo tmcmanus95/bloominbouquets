@@ -111,6 +111,7 @@ export const GET_DAILY_BOARD = gql`
       color
       goldenSeeds
       words
+      dailyShuffleCount
     }
   }
 `;

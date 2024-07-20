@@ -25,10 +25,12 @@ export default function GameBoard() {
   const [invalidWord, setInvalidWord] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(Auth.loggedIn());
   const [goldenSeedAmount, setGoldenSeedAmount] = useState(0);
+  const [dailyShuffleCount, setDailyShuffleCount] = useState(0);
   const [updateBoard] = useMutation(UPDATE_DAILY_BOARD);
   const { data: dailyBoardData, error: dailyBoardError } =
     useQuery(GET_DAILY_BOARD);
   const [addWord, error] = useMutation(ADD_WORD);
+
   function isMobile() {
     return window.innerWidth <= 599;
   }
@@ -102,6 +104,9 @@ export default function GameBoard() {
         setDailyGameBoardString(dailyGameBoardData);
         setDailyTail(dailyBoardData?.dailyRandomization?.dailyBoard.slice(49));
         setGoldenSeedAmount(dailyBoardData?.dailyRandomization?.goldenSeeds);
+        setDailyShuffleCount(
+          dailyBoardData?.dailyRandomization?.dailyShuffleCount
+        );
         console.log("# of seeds", goldenSeedAmount);
         initializeGameBoard(dailyGameBoardData);
       }
@@ -271,6 +276,10 @@ export default function GameBoard() {
     }
   }
 
+  const shuffleBoard = async () => {
+    console.log("shuffling board");
+  };
+
   const handleAddWord = async (newWord) => {
     try {
       const { data } = await addWord({
@@ -339,6 +348,12 @@ export default function GameBoard() {
           }}
         >
           Submit
+        </button>
+        <button
+          className="flex dark:bg-green-900 bg-green-300 hover:bg-green-500 dark:text-white text-black"
+          onClick={async () => await shuffleBoard()}
+        >
+          Shuffle
         </button>
       </div>
       <div>{goldenSeedAmount}</div>

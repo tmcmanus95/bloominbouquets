@@ -1,6 +1,7 @@
 const { User, GiftedWords } = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
 const getDailyBoard = require("../utils/getDailyBoard");
+const shuffleCounttoSeedReduction = require("../utils/shuffleCountToSeedReduction");
 const wordLengthToSeeds = require("../utils/wordLengthToSeeds");
 const resolvers = {
   Query: {
@@ -67,6 +68,7 @@ const resolvers = {
             const newBoard = getDailyBoard();
             user.dailyBoard = newBoard;
             user.lastBoardGeneratedAt = now;
+            user.lastShuffleReset = now;
             await user.save();
           }
 
@@ -257,6 +259,49 @@ const resolvers = {
         return user;
       } catch (err) {
         console.log("Could not update board", err);
+      }
+    },
+    addGoldenSeeds: async (_, { userId, seeds }, context) => {
+      try {
+        const user = await User.findById(userId);
+        user.goldenSeeds += seeds;
+        user.save();
+        return user;
+      } catch (err) {
+        console.log("could not add seeds");
+      }
+    },
+    shuffleBoard: async (parent, { userId }, context) => {
+      try {
+        console.log("User ID:", userId);
+
+        const user = await User.findById(userId);
+
+        if (!user) {
+          console.log("User not found");
+          return;
+        }
+
+        const now = new Date();
+        const lastShuffleReset = user.lastShuffleReset;
+        const dailyShuffleCount = user.dailyShuffleCount || 0;
+
+        const newBoard = getDailyBoard();
+        user.dailyBoard = newBoard;
+        user.lastShuffleReset = now;
+
+        const seedCost = shuffleCounttoSeedReduction(dailyShuffleCount);
+        if (user.goldenSeeds < seedCost) {
+          console.log("Not enough golden seeds");
+          return;
+        }
+
+        user.goldenSeeds -= seedCost;
+        user.dailyShuffleCount = dailyShuffleCount + 1;
+        await user.save();
+        return user;
+      } catch (err) {
+        console.log("Could not shuffle board", err);
       }
     },
   },
