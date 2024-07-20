@@ -9,6 +9,7 @@ import GameBoardBestWordList from "./GameBoardBestWordList";
 import GameBoardMostRecentWordList from "./GameBoardMostRecentWordList";
 import wordsDictionary from "../assets/wordlist";
 import FlowerSprite from "./FlowerSprite";
+import Auth from "../utils/auth";
 
 export default function GameBoard() {
   const [selectedIds, setSelectedIds] = useState([]);
@@ -19,6 +20,8 @@ export default function GameBoard() {
   const [isFlipped, setIsFlipped] = useState(false);
   const [validWord, setValidWord] = useState("");
   const [invalidWord, setInvalidWord] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(Auth.loggedIn());
+
   const [updateBoard] = useMutation(UPDATE_DAILY_BOARD);
   const { data: dailyBoardData, error: dailyBoardError } =
     useQuery(GET_DAILY_BOARD);
@@ -67,35 +70,62 @@ export default function GameBoard() {
     return newGameBoard.find((tile) => tile.id === id);
   };
 
-  useEffect(() => {
-    const initializeGameBoard = (dailyGameBoardData) => {
-      if (!dailyGameBoardData) return;
+  if (isLoggedIn) {
+    useEffect(() => {
+      const initializeGameBoard = (dailyGameBoardData) => {
+        if (!dailyGameBoardData) return;
 
-      const board = [];
-      let id = 0;
-      for (let row = 0; row < numRows; row++) {
-        for (let col = 0; col < numCols; col++) {
-          const tile = {
-            id: id,
-            letter: dailyGameBoardData[id],
-            row: row,
-            col: col,
-            isFlipped: false,
-          };
-          board.push(tile);
-          id++;
+        const board = [];
+        let id = 0;
+
+        for (let row = 0; row < numRows; row++) {
+          for (let col = 0; col < numCols; col++) {
+            const tile = {
+              id: id,
+              letter: dailyGameBoardData[id],
+              row: row,
+              col: col,
+              isFlipped: false,
+            };
+            board.push(tile);
+            id++;
+          }
         }
-      }
-      setNewGameBoard(board);
-    };
 
-    if (dailyBoardData?.dailyRandomization?.dailyBoard) {
-      const dailyGameBoardData = dailyBoardData.dailyRandomization.dailyBoard;
-      setDailyGameBoardString(dailyGameBoardData);
-      setDailyTail(dailyBoardData.dailyRandomization.dailyBoard.slice(49));
-      initializeGameBoard(dailyGameBoardData);
-    }
-  }, [numRows, numCols, dailyBoardData]);
+        setNewGameBoard(board);
+      };
+
+      if (dailyBoardData?.dailyRandomization?.dailyBoard) {
+        const dailyGameBoardData = dailyBoardData.dailyRandomization.dailyBoard;
+        setDailyGameBoardString(dailyGameBoardData);
+        setDailyTail(dailyBoardData?.dailyRandomization?.dailyBoard.slice(49));
+        initializeGameBoard(dailyGameBoardData);
+      }
+    }, [numRows, numCols, dailyBoardData, isLoggedIn]);
+  } else {
+    useEffect(() => {
+      const initializeGameBoard = () => {
+        const board = [];
+        let id = 0;
+        for (let row = 0; row < numRows; row++) {
+          for (let col = 0; col < numCols; col++) {
+            const tile = {
+              id: id,
+              letter: getRandomLetter(),
+              row: row,
+              col: col,
+              isFlipped: false,
+            };
+            board.push(tile);
+            id++;
+          }
+        }
+        setNewGameBoard(board);
+      };
+
+      initializeGameBoard();
+    }, [numRows, numCols]);
+  }
 
   const selectedTile = (tile) => {
     const isSelected = selectedIds.includes(tile.id);
@@ -184,17 +214,19 @@ export default function GameBoard() {
         setRealWord(false);
         setValidWord("");
 
-        try {
-          const dailyBoard = isMobile() ? tempString + dailyTail : tempString;
+        if (isLoggedIn) {
+          try {
+            const dailyBoard = isMobile() ? tempString + dailyTail : tempString;
 
-          const { data: updatedBoardData } = await updateBoard({
-            variables: {
-              userId: dailyBoardData.dailyRandomization._id,
-              dailyBoard: dailyBoard,
-            },
-          });
-        } catch (error) {
-          console.error("Error updating board:", error);
+            const { data: updatedBoardData } = await updateBoard({
+              variables: {
+                userId: dailyBoardData.dailyRandomization._id,
+                dailyBoard: dailyBoard,
+              },
+            });
+          } catch (error) {
+            console.error("Error updating board:", error);
+          }
         }
       }, 1000);
     } else {
@@ -276,7 +308,7 @@ export default function GameBoard() {
         <div>
           {dailyBoardData ? (
             <GameBoardBestWordList
-              words={dailyBoardData.dailyRandomization.words}
+              words={dailyBoardData?.dailyRandomization?.words}
             />
           ) : (
             <></>
@@ -285,7 +317,7 @@ export default function GameBoard() {
         <div>
           {dailyBoardData ? (
             <GameBoardMostRecentWordList
-              words={dailyBoardData.dailyRandomization.words}
+              words={dailyBoardData?.dailyRandomization?.words}
             />
           ) : (
             <></>

@@ -1,7 +1,7 @@
 import FlowerSprite from "./FlowerSprite";
 export default function GameBoardMostRecentWordList({ words }) {
-  let sortedWords = words.slice(words.length - 10, words.length);
-  sortedWords.reverse();
+  let sortedWords = words?.slice(words.length - 10, words.length);
+  sortedWords?.reverse();
   return (
     <section className="ml-5 flex justify-center flex-col md:text-3xl text-2xl p-3  border-green-500 border-solid border-2">
       <h1 className="md:text-3xl text-xl text-decoration-line: underline mb-2 text-center p-2">
