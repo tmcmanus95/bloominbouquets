@@ -1,6 +1,6 @@
 const { User, GiftedWords } = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
-
+const getDailyBoard = require("../utils/getDailyBoard");
 const resolvers = {
   Query: {
     users: async () => {
@@ -46,6 +46,35 @@ const resolvers = {
     },
     searchUsers: async (parent, { username }) => {
       return User.findOne({ username: username });
+    },
+    dailyRandomization: async (parent, args, context) => {
+      try {
+        if (context.user) {
+          const user = await User.findOne({ _id: context.user._id });
+          const now = new Date();
+          const lastGenerated = user.lastBoardGeneratedAt;
+
+          const isSameDay = (date1, date2) => {
+            return (
+              date1.getFullYear() === date2.getFullYear() &&
+              date1.getMonth() === date2.getMonth() &&
+              date1.getDate() === date2.getDate()
+            );
+          };
+
+          if (!lastGenerated || !isSameDay(now, lastGenerated)) {
+            const newBoard = getDailyBoard();
+            user.dailyBoard = newBoard;
+            user.lastBoardGeneratedAt = now;
+            await user.save();
+          }
+
+          return user;
+        }
+      } catch (err) {
+        console.log("Could not get daily board", err);
+        throw new Error("Could not get daily board");
+      }
     },
   },
   Mutation: {
@@ -216,6 +245,17 @@ const resolvers = {
         return true;
       } catch (error) {
         throw new Error("could not send word");
+      }
+    },
+    updateDailyBoard: async (_, { userId, dailyBoard }, context) => {
+      try {
+        const user = await User.findById(userId);
+        const newBoard = dailyBoard;
+        user.dailyBoard = newBoard;
+        user.save();
+        return user;
+      } catch (err) {
+        console.log("Could not update board", err);
       }
     },
   },
