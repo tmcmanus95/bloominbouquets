@@ -13,7 +13,7 @@ import FlowerSprite from "./FlowerSprite";
 export default function GameBoard() {
   const [selectedIds, setSelectedIds] = useState([]);
   const [dailyGameBoardString, setDailyGameBoardString] = useState("");
-
+  const [dailyTail, setDailyTail] = useState("");
   const [newGameBoard, setNewGameBoard] = useState([]);
   const [realWord, setRealWord] = useState(false);
   const [isFlipped, setIsFlipped] = useState(false);
@@ -32,7 +32,6 @@ export default function GameBoard() {
 
   const addLetter = (tile) => {
     const { id } = tile;
-
     if (selectedIds.includes(id)) {
       const lastSelectedId = selectedIds[selectedIds.length - 1];
       if (id === lastSelectedId) {
@@ -93,6 +92,7 @@ export default function GameBoard() {
     if (dailyBoardData?.dailyRandomization?.dailyBoard) {
       const dailyGameBoardData = dailyBoardData.dailyRandomization.dailyBoard;
       setDailyGameBoardString(dailyGameBoardData);
+      setDailyTail(dailyBoardData.dailyRandomization.dailyBoard.slice(49));
       initializeGameBoard(dailyGameBoardData);
     }
   }, [numRows, numCols, dailyBoardData]);
@@ -173,10 +173,11 @@ export default function GameBoard() {
 
         setNewGameBoard(resetBoard);
         let tempString = "";
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < resetBoard.length; i++) {
           tempString += resetBoard[i].letter;
         }
-        console.log("temp string", tempString);
+        let boardTest = tempString.length + dailyTail.length;
+
         setDailyGameBoardString(tempString);
 
         setSelectedIds([]);
@@ -184,13 +185,14 @@ export default function GameBoard() {
         setValidWord("");
 
         try {
+          const dailyBoard = isMobile() ? tempString + dailyTail : tempString;
+
           const { data: updatedBoardData } = await updateBoard({
             variables: {
               userId: dailyBoardData.dailyRandomization._id,
-              dailyBoard: tempString,
+              dailyBoard: dailyBoard,
             },
           });
-          console.log("updated board data", updatedBoardData);
         } catch (error) {
           console.error("Error updating board:", error);
         }
