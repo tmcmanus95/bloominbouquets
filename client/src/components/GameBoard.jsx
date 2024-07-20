@@ -15,6 +15,9 @@ export default function GameBoard() {
   const [selectedIds, setSelectedIds] = useState([]);
   const [dailyGameBoardString, setDailyGameBoardString] = useState("");
   const [dailyTail, setDailyTail] = useState("");
+  const [localStorageBoard, setLocalStorageBoard] = useState(
+    localStorage.getItem("dailyBoard")
+  );
   const [newGameBoard, setNewGameBoard] = useState([]);
   const [realWord, setRealWord] = useState(false);
   const [isFlipped, setIsFlipped] = useState(false);
@@ -102,6 +105,33 @@ export default function GameBoard() {
         initializeGameBoard(dailyGameBoardData);
       }
     }, [numRows, numCols, dailyBoardData, isLoggedIn]);
+  } else if (localStorageBoard?.length > 0) {
+    useEffect(() => {
+      const dailyGameBoardData = localStorage.getItem("dailyBoard");
+      setDailyGameBoardString(dailyGameBoardData);
+      setDailyTail(dailyGameBoardData.slice(48));
+
+      const initializeGameBoard = () => {
+        const board = [];
+        let id = 0;
+        for (let row = 0; row < numRows; row++) {
+          for (let col = 0; col < numCols; col++) {
+            const tile = {
+              id: id,
+              letter: dailyGameBoardData[id],
+              row: row,
+              col: col,
+              isFlipped: false,
+            };
+            board.push(tile);
+            id++;
+          }
+        }
+        setNewGameBoard(board);
+      };
+
+      initializeGameBoard();
+    }, [numRows, numCols]);
   } else {
     useEffect(() => {
       const initializeGameBoard = () => {
@@ -227,6 +257,10 @@ export default function GameBoard() {
           } catch (error) {
             console.error("Error updating board:", error);
           }
+        } else {
+          const dailyBoard = isMobile() ? tempString + dailyTail : tempString;
+
+          localStorage.setItem("dailyBoard", dailyBoard);
         }
       }, 1000);
     } else {
