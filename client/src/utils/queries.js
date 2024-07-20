@@ -101,3 +101,16 @@ export const NAVBAR_QUERY = gql`
     }
   }
 `;
+export const GET_DAILY_BOARD = gql`
+  query DailyRandomization {
+    dailyRandomization {
+      _id
+      username
+      dailyBoard
+      lastBoardGeneratedAt
+      color
+      seeds
+      words
+    }
+  }
+`;

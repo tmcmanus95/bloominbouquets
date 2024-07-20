@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { getRandomLetter } from "../utils/getRandomLetter";
 import { useMutation, useQuery } from "@apollo/client";
 import { ADD_WORD } from "../utils/mutations";
-import { QUERY_ME } from "../utils/queries";
+import { QUERY_ME, GET_DAILY_BOARD } from "../utils/queries";
 import CurrentWord from "./CurrentWord";
 import GameBoardBestWordList from "./GameBoardBestWordList";
 import GameBoardMostRecentWordList from "./GameBoardMostRecentWordList";
@@ -11,12 +11,19 @@ import FlowerSprite from "./FlowerSprite";
 
 export default function GameBoard() {
   const [selectedIds, setSelectedIds] = useState([]);
+  const [dailyGameBoardData, setDailyGameBoardData] = useState("");
   const [newGameBoard, setNewGameBoard] = useState([]);
   const [realWord, setRealWord] = useState(false);
   const [isFlipped, setIsFlipped] = useState(false);
   const [validWord, setValidWord] = useState("");
   const [invalidWord, setInvalidWord] = useState("");
-  const { data: meData, error: meError } = useQuery(QUERY_ME);
+  const { data: dailyBoardData, error: dailyBoardError } =
+    useQuery(GET_DAILY_BOARD);
+  if (dailyBoardData) {
+    console.log(dailyBoardData);
+  } else {
+    console.log("no dice");
+  }
   const [addWord, error] = useMutation(ADD_WORD);
   function isMobile() {
     return window.innerWidth <= 599;
@@ -64,14 +71,16 @@ export default function GameBoard() {
   };
 
   useEffect(() => {
-    const initializeGameBoard = () => {
+    const initializeGameBoard = (dailyGameBoardData) => {
+      if (!dailyGameBoardData) return;
+
       const board = [];
       let id = 0;
       for (let row = 0; row < numRows; row++) {
         for (let col = 0; col < numCols; col++) {
           const tile = {
             id: id,
-            letter: getRandomLetter(),
+            letter: dailyGameBoardData[id],
             row: row,
             col: col,
             isFlipped: false,
@@ -83,8 +92,13 @@ export default function GameBoard() {
       setNewGameBoard(board);
     };
 
-    initializeGameBoard();
-  }, [numRows, numCols]);
+    if (dailyBoardData?.dailyRandomization?.dailyBoard) {
+      const dailyGameBoardData = dailyBoardData.dailyRandomization.dailyBoard;
+      setDailyGameBoardData(dailyGameBoardData);
+      initializeGameBoard(dailyGameBoardData);
+      console.log("daily game board ", dailyGameBoardData);
+    }
+  }, [numRows, numCols, dailyBoardData]);
 
   const selectedTile = (tile) => {
     const isSelected = selectedIds.includes(tile.id);
@@ -176,7 +190,7 @@ export default function GameBoard() {
       const { data } = await addWord({
         variables: {
           word: newWord,
-          userId: meData.me._id,
+          userId: dailyBoardData.dailyRandomization._id,
         },
       });
     } catch (error) {
@@ -241,11 +255,19 @@ export default function GameBoard() {
       </div>
       <div className="flex flex-row justify-center mt-5">
         <div>
-          {meData ? <GameBoardBestWordList words={meData.me.words} /> : <></>}
+          {dailyBoardData ? (
+            <GameBoardBestWordList
+              words={dailyBoardData.dailyRandomization.words}
+            />
+          ) : (
+            <></>
+          )}
         </div>
         <div>
-          {meData ? (
-            <GameBoardMostRecentWordList words={meData.me.words} />
+          {dailyBoardData ? (
+            <GameBoardMostRecentWordList
+              words={dailyBoardData.dailyRandomization.words}
+            />
           ) : (
             <></>
           )}

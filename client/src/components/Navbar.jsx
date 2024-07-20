@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import Auth from "../utils/auth";
-import flowerIcon from "../assets/flowerfavicon.png";
 import { GiHamburgerMenu } from "react-icons/gi";
 import UserSearchBar from "./UserSearchBar";
 import { RiUserSearchLine } from "react-icons/ri";

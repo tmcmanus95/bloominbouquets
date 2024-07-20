@@ -79,3 +79,10 @@ export const ACCEPT_FRIEND_REQUEST = gql`
     }
   }
 `;
+export const UPDATE_DAILY_BOARD = gql`
+  mutation Mutation($userId: ID!, $dailyBoard: String) {
+    editDaysBoard(userId: $userId, dailyBoard: $dailyBoard) {
+      dailyBoard
+    }
+  }
+`;
