@@ -1,6 +1,7 @@
 const { User, GiftedWords } = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
 const getDailyBoard = require("../utils/getDailyBoard");
+const wordLengthToSeeds = require("../utils/wordLengthToSeeds");
 const resolvers = {
   Query: {
     users: async () => {
@@ -213,8 +214,6 @@ const resolvers = {
       }
     },
     addWord: async (_, { word, userId }, context) => {
-      // const userId = context;
-      // console.log("context", context);
       try {
         const user = await User.findById(userId);
         if (!user) {
@@ -225,7 +224,9 @@ const resolvers = {
         } else {
           console.log("word already there");
         }
-
+        const seeds = wordLengthToSeeds(word.length);
+        console.log(`${word.length} = ${seeds} seed(s)`);
+        user.goldenSeeds += seeds;
         await user.save();
 
         return user;

@@ -109,7 +109,7 @@ export const GET_DAILY_BOARD = gql`
       dailyBoard
       lastBoardGeneratedAt
       color
-      seeds
+      goldenSeeds
       words
     }
   }

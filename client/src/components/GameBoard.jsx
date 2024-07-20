@@ -24,7 +24,7 @@ export default function GameBoard() {
   const [validWord, setValidWord] = useState("");
   const [invalidWord, setInvalidWord] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(Auth.loggedIn());
-
+  const [goldenSeedAmount, setGoldenSeedAmount] = useState(0);
   const [updateBoard] = useMutation(UPDATE_DAILY_BOARD);
   const { data: dailyBoardData, error: dailyBoardError } =
     useQuery(GET_DAILY_BOARD);
@@ -76,8 +76,6 @@ export default function GameBoard() {
   if (isLoggedIn) {
     useEffect(() => {
       const initializeGameBoard = (dailyGameBoardData) => {
-        if (!dailyGameBoardData) return;
-
         const board = [];
         let id = 0;
 
@@ -100,8 +98,11 @@ export default function GameBoard() {
 
       if (dailyBoardData?.dailyRandomization?.dailyBoard) {
         const dailyGameBoardData = dailyBoardData.dailyRandomization.dailyBoard;
+        console.log("daily game board data", dailyBoardData);
         setDailyGameBoardString(dailyGameBoardData);
         setDailyTail(dailyBoardData?.dailyRandomization?.dailyBoard.slice(49));
+        setGoldenSeedAmount(dailyBoardData?.dailyRandomization?.goldenSeeds);
+        console.log("# of seeds", goldenSeedAmount);
         initializeGameBoard(dailyGameBoardData);
       }
     }, [numRows, numCols, dailyBoardData, isLoggedIn]);
@@ -278,6 +279,8 @@ export default function GameBoard() {
           userId: dailyBoardData.dailyRandomization._id,
         },
       });
+      console.log("add word data", data);
+      setGoldenSeedAmount(data.addWord.goldenSeeds);
     } catch (error) {
       console.log("Error adding word");
     }
@@ -338,6 +341,7 @@ export default function GameBoard() {
           Submit
         </button>
       </div>
+      <div>{goldenSeedAmount}</div>
       {isLoggedIn ? (
         <div className="flex flex-row justify-center mt-5">
           <div>

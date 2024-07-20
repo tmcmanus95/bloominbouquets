@@ -48,6 +48,7 @@ export const ADD_WORD = gql`
       _id
       username
       words
+      goldenSeeds
     }
   }
 `;

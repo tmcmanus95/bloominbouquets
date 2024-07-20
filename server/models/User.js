@@ -25,12 +25,13 @@ const userSchema = new Schema({
   },
   dailyBoard: {
     type: String,
+    default: null,
   },
   lastBoardGeneratedAt: {
     type: Date,
     default: null,
   },
-  seeds: {
+  goldenSeeds: {
     type: Number,
     default: 0,
   },
