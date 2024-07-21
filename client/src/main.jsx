@@ -14,6 +14,8 @@ import Home from "./pages/Home.jsx";
 import SendWord from "./pages/SendWord.jsx";
 import OtherProfile from "./pages/OtherProfile.jsx";
 import UserSearchResults from "./pages/UserSearchResults.jsx";
+import BouquetTesting from "./pages/BouquetTesting.jsx";
+import BuySeeds from "./pages/BuySeeds.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -48,6 +50,14 @@ const router = createBrowserRouter([
       {
         path: "/contact",
         element: <Contact />,
+      },
+      {
+        path: "/buySeeds",
+        element: <BuySeeds />,
+      },
+      {
+        path: "/bouquetTesting",
+        element: <BouquetTesting />,
       },
 
       {
