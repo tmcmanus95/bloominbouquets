@@ -445,7 +445,11 @@ export default function GameBoard() {
           </div>
         )}
       </div>
-      <div>{goldenSeedAmount}</div>
+      <div className="flex justify-center">
+        <h1 className=" bg-yellow-500 p-2 rounded-lg md:text-2xl text-xl mt-2">
+          {goldenSeedAmount}
+        </h1>
+      </div>
       {isLoggedIn ? (
         <div className="flex flex-row justify-center mt-5">
           <div>
