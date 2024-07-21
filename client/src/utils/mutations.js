@@ -48,6 +48,7 @@ export const ADD_WORD = gql`
       _id
       username
       words
+      goldenSeeds
     }
   }
 `;
@@ -83,6 +84,19 @@ export const UPDATE_DAILY_BOARD = gql`
   mutation Mutation($userId: ID!, $dailyBoard: String!) {
     updateDailyBoard(userId: $userId, dailyBoard: $dailyBoard) {
       dailyBoard
+    }
+  }
+`;
+
+export const SHUFFLE_BOARD = gql`
+  mutation Mutation($userId: ID!) {
+    shuffleBoard(userId: $userId) {
+      _id
+      username
+      dailyBoard
+      dailyShuffleCount
+      lastShuffleReset
+      goldenSeeds
     }
   }
 `;

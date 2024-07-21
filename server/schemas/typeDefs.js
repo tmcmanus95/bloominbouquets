@@ -7,7 +7,9 @@ type User {
     color: String
     dailyBoard: String
     lastBoardGeneratedAt: String
-    seeds: Float
+    dailyShuffleCount: Float
+    lastShuffleReset: String
+    goldenSeeds: Float
     friendRequests: [User]
     friends: [User]
     words: [String]
@@ -34,7 +36,7 @@ type Query {
 }
 type Mutation {
     addUser(username: String!, email: String!, password: String!, color: String): Auth
-    removeUser: User
+    removeUser(userId: ID!): User
     editUserColor(userId: ID!, color: String): User
     login(email: String!, password: String!): Auth
     sendFriendRequest(recipientId: ID!, userId: ID!): User
@@ -43,6 +45,8 @@ type Mutation {
     addWord(word: String!, userId: ID!): User
     sendWord(giftedWords: String!, recipientId: ID!, userId: ID!): User
     updateDailyBoard(userId: ID!, dailyBoard: String!): User
+    addGoldenSeeds(userId: ID!, seeds: Int): User
+    shuffleBoard(userId: ID!): User
 }
 `;
 module.exports = typeDefs;

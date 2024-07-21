@@ -3,17 +3,18 @@ import { getRandomLetter } from "../utils/getRandomLetter";
 import { useMutation, useQuery } from "@apollo/client";
 import { ADD_WORD } from "../utils/mutations";
 import { QUERY_ME, GET_DAILY_BOARD } from "../utils/queries";
-import { UPDATE_DAILY_BOARD } from "../utils/mutations";
+import { UPDATE_DAILY_BOARD, SHUFFLE_BOARD } from "../utils/mutations";
 import CurrentWord from "./CurrentWord";
 import GameBoardBestWordList from "./GameBoardBestWordList";
 import GameBoardMostRecentWordList from "./GameBoardMostRecentWordList";
 import wordsDictionary from "../assets/wordlist";
 import FlowerSprite from "./FlowerSprite";
 import Auth from "../utils/auth";
-
+import { shuffleCountToSeedReduction } from "../utils/shuffleCountToSeedReduction";
 export default function GameBoard() {
   const [selectedIds, setSelectedIds] = useState([]);
   const [dailyGameBoardString, setDailyGameBoardString] = useState("");
+  const [areYouSureVisible, setAreYouSureVisible] = useState(false);
   const [dailyTail, setDailyTail] = useState("");
   const [localStorageBoard, setLocalStorageBoard] = useState(
     localStorage.getItem("dailyBoard")
@@ -23,12 +24,16 @@ export default function GameBoard() {
   const [isFlipped, setIsFlipped] = useState(false);
   const [validWord, setValidWord] = useState("");
   const [invalidWord, setInvalidWord] = useState("");
+  const [shufflePrice, setShufflePrice] = useState(50);
   const [isLoggedIn, setIsLoggedIn] = useState(Auth.loggedIn());
-
+  const [goldenSeedAmount, setGoldenSeedAmount] = useState(0);
+  const [dailyShuffleCount, setDailyShuffleCount] = useState(0);
   const [updateBoard] = useMutation(UPDATE_DAILY_BOARD);
   const { data: dailyBoardData, error: dailyBoardError } =
     useQuery(GET_DAILY_BOARD);
   const [addWord, error] = useMutation(ADD_WORD);
+  const [shuffleBoard, { error: shuffleBoardError }] =
+    useMutation(SHUFFLE_BOARD);
   function isMobile() {
     return window.innerWidth <= 599;
   }
@@ -54,6 +59,9 @@ export default function GameBoard() {
     const { id } = tile;
     return selectedIds.some((selectedId) => isAdjacentTile(selectedId, id));
   };
+  const toggleAreYouSure = () => {
+    setAreYouSureVisible(!areYouSureVisible);
+  };
 
   const isAdjacentTile = (id1, id2) => {
     const tile1 = getTileById(id1);
@@ -76,8 +84,6 @@ export default function GameBoard() {
   if (isLoggedIn) {
     useEffect(() => {
       const initializeGameBoard = (dailyGameBoardData) => {
-        if (!dailyGameBoardData) return;
-
         const board = [];
         let id = 0;
 
@@ -100,8 +106,19 @@ export default function GameBoard() {
 
       if (dailyBoardData?.dailyRandomization?.dailyBoard) {
         const dailyGameBoardData = dailyBoardData.dailyRandomization.dailyBoard;
+        console.log("daily game board data", dailyBoardData);
         setDailyGameBoardString(dailyGameBoardData);
         setDailyTail(dailyBoardData?.dailyRandomization?.dailyBoard.slice(49));
+        setGoldenSeedAmount(dailyBoardData?.dailyRandomization?.goldenSeeds);
+        setDailyShuffleCount(
+          dailyBoardData?.dailyRandomization?.dailyShuffleCount
+        );
+        setShufflePrice(
+          shuffleCountToSeedReduction(
+            dailyBoardData?.dailyRandomization?.dailyShuffleCount
+          )
+        );
+        console.log("# of seeds", goldenSeedAmount);
         initializeGameBoard(dailyGameBoardData);
       }
     }, [numRows, numCols, dailyBoardData, isLoggedIn]);
@@ -270,6 +287,26 @@ export default function GameBoard() {
     }
   }
 
+  const handleShuffleBoard = async () => {
+    try {
+      const { data } = await shuffleBoard({
+        variables: {
+          userId: dailyBoardData.dailyRandomization._id,
+        },
+      });
+      console.log("add word data", data);
+      setGoldenSeedAmount(data.shuffleBoard.goldenSeeds);
+      setDailyShuffleCount(data.shuffleBoard.dailyShuffleCount);
+      setShufflePrice(
+        shuffleCountToSeedReduction(data.shuffleBoard.dailyShuffleCount)
+      );
+
+      toggleAreYouSure();
+    } catch (error) {
+      console.log("Error adding word");
+    }
+  };
+
   const handleAddWord = async (newWord) => {
     try {
       const { data } = await addWord({
@@ -278,6 +315,8 @@ export default function GameBoard() {
           userId: dailyBoardData.dailyRandomization._id,
         },
       });
+      console.log("add word data", data);
+      setGoldenSeedAmount(data.addWord.goldenSeeds);
     } catch (error) {
       console.log("Error adding word");
     }
@@ -326,18 +365,54 @@ export default function GameBoard() {
           </div>
         </div>
       </div>
-      <div className="flex justify-center">
-        <button
-          className="flex dark:bg-green-900 bg-green-300 hover:bg-green-500 dark:text-white text-black"
-          onClick={async () => {
-            await checkWordValidity(
-              selectedIds.map((id) => getTileById(id).letter)
-            );
-          }}
-        >
-          Submit
-        </button>
+      <div className="flex-col justify-center text-center">
+        <div className="flex justify-center">
+          <button
+            className="flex dark:bg-green-900 bg-green-300 hover:bg-green-500 dark:text-white text-black"
+            onClick={async () => {
+              await checkWordValidity(
+                selectedIds.map((id) => getTileById(id).letter)
+              );
+            }}
+          >
+            Submit
+          </button>
+          {isLoggedIn && (
+            <>
+              {!areYouSureVisible ? (
+                <button
+                  className="flex dark:bg-green-900 bg-green-300 hover:bg-green-500 dark:text-white text-black"
+                  onClick={async () => await toggleAreYouSure()}
+                >
+                  Shuffle {dailyShuffleCount}
+                </button>
+              ) : (
+                <></>
+              )}
+            </>
+          )}
+        </div>
+        {areYouSureVisible && (
+          <div>
+            <h1 className="">Shuffling will cost {shufflePrice} seeds</h1>
+            <div className="">
+              <button
+                className=" dark:bg-green-900 bg-green-300 hover:bg-green-500 dark:text-white text-black"
+                onClick={async () => await handleShuffleBoard()}
+              >
+                Shuffle anyway
+              </button>
+              <button
+                className=" dark:bg-red-900 bg-red-300 hover:bg-red-500 dark:text-white text-black"
+                onClick={async () => await toggleAreYouSure()}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        )}
       </div>
+      <div>{goldenSeedAmount}</div>
       {isLoggedIn ? (
         <div className="flex flex-row justify-center mt-5">
           <div>
