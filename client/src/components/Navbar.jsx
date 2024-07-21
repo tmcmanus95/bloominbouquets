@@ -35,7 +35,7 @@ export default function Navbar() {
         </Link>
         {data ? (
           <Link to="/me">
-            <IoFlowerOutline style={{ color: data.me.color }} />
+            <IoFlowerOutline style={{ color: data?.me?.color }} />
           </Link>
         ) : (
           <></>
@@ -52,7 +52,7 @@ export default function Navbar() {
             <div className="hidden md:gap-5 md:flex md:flex-row">
               {Auth.loggedIn ? (
                 <Link to="/me" className="hover:bg-green-900 lg:p-2 rounded-lg">
-                  Welcome {data.me.username}
+                  Welcome {data?.me?.username}
                 </Link>
               ) : (
                 <Link className="hover:bg-green-900 lg:p-2 rounded-lg" to="/">

@@ -10,6 +10,7 @@ import GameBoardMostRecentWordList from "./GameBoardMostRecentWordList";
 import wordsDictionary from "../assets/wordlist";
 import FlowerSprite from "./FlowerSprite";
 import Auth from "../utils/auth";
+import { Link } from "react-router-dom";
 import { shuffleCountToSeedReduction } from "../utils/shuffleCountToSeedReduction";
 export default function GameBoard() {
   const [selectedIds, setSelectedIds] = useState([]);
@@ -25,6 +26,7 @@ export default function GameBoard() {
   const [validWord, setValidWord] = useState("");
   const [invalidWord, setInvalidWord] = useState("");
   const [shufflePrice, setShufflePrice] = useState(50);
+  const [insufficientSeeds, setInsufficentSeeds] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(Auth.loggedIn());
   const [goldenSeedAmount, setGoldenSeedAmount] = useState(0);
   const [dailyShuffleCount, setDailyShuffleCount] = useState(0);
@@ -106,7 +108,6 @@ export default function GameBoard() {
 
       if (dailyBoardData?.dailyRandomization?.dailyBoard) {
         const dailyGameBoardData = dailyBoardData.dailyRandomization.dailyBoard;
-        console.log("daily game board data", dailyBoardData);
         setDailyGameBoardString(dailyGameBoardData);
         setDailyTail(dailyBoardData?.dailyRandomization?.dailyBoard.slice(49));
         setGoldenSeedAmount(dailyBoardData?.dailyRandomization?.goldenSeeds);
@@ -118,7 +119,6 @@ export default function GameBoard() {
             dailyBoardData?.dailyRandomization?.dailyShuffleCount
           )
         );
-        console.log("# of seeds", goldenSeedAmount);
         initializeGameBoard(dailyGameBoardData);
       }
     }, [numRows, numCols, dailyBoardData, isLoggedIn]);
@@ -294,7 +294,6 @@ export default function GameBoard() {
           userId: dailyBoardData.dailyRandomization._id,
         },
       });
-      console.log("add word data", data);
       setGoldenSeedAmount(data.shuffleBoard.goldenSeeds);
       setDailyShuffleCount(data.shuffleBoard.dailyShuffleCount);
       setShufflePrice(
@@ -315,12 +314,24 @@ export default function GameBoard() {
           userId: dailyBoardData.dailyRandomization._id,
         },
       });
-      console.log("add word data", data);
       setGoldenSeedAmount(data.addWord.goldenSeeds);
     } catch (error) {
       console.log("Error adding word");
     }
   };
+
+  const hasEnoughSeeds = () => {
+    if (goldenSeedAmount >= shufflePrice) {
+      toggleAreYouSure();
+    } else {
+      toggleInsufficientSeeds();
+    }
+  };
+
+  const toggleInsufficientSeeds = () => {
+    setInsufficentSeeds(!insufficientSeeds);
+  };
+
   return (
     <div className=" dark:text-white mt-8 text-black pb-20">
       {/* <CurrentWord
@@ -382,7 +393,7 @@ export default function GameBoard() {
               {!areYouSureVisible ? (
                 <button
                   className="flex dark:bg-green-900 bg-green-300 hover:bg-green-500 dark:text-white text-black"
-                  onClick={async () => await toggleAreYouSure()}
+                  onClick={async () => await hasEnoughSeeds()}
                 >
                   Shuffle {dailyShuffleCount}
                 </button>
@@ -392,6 +403,28 @@ export default function GameBoard() {
             </>
           )}
         </div>
+        {insufficientSeeds && (
+          <div>
+            <h1 className="">You need {shufflePrice} seeds to shuffle</h1>
+            <div className="">
+              <Link
+                to={`/buySeeds`}
+                onClick={async () => await toggleInsufficientSeeds()}
+              >
+                <button className=" dark:bg-green-900 bg-green-300 hover:bg-green-500 dark:text-white text-black">
+                  Buy more
+                </button>
+              </Link>
+              <button
+                className=" dark:bg-red-900 bg-red-300 hover:bg-red-500 dark:text-white text-black"
+                onClick={async () => await toggleInsufficientSeeds()}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        )}
+
         {areYouSureVisible && (
           <div>
             <h1 className="">Shuffling will cost {shufflePrice} seeds</h1>
