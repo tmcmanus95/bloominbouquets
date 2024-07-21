@@ -1,4 +1,4 @@
-function shuffleCounttoSeedReduction(shuffleCount) {
+function shuffleCountToSeedReduction(shuffleCount) {
   switch (shuffleCount) {
     case 0:
       return 50;
@@ -14,4 +14,4 @@ function shuffleCounttoSeedReduction(shuffleCount) {
   }
 }
 
-module.exports = shuffleCounttoSeedReduction;
+module.exports = shuffleCountToSeedReduction;

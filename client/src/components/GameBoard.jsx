@@ -10,7 +10,7 @@ import GameBoardMostRecentWordList from "./GameBoardMostRecentWordList";
 import wordsDictionary from "../assets/wordlist";
 import FlowerSprite from "./FlowerSprite";
 import Auth from "../utils/auth";
-
+import { shuffleCountToSeedReduction } from "../utils/shuffleCountToSeedReduction";
 export default function GameBoard() {
   const [selectedIds, setSelectedIds] = useState([]);
   const [dailyGameBoardString, setDailyGameBoardString] = useState("");
@@ -24,6 +24,7 @@ export default function GameBoard() {
   const [isFlipped, setIsFlipped] = useState(false);
   const [validWord, setValidWord] = useState("");
   const [invalidWord, setInvalidWord] = useState("");
+  const [shufflePrice, setShufflePrice] = useState(50);
   const [isLoggedIn, setIsLoggedIn] = useState(Auth.loggedIn());
   const [goldenSeedAmount, setGoldenSeedAmount] = useState(0);
   const [dailyShuffleCount, setDailyShuffleCount] = useState(0);
@@ -111,6 +112,11 @@ export default function GameBoard() {
         setGoldenSeedAmount(dailyBoardData?.dailyRandomization?.goldenSeeds);
         setDailyShuffleCount(
           dailyBoardData?.dailyRandomization?.dailyShuffleCount
+        );
+        setShufflePrice(
+          shuffleCountToSeedReduction(
+            dailyBoardData?.dailyRandomization?.dailyShuffleCount
+          )
         );
         console.log("# of seeds", goldenSeedAmount);
         initializeGameBoard(dailyGameBoardData);
@@ -291,6 +297,10 @@ export default function GameBoard() {
       console.log("add word data", data);
       setGoldenSeedAmount(data.shuffleBoard.goldenSeeds);
       setDailyShuffleCount(data.shuffleBoard.dailyShuffleCount);
+      setShufflePrice(
+        shuffleCountToSeedReduction(data.shuffleBoard.dailyShuffleCount)
+      );
+
       toggleAreYouSure();
     } catch (error) {
       console.log("Error adding word");
@@ -355,37 +365,50 @@ export default function GameBoard() {
           </div>
         </div>
       </div>
-      <div className="flex justify-center">
-        <button
-          className="flex dark:bg-green-900 bg-green-300 hover:bg-green-500 dark:text-white text-black"
-          onClick={async () => {
-            await checkWordValidity(
-              selectedIds.map((id) => getTileById(id).letter)
-            );
-          }}
-        >
-          Submit
-        </button>
-        {isLoggedIn && (
+      <div className="flex-col justify-center text-center">
+        <div className="flex justify-center">
           <button
             className="flex dark:bg-green-900 bg-green-300 hover:bg-green-500 dark:text-white text-black"
-            onClick={async () => await toggleAreYouSure()}
+            onClick={async () => {
+              await checkWordValidity(
+                selectedIds.map((id) => getTileById(id).letter)
+              );
+            }}
           >
-            Shuffle {dailyShuffleCount}
+            Submit
           </button>
-        )}
+          {isLoggedIn && (
+            <>
+              {!areYouSureVisible ? (
+                <button
+                  className="flex dark:bg-green-900 bg-green-300 hover:bg-green-500 dark:text-white text-black"
+                  onClick={async () => await toggleAreYouSure()}
+                >
+                  Shuffle {dailyShuffleCount}
+                </button>
+              ) : (
+                <></>
+              )}
+            </>
+          )}
+        </div>
         {areYouSureVisible && (
           <div>
-            <h1>Shuffling will cost X amount</h1>
-            <button
-              className="flex dark:bg-green-900 bg-green-300 hover:bg-green-500 dark:text-white text-black"
-              onClick={async () => await handleShuffleBoard()}
-            >
-              Shuffle anyway {dailyShuffleCount}
-            </button>
-            <button onClick={async () => await toggleAreYouSure()}>
-              Cancel
-            </button>
+            <h1 className="">Shuffling will cost {shufflePrice} seeds</h1>
+            <div className="">
+              <button
+                className=" dark:bg-green-900 bg-green-300 hover:bg-green-500 dark:text-white text-black"
+                onClick={async () => await handleShuffleBoard()}
+              >
+                Shuffle anyway
+              </button>
+              <button
+                className=" dark:bg-red-900 bg-red-300 hover:bg-red-500 dark:text-white text-black"
+                onClick={async () => await toggleAreYouSure()}
+              >
+                Cancel
+              </button>
+            </div>
           </div>
         )}
       </div>

@@ -1,7 +1,7 @@
 const { User, GiftedWords } = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
 const getDailyBoard = require("../utils/getDailyBoard");
-const shuffleCounttoSeedReduction = require("../utils/shuffleCountToSeedReduction");
+const shuffleCountToSeedReduction = require("../utils/shuffleCountToSeedReduction");
 const wordLengthToSeeds = require("../utils/wordLengthToSeeds");
 const resolvers = {
   Query: {
@@ -290,7 +290,7 @@ const resolvers = {
         user.dailyBoard = newBoard;
         user.lastShuffleReset = now;
 
-        const seedCost = shuffleCounttoSeedReduction(dailyShuffleCount);
+        const seedCost = shuffleCountToSeedReduction(dailyShuffleCount);
         if (user.goldenSeeds < seedCost) {
           console.log("Not enough golden seeds");
           return;
