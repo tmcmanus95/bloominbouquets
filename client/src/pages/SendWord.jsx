@@ -44,6 +44,7 @@ export default function SendWord() {
   };
   const addWordToSend = (word) => {
     setWordsToSend([...wordsToSend, word]);
+    console.log("words to send: ", wordsToSend);
     setWords(data.me.words);
     setSearchTerm("");
   };

@@ -1,3 +1,5 @@
+import Bouquet from "./Bouquet";
+
 export default function UserReceivedWords({ bouquets }) {
   if (bouquets) {
     console.log("bouquets", bouquets);
@@ -7,18 +9,12 @@ export default function UserReceivedWords({ bouquets }) {
     }
   }
   return (
-    <div>
+    <div className="mt-30 dark:text-white flex justify-center flex-col">
       <h1 className="text-center">Received bouquets</h1>
-      <div className="flex flex-row flex-wrap">
+      <div className="border-2 dark:border-white grid md:grid-cols-4 grid-cols-2 text-center">
         {bouquets &&
           bouquets.map((bouquet, index) => (
-            <div
-              key={index}
-              className="border-solid border-2 flex flex-col rounded-lg m-2 p-2"
-            >
-              <h1>{bouquet.giftedWords}</h1>
-              <h1>From: {bouquet.sender.username}</h1>
-            </div>
+            <Bouquet words={bouquet.giftedWords} />
           ))}
       </div>
     </div>

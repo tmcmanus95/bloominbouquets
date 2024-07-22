@@ -2,12 +2,16 @@ import { bouquetsImageStylings } from "../utils/bouquetsImageStylings";
 import { flowerSourceFinder } from "../utils/flowerSourceFinder";
 import { wordsToStemMatching } from "../utils/wordsToStemMatching";
 export default function Bouquet({ words }) {
-  const wordAmount = words.length;
+  let bouquet = words[0].split(",");
+  // let bouquet = words[0].splice(",");
+  console.log("bouquet", bouquet);
+  const wordAmount = bouquet.length;
+  console.log("wordAmount", wordAmount);
   return (
     <div className="m-5 dark:border-white border-2">
       <h1>{wordAmount} Words</h1>
       <div className=" flex flex-row justify-center">
-        {words.map((word, index) => (
+        {bouquet.map((word, index) => (
           <img
             className={`relative hover:scale-75 md:hover:scale-125 md:scale-100 scale-50 ${bouquetsImageStylings(
               wordAmount,

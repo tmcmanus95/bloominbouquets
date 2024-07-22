@@ -346,7 +346,7 @@ export default function BouquetTesting() {
 
           <h2 className="bg-blue-500">5 stems</h2>
         </div>
-        <Bouquet words={["testing", "this"]} />
+        <Bouquet words={["testing,this"]} />
         <Bouquet words={["three", "wordys", "now"]} />
         <Bouquet words={["three", "wordys", "now", "boy"]} />
         <Bouquet words={["three", "wordys", "now", "boy", "loony"]} />
