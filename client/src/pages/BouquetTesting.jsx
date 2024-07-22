@@ -1,3 +1,4 @@
+import Bouquet from "../components/Bouquet";
 export default function BouquetTesting() {
   return (
     <div className="mt-30 dark:text-white flex justify-center flex-col">
@@ -17,7 +18,7 @@ export default function BouquetTesting() {
               alt="Daisy Flower"
             ></img>
           </div>
-          <div className="flex justify-center  ">
+          <div className="flex justify-center">
             <img
               className="md:-mt-2 md:scale-100 -mt-4 scale-75"
               src="stemSprites/twoStem.png"
@@ -44,7 +45,7 @@ export default function BouquetTesting() {
               src="bouquetSprites/dandelionFlower.png"
             ></img>
           </div>
-          <div className="flex justify-center  ">
+          <div className="flex justify-center">
             <img
               className="md:-mt-2 md:scale-100 -mt-4 scale-75"
               src="stemSprites/twoStem.png"
@@ -345,6 +346,63 @@ export default function BouquetTesting() {
 
           <h2 className="bg-blue-500">5 stems</h2>
         </div>
+        <Bouquet words={["testing", "this"]} />
+        <Bouquet words={["three", "wordys", "now"]} />
+        <Bouquet words={["three", "wordys", "now", "boy"]} />
+        <Bouquet words={["three", "wordys", "now", "boy", "loony"]} />
+        <Bouquet
+          words={["three", "wordys", "now", "boy", "loony", "boominey"]}
+        />
+        <Bouquet
+          words={[
+            "three",
+            "wordys",
+            "now",
+            "boy",
+            "loony",
+            "boominey",
+            "thomasy",
+          ]}
+        />
+        <Bouquet
+          words={[
+            "three",
+            "wordys",
+            "now",
+            "boy",
+            "wowza",
+            "loony",
+            "boominey",
+            "thomasy",
+          ]}
+        />
+        <Bouquet
+          words={[
+            "three",
+            "wordys",
+            "now",
+            "boy",
+            "wowza",
+            "thomasina",
+            "loony",
+            "boominey",
+            "thomasy",
+          ]}
+        />
+        <Bouquet
+          words={[
+            "three",
+            "polly",
+            "wordys",
+            "now",
+            "boy",
+            "wowza",
+            "thomasina",
+            "loony",
+            "boominey",
+            "thomasy",
+          ]}
+        />
       </div>
     </div>
   );
