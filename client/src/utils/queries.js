@@ -64,6 +64,7 @@ export const QUERY_MY_WORDS_AND_MY_FRIENDS = gql`
     me {
       _id
       words
+      username
       friends {
         _id
         username

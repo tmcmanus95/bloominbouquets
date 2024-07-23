@@ -15,6 +15,7 @@ export default function UserReceivedWords({ bouquets }) {
         {bouquets &&
           bouquets.map((bouquet, index) => (
             <Bouquet
+              key={index}
               words={bouquet.giftedWords}
               senderUsername={bouquet.sender.username}
               senderId={bouquet.sender._id}
