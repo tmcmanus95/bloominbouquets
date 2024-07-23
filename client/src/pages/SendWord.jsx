@@ -3,6 +3,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { SEND_WORD } from "../utils/mutations";
 import { QUERY_MY_WORDS_AND_MY_FRIENDS } from "../utils/queries";
 import FlowerSprite from "../components/FlowerSprite";
+import Bouquet from "../components/Bouquet";
 export default function SendWord() {
   const { data, loading } = useQuery(QUERY_MY_WORDS_AND_MY_FRIENDS);
   const [sendWord, error] = useMutation(SEND_WORD);
@@ -17,9 +18,6 @@ export default function SendWord() {
   const [wordsToSend, setWordsToSend] = useState([]);
   const handleSendWord = async (wordsToSend) => {
     let userId = data.me._id;
-    console.log(
-      `userId: ${userId} | recipientId: ${recipientId} | ${wordsToSend}`
-    );
     const stringWordsToSend = wordsToSend.join(",");
     try {
       const { data } = await sendWord({
@@ -29,7 +27,6 @@ export default function SendWord() {
           recipientId: recipientId,
         },
       });
-      console.log("data", data);
       setWordSent(true);
     } catch (error) {
       console.log("Could not send word");
@@ -43,8 +40,7 @@ export default function SendWord() {
     setSearchUsername("");
   };
   const addWordToSend = (word) => {
-    setWordsToSend([...wordsToSend, word]);
-    console.log("words to send: ", wordsToSend);
+    setWordsToSend((prevWords) => [...prevWords, word]);
     setWords(data.me.words);
     setSearchTerm("");
   };
@@ -59,7 +55,6 @@ export default function SendWord() {
     if (data) {
       if (data.me.friends.length > 0) {
         setFriends(data.me.friends);
-        console.log("friends", friends);
       }
       if (data.me.words.length > 0) {
         setWords(data.me.words);
@@ -69,7 +64,6 @@ export default function SendWord() {
   const filteredFriends = friends.filter((friend) =>
     friend.username.toLowerCase().includes(searchUsername.toLowerCase())
   );
-  console.log("filteredFriends,", filteredFriends);
   const filteredWords = words.filter((word) =>
     word.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -83,6 +77,11 @@ export default function SendWord() {
             <h1 className="border-2 border-black text-xl flex justify-center p-3 rounded-lg">
               Send a Bouquet
             </h1>
+            <Bouquet
+              words={wordsToSend}
+              senderUsername={data?.me.username}
+              senderId={data?.me._id}
+            />
             <div className="flex flex-row mt-3">
               {wordsToSend.map((word, index) => (
                 <div key={index} className="flex flex-row">
