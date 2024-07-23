@@ -14,7 +14,11 @@ export default function UserReceivedWords({ bouquets }) {
       <div className="border-2 dark:border-white grid md:grid-cols-4 grid-cols-2 text-center">
         {bouquets &&
           bouquets.map((bouquet, index) => (
-            <Bouquet words={bouquet.giftedWords} />
+            <Bouquet
+              words={bouquet.giftedWords}
+              senderUsername={bouquet.sender.username}
+              senderId={bouquet.sender._id}
+            />
           ))}
       </div>
     </div>

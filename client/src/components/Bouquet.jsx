@@ -1,7 +1,8 @@
 import { bouquetsImageStylings } from "../utils/bouquetsImageStylings";
 import { flowerSourceFinder } from "../utils/flowerSourceFinder";
 import { wordsToStemMatching } from "../utils/wordsToStemMatching";
-export default function Bouquet({ words }) {
+import { Link } from "react-router-dom";
+export default function Bouquet({ words, senderUsername, senderId }) {
   let bouquet = words[0].split(",");
   // let bouquet = words[0].splice(",");
   console.log("bouquet", bouquet);
@@ -9,7 +10,9 @@ export default function Bouquet({ words }) {
   console.log("wordAmount", wordAmount);
   return (
     <div className="m-5 dark:border-white border-2">
-      <h1>{wordAmount} Words</h1>
+      <Link to={`/user/${senderId}`}>
+        <h1>From: {senderUsername}</h1>
+      </Link>
       <div className=" flex flex-row justify-center">
         {bouquet.map((word, index) => (
           <img
@@ -28,7 +31,13 @@ export default function Bouquet({ words }) {
           src={wordsToStemMatching(wordAmount)}
         ></img>
       </div>
-      <h2>2 stems</h2>
+      <div>
+        <h2>
+          {bouquet.map((word, index) => (
+            <span>{word} </span>
+          ))}
+        </h2>
+      </div>
     </div>
   );
 }
