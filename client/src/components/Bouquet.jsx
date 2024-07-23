@@ -28,7 +28,13 @@ export default function Bouquet({ words }) {
           src={wordsToStemMatching(wordAmount)}
         ></img>
       </div>
-      <h2>2 stems</h2>
+      <div>
+        <h2>
+          {bouquet.map((word, index) => (
+            <span>{word} </span>
+          ))}
+        </h2>
+      </div>
     </div>
   );
 }
