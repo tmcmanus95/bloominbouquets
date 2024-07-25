@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
-import { LOGIN_USER } from "../utils/mutations";
-import Auth from "../utils/auth";
+import { LOGIN_USER } from "../../utils/mutations";
+import Auth from "../../utils/auth";
 
 const Login = (props) => {
   const [formState, setFormState] = useState({ email: "", password: "" });
@@ -41,7 +41,7 @@ const Login = (props) => {
 
   return (
     <div className="flex justify-center items-center h-screen">
-      <div className="max-w-md w-full p-8 bg-white rounded-lg shadow-lg">
+      <div className="max-w-md w-full p-8 bg-white rounded-lg shadow-lg text-black">
         <h1 className="text-3xl text-center mb-6">Login</h1>
 
         {data ? (
@@ -53,7 +53,7 @@ const Login = (props) => {
           <form onSubmit={handleFormSubmit} id="loginForm">
             <div className="mb-5 border-2 border-solid px-1 border-sky-300">
               <input
-                className="form-input w-full"
+                className="form-input w-full text-black"
                 placeholder="Your email"
                 name="email"
                 type="email"
@@ -64,13 +64,28 @@ const Login = (props) => {
 
             <div className="mb-5 border-2 border-solid px-1 border-sky-300">
               <input
-                className="form-input w-full "
+                className="form-input w-full text-black"
                 placeholder="******"
                 name="password"
                 type="password"
                 value={formState.password}
                 onChange={handleChange}
               />
+            </div>
+            <div className="flex justify-between">
+              <div className="flex-col flex">
+                <div className="text-sm">Don't have an account?</div>
+                <Link to={`/signUp`}>
+                  <h5 className="hover:bg-blue-300 rounded-lg text-sm text-center">
+                    Sign Up
+                  </h5>
+                </Link>
+              </div>
+              <div>
+                <Link to={"/forgotPassword"}>
+                  <h4>Forgot password</h4>
+                </Link>
+              </div>
             </div>
 
             <div className="text-center">
