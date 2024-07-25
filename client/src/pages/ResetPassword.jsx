@@ -43,11 +43,11 @@ export default function ResetPassword() {
   return (
     <div className="flex justify-center items-center h-screen">
       {data ? (
-        <div className="flex flex-col items-center mt-40 mb-50 md:text-3xl dark:border-white border-blue-300 border-2 md:mx-60 mx-10 p-3">
+        <div className="flex flex-col items-center mt-40 mb-50 md:text-3xl dark:border-white border-green-300 border-2 md:mx-60 mx-10 p-3">
           <h1>Password reset successfully!</h1>
           <h2>You may now login!</h2>
           <Link
-            className="mt-10 hover:bg-blue-100 dark:hover:bg-gray-700 p-2 rounded-lg"
+            className="mt-10 hover:bg-green-100 dark:hover:bg-gray-700 p-2 rounded-lg"
             to={"/login"}
           >
             Login
@@ -59,7 +59,7 @@ export default function ResetPassword() {
             Reset Password
           </h1>
           <form onSubmit={handleFormSubmit}>
-            <div className="mb-4 border-2 border-solid px-1 border-sky-300">
+            <div className="mb-4 border-2 border-solid px-1 border-green-300">
               <input
                 className="form-input w-full text-black"
                 placeholder="Your email"
@@ -70,7 +70,7 @@ export default function ResetPassword() {
               />
             </div>
 
-            <div className="mb-4 border-2 border-solid px-1 border-sky-300">
+            <div className="mb-4 border-2 border-solid px-1 border-green-300">
               <input
                 className="form-input w-full text-black"
                 placeholder="New Password"
@@ -80,7 +80,7 @@ export default function ResetPassword() {
                 onChange={handleChange}
               />
             </div>
-            <div className="mb-4 border-2 border-solid px-1 border-sky-300">
+            <div className="mb-4 border-2 border-solid px-1 border-green-300">
               <input
                 className="form-input w-full text-black"
                 placeholder="Confirm New Password"
@@ -105,7 +105,7 @@ export default function ResetPassword() {
 
             <div className="text-center">
               <button
-                className="bg-transparent hover:bg-blue-300 text-blue-500 font-semibold hover:text-white py-2 px-4 border border-blue-300 hover:border-transparent rounded"
+                className="bg-transparent hover:bg-green-300 text-green-500 font-semibold hover:text-white py-2 px-4 border border-green-300 hover:border-transparent rounded"
                 style={{ cursor: "pointer" }}
                 type="submit"
               >

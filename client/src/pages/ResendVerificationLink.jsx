@@ -35,7 +35,7 @@ export default function ResendVerificationLink() {
   return (
     <div className="flex justify-center items-center h-screen">
       {data ? (
-        <div className="flex flex-col items-center mb-50 md:text-3xl dark:border-white border-blue-300 border-2 md:mx-60 mx-10 p-3">
+        <div className="flex flex-col items-center mb-50 md:text-3xl dark:border-white border-green-300 border-2 md:mx-60 mx-10 p-3">
           <h1>Resent Verification Link</h1>
           <h2 className="text-center">
             Click the link sent to your email to verify your account.
@@ -47,7 +47,7 @@ export default function ResendVerificationLink() {
             Resend Account Verification Link
           </h1>
           <form onSubmit={handleFormSubmit}>
-            <div className="mb-4 border-2 border-solid px-1 border-sky-300">
+            <div className="mb-4 border-2 border-solid px-1 border-green-300">
               <input
                 className="form-input w-full text-black"
                 placeholder="Your email"
@@ -65,7 +65,7 @@ export default function ResendVerificationLink() {
 
             <div className="text-center">
               <button
-                className="bg-transparent hover:bg-blue-300 text-blue-500 font-semibold hover:text-white py-2 px-4 border border-blue-300 hover:border-transparent rounded"
+                className="bg-transparent hover:bg-green-300 text-green-500 font-semibold hover:text-white py-2 px-4 border border-green-300 hover:border-transparent rounded"
                 style={{ cursor: "pointer" }}
                 type="submit"
               >
