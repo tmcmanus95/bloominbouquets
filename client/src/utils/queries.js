@@ -81,6 +81,15 @@ export const QUERY_USERS = gql`
     }
   }
 `;
+export const QUERY_MEID = gql`
+  query Query {
+    meId {
+      _id
+      username
+      isVerified
+    }
+  }
+`;
 
 export const QUERY_USER_FRIEND_REQUESTS = gql`
   query Query($userId: ID!) {

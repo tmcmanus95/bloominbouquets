@@ -14,6 +14,11 @@ type User {
     friends: [User]
     words: [String]
     giftedWords: [GiftedWords]
+    isVerified: Boolean
+    emailVerificationToken: String
+    passwordResetToken: String
+    passwordResetExpires: String
+
 }
 
 type GiftedWords {
@@ -26,10 +31,17 @@ type Auth {
     token: ID!
     user: User
 }
+
+type AuthPayload {
+    token: String
+    user: User
+}
+
 type Query {
     users: [User]
     user(userId: ID!): User
     me: User
+    meId: User
     usersFriendRequests(userId: ID!): User
     searchUsers(username: String): User
     dailyRandomization: User
@@ -47,6 +59,11 @@ type Mutation {
     updateDailyBoard(userId: ID!, dailyBoard: String!): User
     addGoldenSeeds(userId: ID!, seeds: Int): User
     shuffleBoard(userId: ID!): User
+    verifyEmail(token: String!, userId: ID!): AuthPayload
+    forgotPassword(email: String!): Boolean
+    resendEmailVerification(email: String!): Boolean
+    resetPassword(token: String!, email: String!, newPassword: String!): AuthPayload
+
 }
 `;
 module.exports = typeDefs;

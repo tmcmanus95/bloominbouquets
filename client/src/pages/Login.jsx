@@ -41,7 +41,7 @@ const Login = (props) => {
 
   return (
     <div className="flex justify-center items-center h-screen">
-      <div className="max-w-md w-full p-8 bg-white rounded-lg shadow-lg">
+      <div className="max-w-md w-full p-8 bg-white rounded-lg shadow-lg text-black">
         <h1 className="text-3xl text-center mb-6">Login</h1>
 
         {data ? (
@@ -51,9 +51,9 @@ const Login = (props) => {
           </p>
         ) : (
           <form onSubmit={handleFormSubmit} id="loginForm">
-            <div className="mb-5 border-2 border-solid px-1 border-sky-300">
+            <div className="mb-5 border-2 border-solid px-1 border-emerald-300">
               <input
-                className="form-input w-full"
+                className="form-input w-full text-black"
                 placeholder="Your email"
                 name="email"
                 type="email"
@@ -62,9 +62,9 @@ const Login = (props) => {
               />
             </div>
 
-            <div className="mb-5 border-2 border-solid px-1 border-sky-300">
+            <div className="mb-5 border-2 border-solid px-1 border-emerald-300">
               <input
-                className="form-input w-full "
+                className="form-input w-full text-black"
                 placeholder="******"
                 name="password"
                 type="password"
@@ -72,10 +72,27 @@ const Login = (props) => {
                 onChange={handleChange}
               />
             </div>
+            <div className="flex justify-between">
+              <div className="flex-col flex">
+                <div className="text-sm">Don't have an account?</div>
+                <Link to={`/signUp`}>
+                  <h5 className="hover:bg-green-300 rounded-lg text-sm text-center">
+                    Sign Up
+                  </h5>
+                </Link>
+              </div>
+              <div>
+                <Link to={"/forgotPassword"}>
+                  <h4 className="hover:bg-green-300 rounded-lg p-1">
+                    Forgot password
+                  </h4>
+                </Link>
+              </div>
+            </div>
 
             <div className="text-center">
               <button
-                className="bg-transparent hover:bg-blue-300 text-blue-500 font-semibold hover:text-white py-2 px-4 border border-blue-300 hover:border-transparent rounded"
+                className="bg-transparent hover:bg-green-300 text-green-500 font-semibold hover:text-black py-2 px-4 border border-green-300 hover:border-transparent rounded"
                 type="submit"
               >
                 {" "}

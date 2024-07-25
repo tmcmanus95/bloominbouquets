@@ -1,8 +1,11 @@
 const { User, GiftedWords } = require("../models");
+const crypto = require("crypto");
 const { signToken, AuthenticationError } = require("../utils/auth");
 const getDailyBoard = require("../utils/getDailyBoard");
 const shuffleCountToSeedReduction = require("../utils/shuffleCountToSeedReduction");
 const wordLengthToSeeds = require("../utils/wordLengthToSeeds");
+const { sendEmail } = require("../utils/sendEmail");
+
 const resolvers = {
   Query: {
     users: async () => {
@@ -43,6 +46,13 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
+    meId: async (parent, args, context) => {
+      if (context.user) {
+        return User.findOne({ _id: context.user._id });
+      }
+      throw AuthenticationError;
+    },
+
     usersFriendRequests: async (parent, { userId }) => {
       return User.findOne({ _id: userId }).populate("friendRequests");
     },
@@ -82,11 +92,35 @@ const resolvers = {
   },
   Mutation: {
     addUser: async (parent, { username, email, password, color }) => {
-      const user = await User.create({ username, email, password, color });
-      console.log("new user", user);
-      const token = signToken(user);
+      try {
+        const emailVerificationToken = crypto.randomBytes(20).toString("hex");
 
-      return { token, user };
+        const user = await User.create({
+          username,
+          email,
+          password,
+          color,
+          emailVerificationToken: emailVerificationToken,
+          isVerified: false,
+        });
+        const verificationUrl = `${process.env.WEBSITE_URL}/verifyEmail/${emailVerificationToken}`;
+        await sendEmail({
+          to: email,
+          subject: "Bloomin' Bouquets Account Email Verification 🌹💐🌸🥀",
+          text: `Please verify your email by clicking the following link: ${verificationUrl}`,
+        });
+
+        const token = signToken({
+          email: user.email,
+          name: user.username,
+          _id: user._id,
+        });
+
+        return { token, user };
+      } catch (error) {
+        console.error("Error adding user:", error);
+        throw new Error("Failed to add user");
+      }
     },
     editUserColor: async (parent, { userId, color }, context) => {
       try {
@@ -302,6 +336,96 @@ const resolvers = {
         return user;
       } catch (err) {
         console.log("Could not shuffle board", err);
+      }
+    },
+    verifyEmail: async (parent, { token, userId }, context) => {
+      try {
+        const user = await User.findOne({ emailVerificationToken: token });
+
+        if (!user) {
+          throw AuthenticationError;
+        }
+        if (user._id == userId) {
+          user.isVerified = true;
+          user.emailVerificationToken = null;
+        }
+
+        await user.save();
+
+        return { user };
+      } catch (error) {
+        console.error("Error verifying email:", error);
+        throw AuthenticationError;
+      }
+    },
+
+    forgotPassword: async (parent, { email }) => {
+      try {
+        const user = await User.findOne({ email });
+        if (!user) {
+          throw new Error("No user found with this email");
+        }
+
+        const resetToken = crypto.randomBytes(20).toString("hex");
+
+        user.passwordResetToken = resetToken;
+        user.passwordResetExpires = Date.now() + 3600000; // 1 hour
+        await user.save();
+
+        const resetUrl = `${process.env.WEBSITE_URL}/resetPassword/${resetToken}`;
+        if (user) {
+          await sendEmail({
+            to: email,
+            subject: "Password Reset",
+            text: `Please reset your password by clicking the following link: ${resetUrl}`,
+          });
+          return true;
+        } else {
+          return;
+        }
+      } catch (error) {
+        console.error("Error in forgot password:", error);
+        throw new Error("Failed to process forgot password");
+      }
+    },
+    resendEmailVerification: async (parent, { email }) => {
+      const user = await User.findOne({ email });
+      const emailVerificationToken = crypto.randomBytes(20).toString("hex");
+      if (user) {
+        user.emailVerificationToken = emailVerificationToken;
+        const verificationUrl = `${process.env.WEBSITE_URL}/verifyEmail/${emailVerificationToken}`;
+        await sendEmail({
+          to: email,
+          subject: "Bubbles. Account Email Verification",
+          text: `Please verify your email by clicking the following link: ${verificationUrl}`,
+        });
+      }
+      await user.save();
+    },
+
+    resetPassword: async (parent, { email, token, newPassword }) => {
+      try {
+        const user = await User.findOne({ email });
+        if (!user) {
+          throw new Error("Invalid or expired token");
+        }
+
+        if (user.passwordResetToken === token) {
+          user.password = newPassword;
+          user.passwordResetToken = null;
+          user.passwordResetExpires = null;
+        } else {
+          console.log("user.passwordResetToken and token do not match!");
+          return;
+        }
+        await user.save();
+
+        // const authToken = signToken(user);
+        // return { token: authToken, user };
+        return user;
+      } catch (error) {
+        console.error("Error resetting password:", error);
+        throw new Error("Failed to reset password");
       }
     },
   },
