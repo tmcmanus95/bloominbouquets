@@ -16,6 +16,11 @@ import OtherProfile from "./pages/OtherProfile.jsx";
 import UserSearchResults from "./pages/UserSearchResults.jsx";
 import BouquetTesting from "./pages/BouquetTesting.jsx";
 import BuySeeds from "./pages/BuySeeds.jsx";
+import VerifyEmail from "./pages/VerifyEmail.jsx";
+import ForgotPassword from "./pages/ForgotPassword.jsx";
+import ResetPassword from "./pages/ResetPassword.jsx";
+import ResendVerificationLink from "./pages/ResendVerificationLink.jsx";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -58,6 +63,22 @@ const router = createBrowserRouter([
       {
         path: "/bouquetTesting",
         element: <BouquetTesting />,
+      },
+      {
+        path: "/verifyEmail/:token",
+        element: <VerifyEmail />,
+      },
+      {
+        path: "/resetPassword/:token",
+        element: <ResetPassword />,
+      },
+      {
+        path: "/forgotPassword",
+        element: <ForgotPassword />,
+      },
+      {
+        path: "/resendEmailVerification",
+        element: <ResendVerificationLink />,
       },
 
       {

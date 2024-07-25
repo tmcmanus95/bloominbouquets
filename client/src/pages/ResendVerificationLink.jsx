@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { RESEND_VERIFICATION_LINK } from "../../utils/mutations";
+import { RESEND_VERIFICATION_LINK } from "../utils/mutations";
 import { Link } from "react-router-dom";
 export default function ResendVerificationLink() {
   const [formState, setFormState] = useState({

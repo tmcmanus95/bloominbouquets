@@ -1,8 +1,11 @@
 const { User, GiftedWords } = require("../models");
+const crypto = require("crypto");
 const { signToken, AuthenticationError } = require("../utils/auth");
 const getDailyBoard = require("../utils/getDailyBoard");
 const shuffleCountToSeedReduction = require("../utils/shuffleCountToSeedReduction");
 const wordLengthToSeeds = require("../utils/wordLengthToSeeds");
+const { sendEmail } = require("../utils/sendEmail");
+
 const resolvers = {
   Query: {
     users: async () => {
@@ -82,11 +85,35 @@ const resolvers = {
   },
   Mutation: {
     addUser: async (parent, { username, email, password, color }) => {
-      const user = await User.create({ username, email, password, color });
-      console.log("new user", user);
-      const token = signToken(user);
+      try {
+        const emailVerificationToken = crypto.randomBytes(20).toString("hex");
 
-      return { token, user };
+        const user = await User.create({
+          username,
+          email,
+          password,
+          color,
+          emailVerificationToken: emailVerificationToken,
+          isVerified: false,
+        });
+        const verificationUrl = `${process.env.WEBSITE_URL}/verifyEmail/${emailVerificationToken}`;
+        await sendEmail({
+          to: email,
+          subject: "Bloomin' Bouquets Account Email Verification 🌹💐🌸🥀",
+          text: `Please verify your email by clicking the following link: ${verificationUrl}`,
+        });
+
+        const token = signToken({
+          email: user.email,
+          name: user.username,
+          _id: user._id,
+        });
+
+        return { token, user };
+      } catch (error) {
+        console.error("Error adding user:", error);
+        throw new Error("Failed to add user");
+      }
     },
     editUserColor: async (parent, { userId, color }, context) => {
       try {

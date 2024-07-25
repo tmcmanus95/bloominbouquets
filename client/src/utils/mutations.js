@@ -100,6 +100,21 @@ export const SHUFFLE_BOARD = gql`
     }
   }
 `;
+
+export const VERIFY_EMAIL = gql`
+  mutation Mutation($token: String!, $userId: ID!) {
+    verifyEmail(token: $token, userId: $userId) {
+      token
+      user {
+        _id
+        username
+        email
+        isVerified
+      }
+    }
+  }
+`;
+
 export const SEND_PASSWORD_RESET_LINK = gql`
   mutation Mutation($email: String!) {
     forgotPassword(email: $email)
