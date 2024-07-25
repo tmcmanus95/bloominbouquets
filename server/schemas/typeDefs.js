@@ -31,7 +31,7 @@ type Auth {
     token: ID!
     user: User
 }
-    
+
 type AuthPayload {
     token: String
     user: User
@@ -41,6 +41,7 @@ type Query {
     users: [User]
     user(userId: ID!): User
     me: User
+    meId: User
     usersFriendRequests(userId: ID!): User
     searchUsers(username: String): User
     dailyRandomization: User

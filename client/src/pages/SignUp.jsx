@@ -54,7 +54,7 @@ const Signup = () => {
           </p>
         ) : (
           <form onSubmit={handleFormSubmit}>
-            <div className="mb-4 border-2 border-solid px-1 border-sky-300">
+            <div className="mb-4 border-2 border-solid px-1 border-green-300">
               <input
                 className="form-input w-full text-black"
                 placeholder="Your username"
@@ -65,7 +65,7 @@ const Signup = () => {
               />
             </div>
 
-            <div className="mb-4 border-2 border-solid px-1 border-sky-300">
+            <div className="mb-4 border-2 border-solid px-1 border-green-300">
               <input
                 className="form-input w-full text-black"
                 placeholder="Your email"
@@ -76,7 +76,7 @@ const Signup = () => {
               />
             </div>
 
-            <div className="mb-4 border-2 border-solid px-1 border-sky-300">
+            <div className="mb-4 border-2 border-solid px-1 border-green-300">
               <input
                 className="form-input w-full text-black"
                 placeholder="Password"
@@ -87,7 +87,7 @@ const Signup = () => {
               />
             </div>
 
-            <div className="mb-4 border-2 border-solid px-1 border-sky-300">
+            <div className="mb-4 border-2 border-solid px-1 border-green-300">
               <input
                 className="form-input w-full text-black"
                 placeholder="Confirm Password"
@@ -106,7 +106,7 @@ const Signup = () => {
             )}
             <div className="text-center">
               <button
-                className="bg-transparent hover:bg-blue-300 text-blue-500 font-semibold hover:text-white py-2 px-4 border border-blue-300 hover:border-transparent rounded"
+                className="bg-transparent hover:green-300 text-green-500 font-semibold hover:text-white py-2 px-4 border border-green-300 hover:border-transparent rounded"
                 style={{ cursor: "pointer" }}
                 type="submit"
               >

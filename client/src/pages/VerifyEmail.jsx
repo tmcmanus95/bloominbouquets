@@ -9,6 +9,7 @@ export default function VerifyEmail() {
   const { token } = useParams();
   const [verifyEmail, { data, loading, error }] = useMutation(VERIFY_EMAIL);
   const { data: meIdData, error: meIdError } = useQuery(QUERY_MEID);
+  console.log("meIdData", meIdData);
   const [meId, setMeId] = useState("");
   const [isVerified, setIsVerified] = useState(false);
 
@@ -41,9 +42,9 @@ export default function VerifyEmail() {
     <div className="my-20">
       {loading && <p>Verifying email...</p>}
       {isVerified ? (
-        <div className="flex flex-col items-center mt-40 mb-50 md:text-3xl dark:border-white border-blue-300 border-2 md:mx-60 mx-10 p-3">
+        <div className="flex flex-col items-center mt-40 mb-50 md:text-3xl dark:border-white border-green-300 border-2 md:mx-60 mx-10 p-3">
           <h1>Success!</h1>
-          <h2>You may now rate bubbly waters!</h2>
+          <h2>You have verified your email!</h2>
           <Link
             className="mt-10 hover:bg-blue-100 dark:hover:bg-gray-700 p-2 rounded-lg"
             to={"/"}
@@ -52,7 +53,7 @@ export default function VerifyEmail() {
           </Link>
         </div>
       ) : (
-        <div className="flex flex-col items-center mt-40 mb-50 md:text-3xl dark:border-white border-blue-300 border-2 md:mx-60 mx-10 p-3">
+        <div className="flex flex-col items-center mt-40 mb-50 md:text-3xl dark:border-white border-green-300 border-2 md:mx-60 mx-10 p-3">
           <h1>Could not authenticate email.</h1>
           <Link
             className="mt-10 hover:bg-blue-100 dark:hover:bg-gray-700 p-2 rounded-lg"
