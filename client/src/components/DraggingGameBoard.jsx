@@ -45,6 +45,7 @@ export default function DraggingGameBoard() {
 
   const addLetter = (tile) => {
     const { id } = tile;
+    console.log("adding", id);
     if (selectedIds.includes(id)) {
       const lastSelectedId = selectedIds[selectedIds.length - 1];
       if (id === lastSelectedId) {
@@ -373,7 +374,7 @@ export default function DraggingGameBoard() {
         <div id="main-container">
           <div
             id="grid-container"
-            onTouchStart={(e) => handleTouchStart(e, e.target)}
+            onTouchStart={(e) => handleTouchStart(e, tile)}
             onTouchMove={handleTouchMove}
           >
             {newGameBoard.length > 0 ? (
