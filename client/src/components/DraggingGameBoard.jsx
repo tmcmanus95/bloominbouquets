@@ -375,7 +375,7 @@ export default function DraggingGameBoard() {
           <div
             id="grid-container"
             onTouchStart={(e) => handleTouchStart(e, tile)}
-            onTouchMove={handleTouchMove}
+            onTouchMove={(e) => handleTouchMove(e)}
           >
             {newGameBoard.length > 0 ? (
               newGameBoard.map((tile) => (
