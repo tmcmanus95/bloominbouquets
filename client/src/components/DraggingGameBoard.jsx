@@ -90,6 +90,8 @@ export default function DraggingGameBoard() {
   };
 
   const handleTouchMove = (event) => {
+    e.preventDefault();
+
     const touch = event.touches[0];
     const element = document.elementFromPoint(touch.clientX, touch.clientY);
     console.log("element", element);
