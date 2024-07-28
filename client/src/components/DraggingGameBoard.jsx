@@ -85,6 +85,7 @@ export default function DraggingGameBoard() {
   };
   const handleTouchStart = (event, tile) => {
     event.preventDefault();
+    document.body.classList.add("no-scroll");
 
     addLetter(tile);
   };
@@ -104,6 +105,12 @@ export default function DraggingGameBoard() {
       }
     }
   };
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "scroll";
+    };
+  }, []);
 
   if (isLoggedIn) {
     useEffect(() => {
