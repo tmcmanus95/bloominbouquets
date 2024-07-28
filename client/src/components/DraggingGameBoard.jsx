@@ -90,8 +90,10 @@ export default function DraggingGameBoard() {
   const handleTouchMove = (event) => {
     const touch = event.touches[0];
     const element = document.elementFromPoint(touch.clientX, touch.clientY);
+    console.log("element", element);
     if (element && element.classList.contains("grid-item")) {
-      const tileId = parseInt(element.getAttribute("data-id"));
+      const tileId = parseInt(element.getAttribute("data-id"), 10);
+      console.log("tileId", tileId);
       const tile = getTileById(tileId);
       if (tile && !selectedIds.includes(tile.id)) {
         addLetter(tile);
@@ -378,6 +380,7 @@ export default function DraggingGameBoard() {
                 <div
                   onTouchStart={(e) => handleTouchStart(e, tile)}
                   key={tile.id}
+                  data-id={tile.id}
                   style={selectedTile(tile)}
                   className={`grid-item text-black dark:text-white ${
                     isFlipped ? "flip-animation" : ""
