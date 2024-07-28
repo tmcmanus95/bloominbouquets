@@ -85,6 +85,7 @@ export default function DraggingGameBoard() {
   };
   const handleTouchStart = (event, tile) => {
     event.preventDefault();
+    document.body.classList.add("no-scroll");
 
     addLetter(tile);
   };
