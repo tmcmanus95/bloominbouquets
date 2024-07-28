@@ -372,14 +372,12 @@ export default function DraggingGameBoard() {
       </div>
       <div className="flex justify-center">
         <div id="main-container">
-          <div
-            id="grid-container"
-            onTouchStart={(e) => handleTouchStart(e, tile)}
-            onTouchMove={(e) => handleTouchMove(e)}
-          >
+          <div id="grid-container">
             {newGameBoard.length > 0 ? (
               newGameBoard.map((tile) => (
                 <div
+                  onTouchStart={(e) => handleTouchStart(e, tile)}
+                  onTouchMove={(e) => handleTouchMove(e)}
                   key={tile.id}
                   style={selectedTile(tile)}
                   className={`grid-item text-black dark:text-white ${
