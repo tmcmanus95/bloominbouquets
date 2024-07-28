@@ -84,13 +84,13 @@ export default function DraggingGameBoard() {
     return newGameBoard.find((tile) => tile.id === id);
   };
   const handleTouchStart = (event, tile) => {
-    e.preventDefault();
+    event.preventDefault();
 
     addLetter(tile);
   };
 
   const handleTouchMove = (event) => {
-    e.preventDefault();
+    event.preventDefault();
 
     const touch = event.touches[0];
     const element = document.elementFromPoint(touch.clientX, touch.clientY);
