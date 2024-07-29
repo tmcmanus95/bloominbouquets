@@ -20,6 +20,7 @@ import VerifyEmail from "./pages/VerifyEmail.jsx";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
 import ResetPassword from "./pages/ResetPassword.jsx";
 import ResendVerificationLink from "./pages/ResendVerificationLink.jsx";
+import BuyGoldenSeeds from "./pages/BuyGoldenSeeds.jsx";
 
 const router = createBrowserRouter([
   {
@@ -80,7 +81,10 @@ const router = createBrowserRouter([
         path: "/resendEmailVerification",
         element: <ResendVerificationLink />,
       },
-
+      {
+        path: "/buyGoldenSeeds",
+        element: <BuyGoldenSeeds />,
+      },
       {
         path: "*",
         element: <Error />,

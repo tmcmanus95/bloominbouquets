@@ -18,7 +18,7 @@ type User {
     emailVerificationToken: String
     passwordResetToken: String
     passwordResetExpires: String
-
+    orders: [Order]
 }
 
 type GiftedWords {
@@ -26,6 +26,23 @@ type GiftedWords {
     giftedWords: [String]
     sender: User
 }
+
+type SeedPackage {
+    _id: ID
+    quantity: Int
+    price: Float
+}
+
+type Order {
+    _id: ID
+    purchaseDate: String
+    seedPackage: SeedPackage
+}
+
+type Checkout {
+    session: ID
+}
+
 
 type Auth {
     token: ID!
@@ -42,6 +59,7 @@ type Query {
     user(userId: ID!): User
     me: User
     meId: User
+    seedPackages: [SeedPackage]
     usersFriendRequests(userId: ID!): User
     searchUsers(username: String): User
     dailyRandomization: User
@@ -63,6 +81,7 @@ type Mutation {
     forgotPassword(email: String!): Boolean
     resendEmailVerification(email: String!): Boolean
     resetPassword(token: String!, email: String!, newPassword: String!): AuthPayload
+    checkout(seedPackageId: ID!): Checkout!
 
 }
 `;

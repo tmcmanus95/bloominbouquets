@@ -136,3 +136,10 @@ export const RESET_PASSWORD = gql`
     }
   }
 `;
+export const LOAD_STRIPE = gql`
+  mutation Checkout($seedPackageId: ID!) {
+    checkout(seedPackageId: $seedPackageId) {
+      session
+    }
+  }
+`;

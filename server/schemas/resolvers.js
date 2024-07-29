@@ -1,10 +1,11 @@
-const { User, GiftedWords } = require("../models");
+const { User, GiftedWords, Order, SeedPackage } = require("../models");
 const crypto = require("crypto");
 const { signToken, AuthenticationError } = require("../utils/auth");
 const getDailyBoard = require("../utils/getDailyBoard");
 const shuffleCountToSeedReduction = require("../utils/shuffleCountToSeedReduction");
 const wordLengthToSeeds = require("../utils/wordLengthToSeeds");
 const { sendEmail } = require("../utils/sendEmail");
+const stripe = require("stripe")("sk_test_4eC39HqLyjWDarjtT1zdp7dc");
 
 const resolvers = {
   Query: {
@@ -52,7 +53,9 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
-
+    seedPackages: async () => {
+      return SeedPackage.find();
+    },
     usersFriendRequests: async (parent, { userId }) => {
       return User.findOne({ _id: userId }).populate("friendRequests");
     },
@@ -427,6 +430,45 @@ const resolvers = {
         console.error("Error resetting password:", error);
         throw new Error("Failed to reset password");
       }
+    },
+    checkout: async (parent, { seedPackageId }, context) => {
+      const url = new URL(context.headers.referer).origin;
+
+      // Fetch the seed package from the database
+      const seedPackage = await SeedPackage.findById(seedPackageId);
+
+      if (!seedPackage) {
+        throw new Error("Seed package not found");
+      }
+
+      // Create line item for Stripe
+      const line_item = {
+        price_data: {
+          currency: "usd",
+          product_data: {
+            name: `Seed Package ${seedPackage.quantity}`,
+          },
+          unit_amount: seedPackage.price * 100, // Stripe expects the amount in cents
+        },
+        quantity: 1,
+      };
+
+      // Create a new Order in the database
+      const order = await Order.create({
+        seedPackage: seedPackageId,
+        purchaseDate: new Date(),
+      });
+
+      // Create a Stripe checkout session
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ["card"],
+        line_items: [line_item],
+        mode: "payment",
+        success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${url}/`,
+      });
+
+      return { session: session.id };
     },
   },
 };
