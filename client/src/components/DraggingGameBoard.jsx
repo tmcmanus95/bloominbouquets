@@ -31,6 +31,9 @@ export default function DraggingGameBoard() {
   const [goldenSeedAmount, setGoldenSeedAmount] = useState(0);
   const [dailyShuffleCount, setDailyShuffleCount] = useState(0);
   const [updateBoard] = useMutation(UPDATE_DAILY_BOARD);
+  const [swipeMode, setSwipeMode] = useState(true);
+  const [alertVisible, setAlertVisible] = useState(false);
+  const [alertText, setAlertText] = useState("");
   const { data: dailyBoardData, error: dailyBoardError } =
     useQuery(GET_DAILY_BOARD);
   const [addWord, error] = useMutation(ADD_WORD);
@@ -45,7 +48,6 @@ export default function DraggingGameBoard() {
 
   const addLetter = (tile) => {
     const { id } = tile;
-    console.log("adding", id);
     if (selectedIds.includes(id)) {
       const lastSelectedId = selectedIds[selectedIds.length - 1];
       if (id === lastSelectedId) {
@@ -84,33 +86,29 @@ export default function DraggingGameBoard() {
     return newGameBoard.find((tile) => tile.id === id);
   };
   const handleTouchStart = (event, tile) => {
-    event.preventDefault();
-    document.body.classList.add("no-scroll");
-
     addLetter(tile);
   };
 
   const handleTouchMove = (event) => {
-    event.preventDefault();
-
     const touch = event.touches[0];
     const element = document.elementFromPoint(touch.clientX, touch.clientY);
-    console.log("element", element);
     if (element && element.classList.contains("grid-item")) {
       const tileId = parseInt(element.getAttribute("data-id"), 10);
-      console.log("tileId", tileId);
       const tile = getTileById(tileId);
       if (tile && !selectedIds.includes(tile.id)) {
         addLetter(tile);
       }
     }
   };
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = "scroll";
-    };
-  }, []);
+
+  if (isMobile()) {
+    useEffect(() => {
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = "scroll";
+      };
+    }, []);
+  }
 
   if (isLoggedIn) {
     useEffect(() => {
@@ -315,6 +313,19 @@ export default function DraggingGameBoard() {
       setSelectedIds([]);
     }
   }
+  const toggleSwipeMode = () => {
+    setSwipeMode(!swipeMode);
+    if (swipeMode) {
+      setAlertText("Swipe Mode Enabled");
+    } else {
+      setAlertText("Click Mode Enabled");
+    }
+    setAlertVisible(true);
+    setTimeout(() => {
+      setAlertVisible(false);
+      setAlertText("");
+    }, 1000);
+  };
 
   const handleShuffleBoard = async () => {
     try {
@@ -366,6 +377,16 @@ export default function DraggingGameBoard() {
       {/* <CurrentWord
         selectedLetters={selectedIds.map((id) => getTileById(id).letter)}
       /> */}
+      <div className="flex justify-center">
+        {alertVisible ? (
+          <h1 className="z-20 bg-yellow-300 dark:bg-yellow-700 rounded-lg p-5 absolute">
+            {alertText}
+          </h1>
+        ) : (
+          <></>
+        )}
+      </div>
+
       <div className="current-word-container flex justify-center align-center md:text-5xl text-2xl">
         {realWord ? (
           <h1 className="correct flex align-center">
@@ -385,11 +406,16 @@ export default function DraggingGameBoard() {
       </div>
       <div className="flex justify-center">
         <div id="main-container">
-          <div id="grid-container" onTouchMove={(e) => handleTouchMove(e)}>
+          <div
+            id="grid-container"
+            onTouchMove={swipeMode ? (e) => handleTouchMove(e) : null}
+          >
             {newGameBoard.length > 0 ? (
               newGameBoard.map((tile) => (
                 <div
-                  onTouchStart={(e) => handleTouchStart(e, tile)}
+                  onTouchStart={
+                    swipeMode ? (e) => handleTouchStart(e, tile) : null
+                  }
                   key={tile.id}
                   data-id={tile.id}
                   style={selectedTile(tile)}
@@ -476,12 +502,27 @@ export default function DraggingGameBoard() {
           </div>
         )}
       </div>
-      <div className="flex justify-center">
+      {isMobile() ? (
+        <div className="flex justify-center">
+          <button
+            onClick={() => toggleSwipeMode()}
+            className=" dark:bg-green-900 bg-green-300 hover:bg-green-500 dark:text-white text-black"
+          >
+            Toggle mode
+          </button>
+        </div>
+      ) : (
+        <></>
+      )}
+      <div className="flex justify-center items-center">
+        <h1 className="m-2">Golden Seeds</h1>
         <h1 className=" bg-yellow-500 p-2 rounded-lg md:text-2xl text-xl mt-2">
           {goldenSeedAmount}
         </h1>
       </div>
-      {isLoggedIn ? (
+      {isMobile() ? (
+        <></>
+      ) : isLoggedIn ? (
         <div className="flex flex-row justify-center mt-5">
           <div>
             {dailyBoardData ? (
