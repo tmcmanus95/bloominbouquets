@@ -7,12 +7,20 @@ const orderSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  seedPackage: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "SeedPackage",
-    },
-  ],
+  seedPackage: {
+    type: Schema.Types.ObjectId,
+    ref: "SeedPackage",
+  },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  status: {
+    type: String,
+    enum: ["pending", "completed"],
+    default: "pending",
+  },
 });
 
 const Order = mongoose.model("Order", orderSchema);

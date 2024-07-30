@@ -37,6 +37,7 @@ type Order {
     _id: ID
     purchaseDate: String
     seedPackage: SeedPackage
+    status: String
 }
 
 type Checkout {
@@ -81,7 +82,7 @@ type Mutation {
     forgotPassword(email: String!): Boolean
     resendEmailVerification(email: String!): Boolean
     resetPassword(token: String!, email: String!, newPassword: String!): AuthPayload
-    checkout(seedPackageId: ID!): Checkout!
+    checkout(seedPackageId: ID!): Checkout
 
 }
 `;

@@ -4,7 +4,9 @@ import { LOAD_STRIPE } from "../utils/mutations";
 import { QUERY_SEED_PACKAGES } from "../utils/queries";
 import { loadStripe } from "@stripe/stripe-js";
 
-const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
+const stripePromise = loadStripe(
+  "pk_test_51PhknBRqQwYsxb6oCvDxnFuYzm9EAWdv9r4Yogd3zNL2rSIvdj7ivGd8sltNF1arQpJEcAjPL4nuxcTtr4l768Vc000x6zn0d0"
+);
 
 const CheckoutButton = ({ seedPackageId }) => {
   const [checkout] = useMutation(LOAD_STRIPE);

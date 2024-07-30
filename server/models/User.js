@@ -75,7 +75,12 @@ const userSchema = new Schema({
   emailVerificationToken: String,
   passwordResetToken: String,
   passwordResetExpires: Date,
-  orders: [Order.schema],
+  orders: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Orders",
+    },
+  ],
 });
 
 // set up pre-save middleware to create password

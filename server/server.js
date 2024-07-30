@@ -6,15 +6,21 @@ const path = require("path");
 const { authMiddleware } = require("./utils/auth");
 const typeDefs = require("./schemas/typeDefs");
 const resolvers = require("./schemas/resolvers");
+const stripeWebhookHandler = require("./utils/stripeWebhookHandler");
 
 const db = require("./config/connection");
 
-const PORT = process.env.PORT || 3004;
+const PORT = 3004;
 const app = express();
 const server = new ApolloServer({
   typeDefs,
   resolvers,
 });
+app.post(
+  "/webhook",
+  express.raw({ type: "application/json" }),
+  stripeWebhookHandler
+);
 
 // Create a new instance of an Apollo server with the GraphQL schema
 const startApolloServer = async () => {

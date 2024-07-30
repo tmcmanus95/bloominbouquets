@@ -465,7 +465,7 @@ export default function DraggingGameBoard() {
             <h1 className="">You need {shufflePrice} seeds to shuffle</h1>
             <div className="">
               <Link
-                to={`/buySeeds`}
+                to={`/buyGoldenSeeds`}
                 onClick={async () => await toggleInsufficientSeeds()}
               >
                 <button className=" dark:bg-green-900 bg-green-300 hover:bg-green-500 dark:text-white text-black">

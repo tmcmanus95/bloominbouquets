@@ -5,7 +5,7 @@ const getDailyBoard = require("../utils/getDailyBoard");
 const shuffleCountToSeedReduction = require("../utils/shuffleCountToSeedReduction");
 const wordLengthToSeeds = require("../utils/wordLengthToSeeds");
 const { sendEmail } = require("../utils/sendEmail");
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
 
 const resolvers = {
   Query: {
@@ -441,31 +441,35 @@ const resolvers = {
         throw new Error("Seed package not found");
       }
 
-      // Create line item for Stripe
       const line_item = {
         price_data: {
           currency: "usd",
           product_data: {
             name: `Seed Package ${seedPackage.quantity}`,
           },
-          unit_amount: seedPackage.price * 100, // Stripe expects the amount in cents
+          unit_amount: seedPackage.price * 100,
         },
         quantity: 1,
       };
 
-      // Create a new Order in the database
       const order = await Order.create({
         seedPackage: seedPackageId,
+        user: context.user._id,
         purchaseDate: new Date(),
+        status: "pending",
       });
 
-      // Create a Stripe checkout session
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         line_items: [line_item],
         mode: "payment",
         success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${url}/`,
+        metadata: {
+          userId: context.user._id.toString(),
+          seedPackageId: seedPackage._id.toString(),
+          orderId: order._id.toString(),
+        },
       });
 
       return { session: session.id };
