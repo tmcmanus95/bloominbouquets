@@ -463,8 +463,8 @@ const resolvers = {
         payment_method_types: ["card"],
         line_items: [line_item],
         mode: "payment",
-        success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${url}/`,
+        success_url: `${url}/`,
+        cancel_url: `${url}/error`,
         metadata: {
           userId: context.user._id.toString(),
           seedPackageId: seedPackage._id.toString(),
