@@ -287,6 +287,9 @@ const resolvers = {
         throw new Error("could not send word");
       }
     },
+    deleteBouquet: async (_, { giftedWordsId }, context) => {
+      return await GiftedWords.findByIdAndDelete({ _id: giftedWordsId });
+    },
     updateDailyBoard: async (_, { userId, dailyBoard }, context) => {
       try {
         const user = await User.findById(userId);

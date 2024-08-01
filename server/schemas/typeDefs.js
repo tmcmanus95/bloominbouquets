@@ -75,6 +75,7 @@ type Mutation {
     addFriend(newFriendId: ID!, userId: ID!): User
     addWord(word: String!, userId: ID!): User
     sendWord(giftedWords: String!, recipientId: ID!, userId: ID!): User
+    deleteBouquet(giftedWords: ID!): GiftedWords
     updateDailyBoard(userId: ID!, dailyBoard: String!): User
     addGoldenSeeds(userId: ID!, seeds: Int): User
     shuffleBoard(userId: ID!): User
