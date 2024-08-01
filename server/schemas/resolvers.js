@@ -1,10 +1,11 @@
-const { User, GiftedWords } = require("../models");
+const { User, GiftedWords, Order, SeedPackage } = require("../models");
 const crypto = require("crypto");
 const { signToken, AuthenticationError } = require("../utils/auth");
 const getDailyBoard = require("../utils/getDailyBoard");
 const shuffleCountToSeedReduction = require("../utils/shuffleCountToSeedReduction");
 const wordLengthToSeeds = require("../utils/wordLengthToSeeds");
 const { sendEmail } = require("../utils/sendEmail");
+const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
 
 const resolvers = {
   Query: {
@@ -52,7 +53,9 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
-
+    seedPackages: async () => {
+      return SeedPackage.find();
+    },
     usersFriendRequests: async (parent, { userId }) => {
       return User.findOne({ _id: userId }).populate("friendRequests");
     },
@@ -427,6 +430,49 @@ const resolvers = {
         console.error("Error resetting password:", error);
         throw new Error("Failed to reset password");
       }
+    },
+    checkout: async (parent, { seedPackageId }, context) => {
+      const url = new URL(context.headers.referer).origin;
+
+      // Fetch the seed package from the database
+      const seedPackage = await SeedPackage.findById(seedPackageId);
+
+      if (!seedPackage) {
+        throw new Error("Seed package not found");
+      }
+
+      const line_item = {
+        price_data: {
+          currency: "usd",
+          product_data: {
+            name: `Seed Package ${seedPackage.quantity}`,
+          },
+          unit_amount: seedPackage.price * 100,
+        },
+        quantity: 1,
+      };
+
+      const order = await Order.create({
+        seedPackage: seedPackageId,
+        user: context.user._id,
+        purchaseDate: new Date(),
+        status: "pending",
+      });
+
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ["card"],
+        line_items: [line_item],
+        mode: "payment",
+        success_url: `${url}/`,
+        cancel_url: `${url}/error`,
+        metadata: {
+          userId: context.user._id.toString(),
+          seedPackageId: seedPackage._id.toString(),
+          orderId: order._id.toString(),
+        },
+      });
+
+      return { session: session.id };
     },
   },
 };

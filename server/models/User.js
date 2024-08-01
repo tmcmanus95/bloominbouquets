@@ -1,5 +1,6 @@
 const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt");
+const Order = require("./Order");
 
 //Schema for user model
 const userSchema = new Schema({
@@ -74,6 +75,12 @@ const userSchema = new Schema({
   emailVerificationToken: String,
   passwordResetToken: String,
   passwordResetExpires: Date,
+  orders: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Orders",
+    },
+  ],
 });
 
 // set up pre-save middleware to create password

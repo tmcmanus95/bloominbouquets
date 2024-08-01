@@ -125,3 +125,12 @@ export const GET_DAILY_BOARD = gql`
     }
   }
 `;
+export const QUERY_SEED_PACKAGES = gql`
+  query SeedPackages {
+    seedPackages {
+      _id
+      quantity
+      price
+    }
+  }
+`;
