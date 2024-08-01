@@ -2,20 +2,41 @@ import { bouquetsImageStylings } from "../utils/bouquetsImageStylings";
 import { flowerSourceFinder } from "../utils/flowerSourceFinder";
 import { wordsToStemMatching } from "../utils/wordsToStemMatching";
 import { Link } from "react-router-dom";
-export default function Bouquet({ words, senderUsername, senderId }) {
+import { IoIosCloseCircle } from "react-icons/io";
+
+export default function Bouquet({
+  words,
+  senderUsername,
+  senderId,
+  toggleEdit,
+}) {
   let bouquet;
   if (!words[1]) {
     bouquet = words[0]?.split(",");
   } else {
     bouquet = words;
+    s;
   }
+  const handleDeleteBouquet = () => {
+    console.log("I will delete bouquet");
+  };
   // let bouquet = words[0].splice(",");
   const wordAmount = bouquet?.length;
+  console.log("toggle edit is", toggleEdit);
   return (
     <div className="m-5 dark:border-white border-2">
       <Link to={`/user/${senderId}`}>
         <h1>From: {senderUsername}</h1>
       </Link>
+      {toggleEdit ? (
+        <IoIosCloseCircle
+          className="text-red-500 hover:text-red-900"
+          onClick={handleDeleteBouquet}
+        />
+      ) : (
+        <></>
+      )}
+
       <div className=" flex flex-row justify-center">
         {bouquet?.map((word, index) => (
           <img

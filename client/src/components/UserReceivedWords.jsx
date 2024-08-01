@@ -1,6 +1,10 @@
 import Bouquet from "./Bouquet";
+import { FaUserEdit } from "react-icons/fa";
+import { IoCloseOutline } from "react-icons/io5";
+import { useState } from "react";
 
 export default function UserReceivedWords({ bouquets }) {
+  const [toggleEdit, setToggleEdit] = useState(false);
   if (bouquets) {
     console.log("bouquets", bouquets);
     if (bouquets.giftedWords) {
@@ -8,10 +12,23 @@ export default function UserReceivedWords({ bouquets }) {
       console.log(arrayBouquetWords);
     }
   }
+  const handleToggleEdit = () => {
+    setToggleEdit(!toggleEdit);
+  };
   return (
     <div className="mt-30 dark:text-white flex justify-center flex-col">
       <h1 className="text-center">Received bouquets</h1>
       <div className="border-2 dark:border-white grid md:grid-cols-4 grid-cols-2 text-center">
+        <div className="flex flex-row text-base">
+          {toggleEdit ? (
+            <div className="flex flex-row">
+              <IoCloseOutline onClick={handleToggleEdit} />
+            </div>
+          ) : (
+            <FaUserEdit onClick={handleToggleEdit}></FaUserEdit>
+          )}
+        </div>
+
         {bouquets &&
           bouquets.map((bouquet, index) => (
             <Bouquet
@@ -19,6 +36,7 @@ export default function UserReceivedWords({ bouquets }) {
               words={bouquet.giftedWords}
               senderUsername={bouquet.sender.username}
               senderId={bouquet.sender._id}
+              toggleEdit={toggleEdit}
             />
           ))}
       </div>
