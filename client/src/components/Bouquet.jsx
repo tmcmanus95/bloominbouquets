@@ -3,6 +3,8 @@ import { flowerSourceFinder } from "../utils/flowerSourceFinder";
 import { wordsToStemMatching } from "../utils/wordsToStemMatching";
 import { Link } from "react-router-dom";
 import { IoIosCloseCircle } from "react-icons/io";
+import { useMutation } from "@apollo/client";
+import { DELETE_BOUQUET } from "../utils/mutations";
 
 export default function Bouquet({
   words,
@@ -17,8 +19,12 @@ export default function Bouquet({
     bouquet = words;
     s;
   }
-  const handleDeleteBouquet = () => {
+  const [deleteBouquet, error] = useMutation(DELETE_BOUQUET);
+  const handleDeleteBouquet = async () => {
     console.log("I will delete bouquet");
+    const { data } = await deleteBouquet({
+      variables: { giftedWordsId: bouquetId },
+    });
   };
   // let bouquet = words[0].splice(",");
   const wordAmount = bouquet?.length;
