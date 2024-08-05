@@ -11,6 +11,7 @@ export default function Bouquet({
   senderUsername,
   senderId,
   toggleEdit,
+  bouquetId,
 }) {
   let bouquet;
   if (!words[1]) {
@@ -22,8 +23,9 @@ export default function Bouquet({
   const [deleteBouquet, error] = useMutation(DELETE_BOUQUET);
   const handleDeleteBouquet = async () => {
     console.log("I will delete bouquet");
+    console.log("bouquetId", bouquetId);
     const { data } = await deleteBouquet({
-      variables: { giftedWordsId: bouquetId },
+      variables: { giftedWords: bouquetId },
     });
   };
   // let bouquet = words[0].splice(",");
