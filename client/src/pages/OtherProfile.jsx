@@ -24,6 +24,10 @@ export default function OtherProfile() {
       userId: otherPersonsId,
     },
   });
+
+  if (data && otherPersonsId == data.me._id) {
+    window.location.assign("/me");
+  }
   console.log("other profiles data, ", data);
   let isFriend = false;
   let myId;

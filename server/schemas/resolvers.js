@@ -43,7 +43,15 @@ const resolvers = {
       if (context.user) {
         return User.findOne({ _id: context.user._id })
           .populate("friendRequests")
-          .populate("friends");
+          .populate("friends")
+          .populate("giftedWords")
+          .populate({
+            path: "giftedWords",
+            populate: {
+              path: "sender",
+              model: "User",
+            },
+          });
       }
       throw AuthenticationError;
     },
@@ -286,6 +294,9 @@ const resolvers = {
       } catch (error) {
         throw new Error("could not send word");
       }
+    },
+    deleteBouquet: async (_, { giftedWordsId }, context) => {
+      return await GiftedWords.findByIdAndDelete({ _id: giftedWordsId });
     },
     updateDailyBoard: async (_, { userId, dailyBoard }, context) => {
       try {

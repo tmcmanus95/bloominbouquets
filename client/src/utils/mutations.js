@@ -143,3 +143,11 @@ export const LOAD_STRIPE = gql`
     }
   }
 `;
+export const DELETE_BOUQUET = gql`
+  mutation Mutation($giftedWords: ID!) {
+    deleteBouquet(giftedWordsId: $giftedWords) {
+      _id
+      giftedWords
+    }
+  }
+`;
