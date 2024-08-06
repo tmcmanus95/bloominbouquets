@@ -1,10 +1,20 @@
 import Bouquet from "./Bouquet";
 import { FaUserEdit } from "react-icons/fa";
 import { IoCloseOutline } from "react-icons/io5";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
-export default function UserReceivedWords({ bouquets }) {
+export default function UserReceivedWords({ bouquets: initialBouquets }) {
   const [toggleEdit, setToggleEdit] = useState(false);
+  const [bouquets, setBouquets] = useState(initialBouquets);
+  const [isMyProfile, setIsMyProfile] = useState(false);
+  const location = useLocation();
+  useEffect(() => {
+    if (location.pathname == "/me") {
+      setIsMyProfile(true);
+    }
+  });
+
   if (bouquets) {
     console.log("bouquets", bouquets);
     if (bouquets.giftedWords) {
@@ -15,6 +25,10 @@ export default function UserReceivedWords({ bouquets }) {
   const handleToggleEdit = () => {
     setToggleEdit(!toggleEdit);
   };
+  const handleDeleteBouquet = (bouquetId) => {
+    setBouquets(bouquets.filter((bouquet) => bouquet._id !== bouquetId));
+  };
+
   return (
     <div className="mt-30 dark:text-white flex justify-center flex-col">
       <h1 className="text-center">Received bouquets</h1>
@@ -25,7 +39,7 @@ export default function UserReceivedWords({ bouquets }) {
               <IoCloseOutline onClick={handleToggleEdit} />
             </div>
           ) : (
-            <FaUserEdit onClick={handleToggleEdit}></FaUserEdit>
+            isMyProfile && <FaUserEdit onClick={handleToggleEdit}></FaUserEdit>
           )}
         </div>
 
@@ -38,6 +52,8 @@ export default function UserReceivedWords({ bouquets }) {
               senderUsername={bouquet.sender.username}
               senderId={bouquet.sender._id}
               toggleEdit={toggleEdit}
+              onDelete={handleDeleteBouquet}
+              isMyProfile={isMyProfile}
             />
           ))}
       </div>

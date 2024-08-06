@@ -9,6 +9,7 @@ import ProfileWords from "../components/ProfileWords";
 import ProfilesReceivedFriendRequestsList from "../components/ProfilesReceivedFriendRequestsList";
 import ProfileFriends from "../components/ProfileFriends";
 import { ColorPicker } from "antd";
+import UserReceivedWords from "../components/UserReceivedWords";
 
 export default function Profile() {
   const { loading, data } = useQuery(QUERY_ME);
@@ -82,6 +83,9 @@ export default function Profile() {
 
           <div className="justify-start">
             <ProfileWords words={data.me.words} />
+          </div>
+          <div>
+            <UserReceivedWords bouquets={data.me.giftedWords} />
           </div>
         </div>
       ) : (

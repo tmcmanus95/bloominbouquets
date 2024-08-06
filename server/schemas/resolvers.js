@@ -43,7 +43,15 @@ const resolvers = {
       if (context.user) {
         return User.findOne({ _id: context.user._id })
           .populate("friendRequests")
-          .populate("friends");
+          .populate("friends")
+          .populate("giftedWords")
+          .populate({
+            path: "giftedWords",
+            populate: {
+              path: "sender",
+              model: "User",
+            },
+          });
       }
       throw AuthenticationError;
     },
