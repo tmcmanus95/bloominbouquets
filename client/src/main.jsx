@@ -21,6 +21,7 @@ import ForgotPassword from "./pages/ForgotPassword.jsx";
 import ResetPassword from "./pages/ResetPassword.jsx";
 import ResendVerificationLink from "./pages/ResendVerificationLink.jsx";
 import BuyGoldenSeeds from "./pages/BuyGoldenSeeds.jsx";
+import Shop from "./pages/Shop.jsx";
 
 const router = createBrowserRouter([
   {
@@ -84,6 +85,10 @@ const router = createBrowserRouter([
       {
         path: "/buyGoldenSeeds",
         element: <BuyGoldenSeeds />,
+      },
+      {
+        path: "/shop",
+        element: <Shop />,
       },
       {
         path: "*",

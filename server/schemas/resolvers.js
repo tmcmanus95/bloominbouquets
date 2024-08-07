@@ -100,6 +100,9 @@ const resolvers = {
         throw new Error("Could not get daily board");
       }
     },
+    users: async () => {
+      return User.find();
+    },
   },
   Mutation: {
     addUser: async (parent, { username, email, password, color }) => {
