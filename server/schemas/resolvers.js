@@ -488,10 +488,13 @@ const resolvers = {
     buyWord: async (parent, { word }, context) => {
       try {
         if (context.user) {
-          const user = User.findOne({ _id: context.user._id });
+          const user = await User.findById({ _id: context.user._id });
+          console.log("user", user);
           if (!user.words.includes(word)) {
             user.words.push(word);
             user.goldenSeeds -= wordLengthToSeeds(word.length);
+            console.log("user.words", user.words);
+            await user.save();
             return user;
           } else {
             console.log("Word already there");

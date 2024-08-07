@@ -135,3 +135,11 @@ export const QUERY_SEED_PACKAGES = gql`
     }
   }
 `;
+export const QUERY_SHOP_ME = gql`
+  query User {
+    me {
+      goldenSeeds
+      words
+    }
+  }
+`;

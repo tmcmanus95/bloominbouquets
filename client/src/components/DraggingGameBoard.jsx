@@ -316,9 +316,9 @@ export default function DraggingGameBoard() {
   const toggleSwipeMode = () => {
     setSwipeMode(!swipeMode);
     if (swipeMode) {
-      setAlertText("Swipe Mode Enabled");
-    } else {
       setAlertText("Click Mode Enabled");
+    } else {
+      setAlertText("Swipe Mode Enabled");
     }
     setAlertVisible(true);
     setTimeout(() => {
