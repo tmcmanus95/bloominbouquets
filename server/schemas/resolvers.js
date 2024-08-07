@@ -100,9 +100,6 @@ const resolvers = {
         throw new Error("Could not get daily board");
       }
     },
-    users: async () => {
-      return User.find();
-    },
   },
   Mutation: {
     addUser: async (parent, { username, email, password, color }) => {
@@ -487,6 +484,22 @@ const resolvers = {
       });
 
       return { session: session.id };
+    },
+    buyWord: async (parent, { word }, context) => {
+      try {
+        if (context.user) {
+          const user = User.findOne({ _id: context.user._id });
+          if (!user.words.includes(word)) {
+            user.words.push(word);
+            user.goldenSeeds -= wordLengthToSeeds(word.length);
+            return user;
+          } else {
+            console.log("Word already there");
+          }
+        }
+      } catch (error) {
+        console.log("could not buy word", error);
+      }
     },
   },
 };
