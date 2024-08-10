@@ -1,15 +1,17 @@
 import { useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { BUY_WORD } from "../utils/mutations";
+
 import wordsDictionary from "../assets/wordlist";
 import wordLengthToSeedPrice from "../utils/wordLengthToSeedPrice";
 
-export default function WordSearch() {
+export default function WordSearch({ words }) {
   const [inputValue, setInputValue] = useState("");
   const [wordDisplayed, setWordDisplayed] = useState("");
   const [wordPrice, setWordPrice] = useState(0);
   const [alertText, setAlertText] = useState("");
   const [buyable, setBuyable] = useState(false);
+  console.log("user words", words);
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
     console.log(inputValue);
@@ -18,9 +20,13 @@ export default function WordSearch() {
   const handleSearchWord = (e) => {
     e.preventDefault();
     if (wordsDictionary.includes(inputValue.toLowerCase())) {
-      setWordDisplayed(inputValue);
-      setWordPrice(wordLengthToSeedPrice(inputValue.length));
-      setBuyable(true);
+      if (!words.includes(wordDisplayed)) {
+        setWordDisplayed(inputValue);
+        setWordPrice(wordLengthToSeedPrice(inputValue.length));
+        setBuyable(true);
+      } else {
+        setWordDisplayed(`${inputValue} already owned 🌸`);
+      }
     } else {
       setWordDisplayed(`Could not find ${inputValue}`);
     }
@@ -48,6 +54,7 @@ export default function WordSearch() {
         <input
           value={inputValue}
           onChange={(e) => handleInputChange(e)}
+          className="text-black"
         ></input>
       </form>
       <div className="bg-green-500 text-xl">{alertText}</div>

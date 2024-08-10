@@ -15,7 +15,6 @@ import SendWord from "./pages/SendWord.jsx";
 import OtherProfile from "./pages/OtherProfile.jsx";
 import UserSearchResults from "./pages/UserSearchResults.jsx";
 import BouquetTesting from "./pages/BouquetTesting.jsx";
-import BuySeeds from "./pages/BuySeeds.jsx";
 import VerifyEmail from "./pages/VerifyEmail.jsx";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
 import ResetPassword from "./pages/ResetPassword.jsx";
@@ -57,10 +56,6 @@ const router = createBrowserRouter([
       {
         path: "/contact",
         element: <Contact />,
-      },
-      {
-        path: "/buySeeds",
-        element: <BuySeeds />,
       },
       {
         path: "/bouquetTesting",

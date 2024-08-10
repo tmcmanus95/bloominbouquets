@@ -489,11 +489,9 @@ const resolvers = {
       try {
         if (context.user) {
           const user = await User.findById({ _id: context.user._id });
-          console.log("user", user);
           if (!user.words.includes(word)) {
-            user.words.push(word);
+            user.words.unshift(word);
             user.goldenSeeds -= wordLengthToSeeds(word.length);
-            console.log("user.words", user.words);
             await user.save();
             return user;
           } else {
