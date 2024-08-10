@@ -16,7 +16,6 @@ export default function Profile() {
   const [toggleEdit, setToggleEdit] = useState(false);
   let userBackgroundColor = "";
   if (data) {
-    console.log("hey data", data);
     userBackgroundColor = data.me.color;
   }
   const [editUserColor, error] = useMutation(EDIT_USER_COLOR);
@@ -82,7 +81,7 @@ export default function Profile() {
           </div>
 
           <div className="justify-start">
-            <ProfileWords words={data.me.words} />
+            <ProfileWords words={data.me.words} userId={data.me._id} />
           </div>
           <div>
             <UserReceivedWords bouquets={data.me.giftedWords} />

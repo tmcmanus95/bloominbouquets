@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { BUY_WORD } from "../utils/mutations";
 
 import wordsDictionary from "../assets/wordlist";

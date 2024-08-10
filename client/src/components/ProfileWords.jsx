@@ -1,6 +1,7 @@
+import { Link } from "react-router-dom";
 import FlowerSprite from "./FlowerSprite";
 import { useState, useEffect } from "react";
-export default function ProfileWords({ words }) {
+export default function ProfileWords({ words, userId }) {
   const [sliceValue, setSliceValue] = useState(15);
 
   useEffect(() => {
@@ -43,6 +44,7 @@ export default function ProfileWords({ words }) {
           ) : (
             <></>
           )}
+          <Link to={`/user/${userId}/allWords`}>All Words</Link>
         </div>
       </div>
     </section>

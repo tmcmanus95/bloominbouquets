@@ -21,6 +21,7 @@ import ResetPassword from "./pages/ResetPassword.jsx";
 import ResendVerificationLink from "./pages/ResendVerificationLink.jsx";
 import BuyGoldenSeeds from "./pages/BuyGoldenSeeds.jsx";
 import Shop from "./pages/Shop.jsx";
+import AllUserWords from "./pages/AllUserWords.jsx";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: "/user/:otherPersonsId",
         element: <OtherProfile />,
+      },
+      {
+        path: "/user/:userId/allWords",
+        element: <AllUserWords />,
       },
       { path: "/sendABouquet", element: <SendWord /> },
       {

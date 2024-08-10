@@ -35,5 +35,3 @@ function wordLengthToSeeds(wordLength) {
       return 1;
   }
 }
-
-module.exports = wordLengthToSeeds;

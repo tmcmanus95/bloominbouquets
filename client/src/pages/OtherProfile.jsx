@@ -96,7 +96,7 @@ export default function OtherProfile() {
             )}
           </div>
           <div>
-            <ProfileWords words={data.user.words} />
+            <ProfileWords words={data.user.words} userId={data.user._id} />
           </div>
           <div>
             <UserReceivedWords bouquets={data.user.giftedWords} />
