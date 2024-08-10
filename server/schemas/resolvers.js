@@ -485,6 +485,23 @@ const resolvers = {
 
       return { session: session.id };
     },
+    buyWord: async (parent, { word }, context) => {
+      try {
+        if (context.user) {
+          const user = await User.findById({ _id: context.user._id });
+          if (!user.words.includes(word)) {
+            user.words.unshift(word);
+            user.goldenSeeds -= wordLengthToSeeds(word.length);
+            await user.save();
+            return user;
+          } else {
+            console.log("Word already there");
+          }
+        }
+      } catch (error) {
+        console.log("could not buy word", error);
+      }
+    },
   },
 };
 

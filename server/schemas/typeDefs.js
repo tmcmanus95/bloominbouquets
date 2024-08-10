@@ -84,7 +84,7 @@ type Mutation {
     resendEmailVerification(email: String!): Boolean
     resetPassword(token: String!, email: String!, newPassword: String!): AuthPayload
     checkout(seedPackageId: ID!): Checkout
-
+    buyWord(word: String): User
 }
 `;
 module.exports = typeDefs;

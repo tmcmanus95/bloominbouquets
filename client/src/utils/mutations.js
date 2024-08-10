@@ -151,3 +151,11 @@ export const DELETE_BOUQUET = gql`
     }
   }
 `;
+export const BUY_WORD = gql`
+  mutation Mutation($word: String) {
+    buyWord(word: $word) {
+      _id
+      goldenSeeds
+    }
+  }
+`;

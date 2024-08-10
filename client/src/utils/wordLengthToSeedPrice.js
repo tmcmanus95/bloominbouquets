@@ -1,4 +1,4 @@
-function wordLengthToSeeds(wordLength) {
+export default function wordLengthToSeedPrice(wordLength) {
   switch (wordLength) {
     case 3:
       return 1;

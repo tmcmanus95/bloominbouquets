@@ -77,6 +77,16 @@ export default function Navbar() {
           <Link to="/contact" className="hover:bg-green-900 lg:p-2 rounded-lg">
             Contact
           </Link>
+          <Link
+            to="/buyGoldenSeeds"
+            className="hover:bg-green-900 lg:p-2 rounded-lg"
+          >
+            Buy More Seeds
+          </Link>
+
+          <Link to="/shop" className="hover:bg-green-900 lg:p-2 rounded-lg">
+            Shop
+          </Link>
         </div>
         {userSearchOpen ? (
           <div className="mx-5 flex justify-center align-center items-center">
@@ -102,6 +112,20 @@ export default function Navbar() {
               className="py-2 px-3 block w-full hover:bg-green-900 hover:text-white"
             >
               Contact
+            </Link>
+            <Link
+              to="/shop"
+              onClick={toggleMenu}
+              className="py-2 px-3 block w-full hover:bg-green-900 hover:text-white"
+            >
+              Shop
+            </Link>
+            <Link
+              to="/buyGoldenSeeds"
+              onClick={toggleMenu}
+              className="py-2 px-3 block w-full hover:bg-green-900 hover:text-white"
+            >
+              Buy More Seeds
             </Link>
 
             {Auth.loggedIn() ? (

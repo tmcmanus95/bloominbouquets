@@ -15,12 +15,13 @@ import SendWord from "./pages/SendWord.jsx";
 import OtherProfile from "./pages/OtherProfile.jsx";
 import UserSearchResults from "./pages/UserSearchResults.jsx";
 import BouquetTesting from "./pages/BouquetTesting.jsx";
-import BuySeeds from "./pages/BuySeeds.jsx";
 import VerifyEmail from "./pages/VerifyEmail.jsx";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
 import ResetPassword from "./pages/ResetPassword.jsx";
 import ResendVerificationLink from "./pages/ResendVerificationLink.jsx";
 import BuyGoldenSeeds from "./pages/BuyGoldenSeeds.jsx";
+import Shop from "./pages/Shop.jsx";
+import AllUserWords from "./pages/AllUserWords.jsx";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: "/user/:otherPersonsId",
         element: <OtherProfile />,
+      },
+      {
+        path: "/user/:userId/allWords",
+        element: <AllUserWords />,
       },
       { path: "/sendABouquet", element: <SendWord /> },
       {
@@ -56,10 +61,6 @@ const router = createBrowserRouter([
       {
         path: "/contact",
         element: <Contact />,
-      },
-      {
-        path: "/buySeeds",
-        element: <BuySeeds />,
       },
       {
         path: "/bouquetTesting",
@@ -84,6 +85,10 @@ const router = createBrowserRouter([
       {
         path: "/buyGoldenSeeds",
         element: <BuyGoldenSeeds />,
+      },
+      {
+        path: "/shop",
+        element: <Shop />,
       },
       {
         path: "*",

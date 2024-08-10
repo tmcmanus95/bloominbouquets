@@ -135,3 +135,18 @@ export const QUERY_SEED_PACKAGES = gql`
     }
   }
 `;
+export const QUERY_SHOP_ME = gql`
+  query User {
+    me {
+      goldenSeeds
+      words
+    }
+  }
+`;
+export const QUERY_ALL_USER_WORDS = gql`
+  query User($userId: ID!) {
+    user(userId: $userId) {
+      words
+    }
+  }
+`;
