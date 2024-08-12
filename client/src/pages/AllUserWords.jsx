@@ -3,6 +3,8 @@ import { useQuery } from "@apollo/client";
 import { useState, useEffect } from "react";
 import { QUERY_ALL_USER_WORDS } from "../utils/queries";
 import FlowerSprite from "../components/FlowerSprite";
+import FlowerTallyBreakdown from "../components/FlowerTallyBreakdown";
+
 export default function AllUserWords() {
   const { userId } = useParams();
   const [words, setWords] = useState([]);
@@ -11,13 +13,10 @@ export default function AllUserWords() {
     console.log("sorted words", sortedWords);
 
     setWords(sortedWords);
-    console.log("words", words);
   };
   const handleOrderByLength = () => {
     const sortedWords = [...words].sort((a, b) => a.length - b.length);
-    console.log("sorted words", sortedWords);
     setWords(sortedWords);
-    console.log("words", words);
   };
 
   console.log(userId);
@@ -32,6 +31,7 @@ export default function AllUserWords() {
   return (
     <div className="mt-20 dark:text-white">
       <h1>All User Words</h1>
+      <FlowerTallyBreakdown words={words} />
       <div>
         <button onClick={handleOrderByLength}>Length</button>
         <button onClick={handleAlphabetize}>Alphabetically</button>
