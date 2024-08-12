@@ -261,8 +261,12 @@ const resolvers = {
       }
     },
     addWord: async (_, { word, userId }, context) => {
+      console.log("word, ", word);
+      console.log("userId, ", userId);
+
       try {
         const user = await User.findById(userId);
+        console.log("user", user);
         if (!user) {
           throw new Error("User not found");
         }
@@ -275,6 +279,7 @@ const resolvers = {
         console.log(`${word.length} = ${seeds} seed(s)`);
         user.goldenSeeds += seeds;
         await user.save();
+        console.log("user words", user.words);
 
         return user;
       } catch (error) {

@@ -347,6 +347,11 @@ export default function DraggingGameBoard() {
   };
 
   const handleAddWord = async (newWord) => {
+    console.log("new word", newWord);
+    console.log(
+      "dailyBoardData.dailyRandomization._id",
+      dailyBoardData.dailyRandomization._id
+    );
     try {
       const { data } = await addWord({
         variables: {
@@ -354,9 +359,10 @@ export default function DraggingGameBoard() {
           userId: dailyBoardData.dailyRandomization._id,
         },
       });
+      console.log("add word data", data);
       setGoldenSeedAmount(data.addWord.goldenSeeds);
     } catch (error) {
-      console.log("Error adding word");
+      console.log("Error adding word:", error.message);
     }
   };
 
