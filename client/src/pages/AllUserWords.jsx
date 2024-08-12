@@ -7,25 +7,36 @@ export default function AllUserWords() {
   const { userId } = useParams();
   const [words, setWords] = useState([]);
   const handleAlphabetize = () => {
-    console.log("I will alphabetize");
+    const sortedWords = [...words].sort();
+    console.log("sorted words", sortedWords);
+
+    setWords(sortedWords);
+    console.log("words", words);
   };
   const handleOrderByLength = () => {
-    console.log("I will order by length");
+    const sortedWords = [...words].sort((a, b) => a.length - b.length);
+    console.log("sorted words", sortedWords);
+    setWords(sortedWords);
+    console.log("words", words);
   };
-  useEffect(() => {
-    setWords(data?.user?.words);
-  });
+
   console.log(userId);
   const { data, loading, error } = useQuery(QUERY_ALL_USER_WORDS, {
     variables: { userId: userId },
   });
-  if (data) {
-    console.log(data);
-  }
+  useEffect(() => {
+    if (data?.user?.words) {
+      setWords(data?.user?.words);
+    }
+  }, [data]);
   return (
-    <div className="mt-20">
+    <div className="mt-20 dark:text-white">
       <h1>All User Words</h1>
-      <div className="grid md:grid-cols-12">
+      <div>
+        <button onClick={handleOrderByLength}>Length</button>
+        <button onClick={handleAlphabetize}>Alphabetically</button>
+      </div>
+      <div className="grid md:grid-cols-12 grid-cols-5">
         {words && (
           <>
             {words.map((word, index) => (
