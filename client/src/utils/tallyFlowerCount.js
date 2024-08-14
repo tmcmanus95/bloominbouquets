@@ -13,7 +13,6 @@ export function tallyFlowerCount({ words }) {
     thirteen: 0,
   };
   for (let i = 0; i < words.length; i++) {
-    console.log("hi");
     if (words[i].length == 3) {
       flowerCount.three++;
     } else if (words[i].length == 4) {
@@ -39,7 +38,6 @@ export function tallyFlowerCount({ words }) {
     } else {
       flowerCount.thirteen++;
     }
-    console.log("flower count", flowerCount);
   }
   return flowerCount;
 }

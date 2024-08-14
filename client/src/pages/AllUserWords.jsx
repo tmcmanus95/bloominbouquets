@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { useState, useEffect } from "react";
 import { QUERY_ALL_USER_WORDS } from "../utils/queries";
+import { IoFlowerOutline } from "react-icons/io5";
 import FlowerSprite from "../components/FlowerSprite";
 import FlowerTallyBreakdown from "../components/FlowerTallyBreakdown";
 
@@ -9,9 +10,11 @@ export default function AllUserWords() {
   const { userId } = useParams();
   const [words, setWords] = useState([]);
   const [chronologicalOrder, setChronologicalOrder] = useState([]);
+  const [username, setUsername] = useState("");
+  const [color, setColor] = useState("");
+
   const handleAlphabetize = () => {
     const sortedWords = [...words].sort();
-    console.log("sorted words", sortedWords);
 
     setWords(sortedWords);
   };
@@ -42,11 +45,17 @@ export default function AllUserWords() {
     if (data?.user?.words) {
       setChronologicalOrder(data?.user?.words);
       setWords(data?.user?.words);
+      setUsername(data?.user?.username);
+      setColor(data?.user?.color);
     }
   }, [data]);
   return (
     <div className="mt-20 dark:text-white">
-      <h1>All User Words</h1>
+      <div className="flex flex-row justify-center md:text-4xl">
+        <IoFlowerOutline style={{ color: color }} className="mr-2" />
+
+        <h1 className=" mb-5"> {username}'s Words</h1>
+      </div>
       <FlowerTallyBreakdown words={words} />
       <div>
         <button onClick={handleNewest} className="border-green-500 border-2">
@@ -76,6 +85,7 @@ export default function AllUserWords() {
           Alphabetically
         </button>
       </div>
+      <h1>All Words</h1>
       <div className="grid md:grid-cols-12 grid-cols-5">
         {words && (
           <>
