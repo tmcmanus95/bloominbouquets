@@ -8,14 +8,29 @@ import FlowerTallyBreakdown from "../components/FlowerTallyBreakdown";
 export default function AllUserWords() {
   const { userId } = useParams();
   const [words, setWords] = useState([]);
+  const [chronologicalOrder, setChronologicalOrder] = useState([]);
   const handleAlphabetize = () => {
     const sortedWords = [...words].sort();
     console.log("sorted words", sortedWords);
 
     setWords(sortedWords);
   };
-  const handleOrderByLength = () => {
+  const handleNewest = () => {
+    const sortedWords = [...chronologicalOrder];
+    setWords(sortedWords);
+  };
+  const handleOldest = () => {
+    const sortedWords = [...chronologicalOrder].reverse();
+    setWords(sortedWords);
+  };
+
+  const handleShortestFirst = () => {
     const sortedWords = [...words].sort((a, b) => a.length - b.length);
+    setWords(sortedWords);
+  };
+
+  const handleLongestFirst = () => {
+    const sortedWords = [...words].sort((a, b) => b.length - a.length);
     setWords(sortedWords);
   };
 
@@ -25,6 +40,7 @@ export default function AllUserWords() {
   });
   useEffect(() => {
     if (data?.user?.words) {
+      setChronologicalOrder(data?.user?.words);
       setWords(data?.user?.words);
     }
   }, [data]);
@@ -33,8 +49,32 @@ export default function AllUserWords() {
       <h1>All User Words</h1>
       <FlowerTallyBreakdown words={words} />
       <div>
-        <button onClick={handleOrderByLength}>Length</button>
-        <button onClick={handleAlphabetize}>Alphabetically</button>
+        <button onClick={handleNewest} className="border-green-500 border-2">
+          Newest
+        </button>
+        <button onClick={handleOldest} className="border-green-500 border-2">
+          Oldest
+        </button>
+
+        <button
+          onClick={handleShortestFirst}
+          className="border-green-500 border-2"
+        >
+          Shortest First
+        </button>
+        <button
+          onClick={handleLongestFirst}
+          className="border-green-500 border-2"
+        >
+          Longest First
+        </button>
+
+        <button
+          onClick={handleAlphabetize}
+          className="border-green-500 border-2"
+        >
+          Alphabetically
+        </button>
       </div>
       <div className="grid md:grid-cols-12 grid-cols-5">
         {words && (
