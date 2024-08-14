@@ -147,6 +147,8 @@ export const QUERY_ALL_USER_WORDS = gql`
   query User($userId: ID!) {
     user(userId: $userId) {
       words
+      color
+      username
     }
   }
 `;
