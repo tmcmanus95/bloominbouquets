@@ -22,6 +22,7 @@ export default function DraggingGameBoard() {
   );
   const [newGameBoard, setNewGameBoard] = useState([]);
   const [realWord, setRealWord] = useState(false);
+  const [fakeWord, setFakeWord] = useState(false);
   const [isFlipped, setIsFlipped] = useState(false);
   const [validWord, setValidWord] = useState("");
   const [invalidWord, setInvalidWord] = useState("");
@@ -247,6 +248,10 @@ export default function DraggingGameBoard() {
       textColor = "white";
     }
 
+    if (isSelected && fakeWord) {
+      backgroundColor = "indianRed";
+    }
+
     return {
       background: backgroundColor,
       color: textColor,
@@ -308,8 +313,13 @@ export default function DraggingGameBoard() {
         }
       }, 1000);
     } else {
+      setFakeWord(true);
       setInvalidWord(userWord);
-      setSelectedIds([]);
+      setTimeout(async () => {
+        setSelectedIds([]);
+        setFakeWord(false);
+        setInvalidWord("");
+      }, 1000);
     }
   }
   const toggleSwipeMode = () => {
@@ -412,12 +422,16 @@ export default function DraggingGameBoard() {
       </div>
 
       <div className="current-word-container flex justify-center align-center md:text-5xl text-2xl">
-        {realWord ? (
+        {invalidWord && (
+          <h1 className="incorrect flex align-center">{invalidWord}</h1>
+        )}
+        {realWord && (
           <h1 className="correct flex align-center">
             {validWord}
             <FlowerSprite wordLength={validWord.length} />
           </h1>
-        ) : (
+        )}
+        {!realWord && !invalidWord ? (
           <h1 className="flex align-center">
             {selectedIds.map((id) => getTileById(id).letter)}
             <FlowerSprite
@@ -426,6 +440,8 @@ export default function DraggingGameBoard() {
               }
             />
           </h1>
+        ) : (
+          <></>
         )}
       </div>
       <div className="flex justify-center">
