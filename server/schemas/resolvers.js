@@ -88,6 +88,7 @@ const resolvers = {
           if (!lastGenerated || !isSameDay(now, lastGenerated)) {
             const newBoard = getDailyBoard();
             user.dailyBoard = newBoard;
+            user.dailyShuffleCount = 0;
             user.lastBoardGeneratedAt = now;
             user.lastShuffleReset = now;
             await user.save();
@@ -261,12 +262,8 @@ const resolvers = {
       }
     },
     addWord: async (_, { word, userId }, context) => {
-      console.log("word, ", word);
-      console.log("userId, ", userId);
-
       try {
         const user = await User.findById(userId);
-        console.log("user", user);
         if (!user) {
           throw new Error("User not found");
         }
@@ -276,10 +273,8 @@ const resolvers = {
           console.log("word already there");
         }
         const seeds = wordLengthToSeeds(word.length);
-        console.log(`${word.length} = ${seeds} seed(s)`);
         user.goldenSeeds += seeds;
         await user.save();
-        console.log("user words", user.words);
 
         return user;
       } catch (error) {
@@ -291,7 +286,6 @@ const resolvers = {
       const sender = userId;
       try {
         const gift = await GiftedWords.create({ giftedWords, sender });
-        console.log("new gifted word", gift);
         const recipient = await User.findById(recipientId);
         recipient.giftedWords.push(gift);
         await recipient.save();
@@ -326,8 +320,6 @@ const resolvers = {
     },
     shuffleBoard: async (parent, { userId }, context) => {
       try {
-        console.log("User ID:", userId);
-
         const user = await User.findById(userId);
 
         if (!user) {
