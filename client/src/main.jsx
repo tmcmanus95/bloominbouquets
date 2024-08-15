@@ -22,6 +22,7 @@ import ResendVerificationLink from "./pages/ResendVerificationLink.jsx";
 import BuyGoldenSeeds from "./pages/BuyGoldenSeeds.jsx";
 import Shop from "./pages/Shop.jsx";
 import AllUserWords from "./pages/AllUserWords.jsx";
+import SingleWord from "./pages/SingleWord.jsx";
 
 const router = createBrowserRouter([
   {
@@ -86,6 +87,11 @@ const router = createBrowserRouter([
         path: "/buyGoldenSeeds",
         element: <BuyGoldenSeeds />,
       },
+      {
+        path: "/singleWord/:word",
+        element: <SingleWord />,
+      },
+
       {
         path: "/shop",
         element: <Shop />,

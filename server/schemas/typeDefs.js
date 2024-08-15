@@ -65,6 +65,7 @@ type Query {
     searchUsers(username: String): User
     dailyRandomization: User
 }
+    
 type Mutation {
     addUser(username: String!, email: String!, password: String!, color: String): Auth
     removeUser(userId: ID!): User

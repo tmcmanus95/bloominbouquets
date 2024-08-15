@@ -24,4 +24,5 @@ Each word corresponds to a flower. You can send flowers via text or in app.
 
 ## Contributions
 
-- [Color Selecting Element](https://ant.design/components/color-picker) from [Ant Design](https://ant.design/)
+- [Color Selecting Element](https://ant.design/components/color-picker) from [Ant Design](https://ant.design/) for changing user's flower color.
+- [Free Dictionary API](https://dictionaryapi.dev/) for word information.
