@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { useState, useEffect } from "react";
 import { QUERY_ALL_USER_WORDS } from "../utils/queries";
@@ -97,15 +97,17 @@ export default function AllUserWords() {
           {words && (
             <>
               {words.map((word, index) => (
-                <div
-                  key={index}
-                  className="md:text-sm text-xs overflow-hidden border-2 hover:border-green-300 border-transparent rounded-lg m-2 flex flex-col items-center"
-                >
-                  {word}
-                  <div className="align-center justify-center">
-                    <FlowerSprite wordLength={word.length} />
+                <Link to={`/singleWord/${word}`}>
+                  <div
+                    key={index}
+                    className="md:text-sm text-xs overflow-hidden border-2 hover:border-green-300 border-transparent rounded-lg m-2 flex flex-col items-center"
+                  >
+                    {word}
+                    <div className="align-center justify-center">
+                      <FlowerSprite wordLength={word.length} />
+                    </div>
                   </div>
-                </div>
+                </Link>
               ))}
             </>
           )}
