@@ -26,7 +26,7 @@ export default function ProfileWords({ words, userId }) {
   return (
     <section className="m-2 flex justify-center flex-col border-black dark:border-white border-2">
       <h1 className="md:text-3xl text-center">Best Words</h1>
-      <div className="flex justify-center">
+      <div className="">
         <div className="grid grid-cols-2 md:grid-cols-8 content-start">
           {sortedWords ? (
             sortedWords.map((word, index) => (
@@ -46,7 +46,7 @@ export default function ProfileWords({ words, userId }) {
           )}
           <Link
             to={`/user/${userId}/allWords`}
-            className="border-green-500 border-2 hover:cursor:pointer text-center hover:border-green-700 m-0"
+            className="border-green-500 border-2 hover:cursor:pointer text-center hover:border-green-700 m-0 relative bottom-0 right-0"
           >
             All Words
           </Link>

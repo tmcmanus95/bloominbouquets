@@ -309,7 +309,6 @@ export default function DraggingGameBoard() {
       }, 1000);
     } else {
       setInvalidWord(userWord);
-      console.log("not a real word");
       setSelectedIds([]);
     }
   }
@@ -339,6 +338,27 @@ export default function DraggingGameBoard() {
       setShufflePrice(
         shuffleCountToSeedReduction(data.shuffleBoard.dailyShuffleCount)
       );
+      newGameBoard.forEach((tile) => {
+        setTimeout(() => {
+          setNewGameBoard((prevBoard) =>
+            prevBoard.map((t) =>
+              t.id === tile.id ? { ...t, isFlipped: true } : t
+            )
+          );
+        }, tile.id * 5);
+      });
+
+      setTimeout(() => {
+        newGameBoard.forEach((tile) => {
+          setTimeout(() => {
+            setNewGameBoard((prevBoard) =>
+              prevBoard.map((t) =>
+                t.id === tile.id ? { ...t, isFlipped: false } : t
+              )
+            );
+          }, tile.id * 5);
+        });
+      }, 500);
 
       toggleAreYouSure();
     } catch (error) {
@@ -347,7 +367,6 @@ export default function DraggingGameBoard() {
   };
 
   const handleAddWord = async (newWord) => {
-    console.log("new word", newWord);
     console.log(
       "dailyBoardData.dailyRandomization._id",
       dailyBoardData.dailyRandomization._id
@@ -359,7 +378,6 @@ export default function DraggingGameBoard() {
           userId: dailyBoardData.dailyRandomization._id,
         },
       });
-      console.log("add word data", data);
       setGoldenSeedAmount(data.addWord.goldenSeeds);
     } catch (error) {
       console.log("Error adding word:", error.message);
@@ -375,7 +393,7 @@ export default function DraggingGameBoard() {
   };
 
   const toggleInsufficientSeeds = () => {
-    setInsufficentSeeds(!insufficientSeeds);
+    setInsufficentSeeds(true);
   };
 
   return (
@@ -385,7 +403,7 @@ export default function DraggingGameBoard() {
       /> */}
       <div className="flex justify-center">
         {alertVisible ? (
-          <h1 className="z-20 bg-yellow-300 dark:bg-yellow-700 rounded-lg p-5 absolute">
+          <h1 className="z-20 bg-yellow-300 rounded-lg p-5 absolute mt-2">
             {alertText}
           </h1>
         ) : (

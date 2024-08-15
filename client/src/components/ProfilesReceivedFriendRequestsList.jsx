@@ -32,7 +32,6 @@ export default function ProfilesReceivedFriendRequestsList({ userId }) {
       setReceivedFriendRequests(data.usersFriendRequests.friendRequests);
     }
   }, [data]);
-  console.log("receivedfriendrequests", receivedFriendRequests);
   return (
     <section className="flex justify-center flex-col md:text-xl text-base border-2 border-black dark:border-white m-2">
       <h1 className="md:text-xl ml-2">Friend Requests</h1>

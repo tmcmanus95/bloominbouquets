@@ -16,7 +16,6 @@ export default function UserReceivedWords({ bouquets: initialBouquets }) {
   });
 
   if (bouquets) {
-    console.log("bouquets", bouquets);
     if (bouquets.giftedWords) {
       const arrayBouquetWords = bouquets[0].giftedWords.splice(",");
       console.log(arrayBouquetWords);
