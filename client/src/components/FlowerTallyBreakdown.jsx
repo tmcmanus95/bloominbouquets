@@ -35,7 +35,7 @@ export default function FlowerTallyBreakdown(words) {
               className="border-2 border-green-600 flex flex-col md:mb-0 mb-2"
             >
               <h3>{flower.name}</h3>
-              <div className="flex justify-center items-center flex-col">
+              <div className="flex justify-center items-center flex-col ">
                 <FlowerSprite wordLength={flower.wordLength} />
                 <h5>
                   {flowerTally[flower.countKey]}{" "}

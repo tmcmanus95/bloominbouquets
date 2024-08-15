@@ -48,6 +48,11 @@
   background-color: darkseagreen;
   border-radius: 3px;
 }
+.incorrect {
+  padding: 5px;
+  background-color: indianred;
+  border-radius: 3px;
+}
 
 .incorrect {
   padding: 5px;
