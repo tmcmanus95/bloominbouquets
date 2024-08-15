@@ -37,7 +37,6 @@ export default function AllUserWords() {
     setWords(sortedWords);
   };
 
-  console.log(userId);
   const { data, loading, error } = useQuery(QUERY_ALL_USER_WORDS, {
     variables: { userId: userId },
   });
@@ -51,52 +50,66 @@ export default function AllUserWords() {
   }, [data]);
   return (
     <div className="mt-20 dark:text-white">
-      <div className="flex flex-row justify-center md:text-4xl">
+      <div className="flex flex-row justify-center md:text-5xl text-4xl">
         <IoFlowerOutline style={{ color: color }} className="mr-2" />
 
-        <h1 className=" mb-5"> {username}'s Words</h1>
+        <h1 className="mb-5"> {username}'s Words</h1>
       </div>
       <FlowerTallyBreakdown words={words} />
-      <div>
-        <button onClick={handleNewest} className="border-green-500 border-2">
-          Newest
-        </button>
-        <button onClick={handleOldest} className="border-green-500 border-2">
-          Oldest
-        </button>
+      <div className="border-2 border-green-500 mx-2">
+        <h1 className="md:text-3xl text-2xl text-center">All Words</h1>
 
-        <button
-          onClick={handleShortestFirst}
-          className="border-green-500 border-2"
-        >
-          Shortest First
-        </button>
-        <button
-          onClick={handleLongestFirst}
-          className="border-green-500 border-2"
-        >
-          Longest First
-        </button>
+        <div className="text-center ">
+          <button
+            onClick={handleNewest}
+            className="border-green-500 border-2 md:text-base text-xs"
+          >
+            Newest
+          </button>
+          <button
+            onClick={handleOldest}
+            className="border-green-500 border-2 md:text-base text-xs"
+          >
+            Oldest
+          </button>
 
-        <button
-          onClick={handleAlphabetize}
-          className="border-green-500 border-2"
-        >
-          Alphabetically
-        </button>
-      </div>
-      <h1>All Words</h1>
-      <div className="grid md:grid-cols-12 grid-cols-5">
-        {words && (
-          <>
-            {words.map((word, index) => (
-              <div key={index}>
-                {word}
-                <FlowerSprite wordLength={word.length} />
-              </div>
-            ))}
-          </>
-        )}
+          <button
+            onClick={handleShortestFirst}
+            className="border-green-500 border-2 md:text-base text-xs"
+          >
+            Shortest First
+          </button>
+          <button
+            onClick={handleLongestFirst}
+            className="border-green-500 border-2 md:text-base text-xs"
+          >
+            Longest First
+          </button>
+
+          <button
+            onClick={handleAlphabetize}
+            className="border-green-500 border-2 md:text-base text-xs"
+          >
+            Alphabetically
+          </button>
+        </div>
+        <div className="grid md:grid-cols-12 grid-cols-5 ">
+          {words && (
+            <>
+              {words.map((word, index) => (
+                <div
+                  key={index}
+                  className="md:text-sm text-xs overflow-hidden border-2 hover:border-green-300 border-transparent rounded-lg m-2 flex flex-col items-center"
+                >
+                  {word}
+                  <div className="align-center justify-center">
+                    <FlowerSprite wordLength={word.length} />
+                  </div>
+                </div>
+              ))}
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

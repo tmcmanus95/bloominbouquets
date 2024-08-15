@@ -24,7 +24,7 @@ export default function FlowerTallyBreakdown(words) {
 
   return (
     <div className="border-2 ">
-      <div className="border-2 border-green grid  md:grid-cols-10 grid-cols-5">
+      <div className="border-2 border-green grid md:grid-cols-10 grid-cols-5 md:text-m text-xs mx-2">
         {flowerMapping.map((flower) => (
           <div className="flex flex-col text-center">
             <h4 className="border-l-2 border-r-2 border-t-2 border-green-600">
@@ -32,10 +32,10 @@ export default function FlowerTallyBreakdown(words) {
             </h4>
             <div
               key={flower.name}
-              className="border-2 border-green-600 flex flex-col text-center"
+              className="border-2 border-green-600 flex flex-col md:mb-0 mb-2"
             >
               <h3>{flower.name}</h3>
-              <div>
+              <div className="flex justify-center items-center flex-col">
                 <FlowerSprite wordLength={flower.wordLength} />
                 <h5>
                   {flowerTally[flower.countKey]}{" "}

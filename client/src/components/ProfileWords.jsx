@@ -44,7 +44,12 @@ export default function ProfileWords({ words, userId }) {
           ) : (
             <></>
           )}
-          <Link to={`/user/${userId}/allWords`}>All Words</Link>
+          <Link
+            to={`/user/${userId}/allWords`}
+            className="border-green-500 border-2 hover:cursor:pointer text-center hover:border-green-700 m-0"
+          >
+            All Words
+          </Link>
         </div>
       </div>
     </section>
