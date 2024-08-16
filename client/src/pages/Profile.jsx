@@ -10,6 +10,7 @@ import ProfilesReceivedFriendRequestsList from "../components/ProfilesReceivedFr
 import ProfileFriends from "../components/ProfileFriends";
 import { ColorPicker } from "antd";
 import UserReceivedWords from "../components/UserReceivedWords";
+import Loading from "../components/Loading";
 
 export default function Profile() {
   const { loading, data } = useQuery(QUERY_ME);
@@ -88,7 +89,9 @@ export default function Profile() {
           </div>
         </div>
       ) : (
-        <h1>Loading...</h1>
+        <div className="flex justify-center">
+          <Loading />
+        </div>
       )}
     </div>
   );
