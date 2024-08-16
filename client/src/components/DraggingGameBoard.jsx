@@ -12,6 +12,8 @@ import FlowerSprite from "./FlowerSprite";
 import Auth from "../utils/auth";
 import { Link } from "react-router-dom";
 import { shuffleCountToSeedReduction } from "../utils/shuffleCountToSeedReduction";
+import Loading from "../components/Loading";
+
 export default function DraggingGameBoard() {
   const [selectedIds, setSelectedIds] = useState([]);
   const [dailyGameBoardString, setDailyGameBoardString] = useState("");
@@ -468,7 +470,9 @@ export default function DraggingGameBoard() {
                 </div>
               ))
             ) : (
-              <h1>Loading</h1>
+              <div className="flex justify-center">
+                <Loading />
+              </div>
             )}
           </div>
         </div>

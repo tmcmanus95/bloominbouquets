@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getSingleWord } from "../utils/getSingleWord";
+import Loading from "../components/Loading";
 
 export default function SingleWord() {
   const { word } = useParams();
@@ -23,19 +24,13 @@ export default function SingleWord() {
     fetchWordData();
   }, [word]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loading></Loading>;
   if (error) return <div>{error}</div>;
 
   return (
     <div className="mt-30">
       <h1>Word: {word}</h1>
-      {wordData ? (
-        <div>
-          <pre>{JSON.stringify(wordData, null, 2)}</pre>
-        </div>
-      ) : (
-        <div>No data found</div>
-      )}
+      {wordData ? <div></div> : <div>No data found</div>}
     </div>
   );
 }
