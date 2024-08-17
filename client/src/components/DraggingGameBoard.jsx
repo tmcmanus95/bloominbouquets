@@ -37,6 +37,7 @@ export default function DraggingGameBoard() {
   const [swipeMode, setSwipeMode] = useState(true);
   const [alertVisible, setAlertVisible] = useState(false);
   const [alertText, setAlertText] = useState("");
+  const [loadingBoard, setLoadingBoard] = useState([]);
   const { data: dailyBoardData, error: dailyBoardError } =
     useQuery(GET_DAILY_BOARD);
   const [addWord, error] = useMutation(ADD_WORD);
@@ -110,7 +111,7 @@ export default function DraggingGameBoard() {
       return () => {
         document.body.style.overflow = "scroll";
       };
-    }, []);
+    }, [loadingBoard]);
   }
 
   if (isLoggedIn) {
@@ -203,6 +204,14 @@ export default function DraggingGameBoard() {
       initializeGameBoard();
     }, [numRows, numCols]);
   }
+  useEffect(() => {
+    const tempBoard = [];
+    for (let i = 0; i < numCols * numRows; i++) {
+      tempBoard.push(i);
+    }
+    setLoadingBoard(tempBoard);
+    console.log(tempBoard);
+  }, [numCols, numRows]);
 
   const selectedTile = (tile) => {
     const isSelected = selectedIds.includes(tile.id);
@@ -452,28 +461,28 @@ export default function DraggingGameBoard() {
             id="grid-container"
             onTouchMove={swipeMode ? (e) => handleTouchMove(e) : null}
           >
-            {newGameBoard.length > 0 ? (
-              newGameBoard.map((tile) => (
-                <div
-                  onTouchStart={
-                    swipeMode ? (e) => handleTouchStart(e, tile) : null
-                  }
-                  key={tile.id}
-                  data-id={tile.id}
-                  style={selectedTile(tile)}
-                  className={`grid-item text-black dark:text-white ${
-                    isFlipped ? "flip-animation" : ""
-                  }`}
-                  onClick={() => addLetter(tile)}
-                >
-                  {tile.letter}
-                </div>
-              ))
-            ) : (
-              <div className="flex justify-center">
-                <Loading />
-              </div>
-            )}
+            {newGameBoard.length > 0
+              ? newGameBoard.map((tile) => (
+                  <div
+                    onTouchStart={
+                      swipeMode ? (e) => handleTouchStart(e, tile) : null
+                    }
+                    key={tile.id}
+                    data-id={tile.id}
+                    style={selectedTile(tile)}
+                    className={`grid-item text-black dark:text-white ${
+                      isFlipped ? "flip-animation" : ""
+                    }`}
+                    onClick={() => addLetter(tile)}
+                  >
+                    {tile.letter}
+                  </div>
+                ))
+              : loadingBoard.map((loader, index) => (
+                  <div className="flex justify-center">
+                    <Loading size={30} />
+                  </div>
+                ))}
           </div>
         </div>
       </div>
