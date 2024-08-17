@@ -20,7 +20,7 @@ export function setFlowerForWordLength(wordLength) {
       flower = "/flowersprites/daisy.png";
       break;
     case 6:
-      flower = "/flowersprites/lily.png";
+      flower = "/flowersprites/lily.jpeg";
       break;
     case 7:
       flower = "/flowersprites/tulip.png";
@@ -32,7 +32,7 @@ export function setFlowerForWordLength(wordLength) {
       flower = "/flowersprites/azalea.png";
       break;
     case 10:
-      flower = "/flowersprites/rose.png";
+      flower = "/flowersprites/rose.jpeg";
       break;
     case 11:
       flower = "/flowersprites/orchid.png";

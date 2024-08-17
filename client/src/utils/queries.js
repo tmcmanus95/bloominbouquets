@@ -165,3 +165,15 @@ export const QUERY_USERS_FRIENDS = gql`
     }
   }
 `;
+export const QUERY_USERS_FRIEND_REQUESTS = gql`
+  query User {
+    me {
+      _id
+      username
+      friendRequests {
+        _id
+        username
+      }
+    }
+  }
+`;

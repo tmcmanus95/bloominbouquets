@@ -28,7 +28,7 @@ export default function AllFriends() {
       <div className="flex flex-row justify-center md:text-5xl text-4xl">
         <IoFlowerOutline style={{ color: color }} className="mr-2" />
 
-        <h1 className="mb-5"> {username}'s Words</h1>
+        <h1 className="mb-5">{username}'s Words</h1>
       </div>
       {friends ? (
         friends.map((friend, index) => (
