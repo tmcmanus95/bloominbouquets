@@ -19,11 +19,11 @@ export default function AllUserWords() {
     setWords(sortedWords);
   };
   const handleNewest = () => {
-    const sortedWords = [...chronologicalOrder];
+    const sortedWords = [...chronologicalOrder].reverse();
     setWords(sortedWords);
   };
   const handleOldest = () => {
-    const sortedWords = [...chronologicalOrder].reverse();
+    const sortedWords = [...chronologicalOrder];
     setWords(sortedWords);
   };
 

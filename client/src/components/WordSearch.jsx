@@ -11,10 +11,8 @@ export default function WordSearch({ words }) {
   const [wordPrice, setWordPrice] = useState(0);
   const [alertText, setAlertText] = useState("");
   const [buyable, setBuyable] = useState(false);
-  console.log("user words", words);
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
-    console.log(inputValue);
   };
   const [buyWord, error] = useMutation(BUY_WORD);
   const handleSearchWord = (e) => {
