@@ -7,7 +7,7 @@ export default function Loading({ size }) {
       <l-hatch
         className="text-green-200"
         size={size}
-        speed="4"
+        speed="6"
         color="darkgreen"
       ></l-hatch>
     </div>

@@ -12,8 +12,11 @@ import FlowerSprite from "./FlowerSprite";
 import Auth from "../utils/auth";
 import { Link } from "react-router-dom";
 import { shuffleCountToSeedReduction } from "../utils/shuffleCountToSeedReduction";
-export default function GameBoard() {
+import Loading from "../components/Loading";
+
+export default function DraggingGameBoard() {
   const [selectedIds, setSelectedIds] = useState([]);
+  const [tooFarIds, setTooFarIds] = useState([]);
   const [dailyGameBoardString, setDailyGameBoardString] = useState("");
   const [areYouSureVisible, setAreYouSureVisible] = useState(false);
   const [dailyTail, setDailyTail] = useState("");
@@ -22,6 +25,7 @@ export default function GameBoard() {
   );
   const [newGameBoard, setNewGameBoard] = useState([]);
   const [realWord, setRealWord] = useState(false);
+  const [fakeWord, setFakeWord] = useState(false);
   const [isFlipped, setIsFlipped] = useState(false);
   const [validWord, setValidWord] = useState("");
   const [invalidWord, setInvalidWord] = useState("");
@@ -31,6 +35,10 @@ export default function GameBoard() {
   const [goldenSeedAmount, setGoldenSeedAmount] = useState(0);
   const [dailyShuffleCount, setDailyShuffleCount] = useState(0);
   const [updateBoard] = useMutation(UPDATE_DAILY_BOARD);
+  const [swipeMode, setSwipeMode] = useState(true);
+  const [alertVisible, setAlertVisible] = useState(false);
+  const [alertText, setAlertText] = useState("");
+  const [loadingBoard, setLoadingBoard] = useState([]);
   const { data: dailyBoardData, error: dailyBoardError } =
     useQuery(GET_DAILY_BOARD);
   const [addWord, error] = useMutation(ADD_WORD);
@@ -53,7 +61,22 @@ export default function GameBoard() {
       }
     } else {
       if (selectedIds.length === 0 || hasAdjacentSelected(tile)) {
+        setAlertVisible(false);
+
         setSelectedIds([...selectedIds, id]);
+      } else {
+        setTooFarIds([...tooFarIds, id]);
+        setAlertText(
+          "You must select a tile adjacent to a tile you have already selected."
+        );
+        setAlertVisible(true);
+        setTimeout(() => {
+          setTooFarIds([]);
+        }, 500);
+        setTimeout(() => {
+          setAlertText("");
+          setAlertVisible(false);
+        }, 5000);
       }
     }
   };
@@ -82,6 +105,30 @@ export default function GameBoard() {
   const getTileById = (id) => {
     return newGameBoard.find((tile) => tile.id === id);
   };
+  const handleTouchStart = (event, tile) => {
+    addLetter(tile);
+  };
+
+  const handleTouchMove = (event) => {
+    const touch = event.touches[0];
+    const element = document.elementFromPoint(touch.clientX, touch.clientY);
+    if (element && element.classList.contains("grid-item")) {
+      const tileId = parseInt(element.getAttribute("data-id"), 10);
+      const tile = getTileById(tileId);
+      if (tile && !selectedIds.includes(tile.id)) {
+        addLetter(tile);
+      }
+    }
+  };
+
+  if (isMobile()) {
+    useEffect(() => {
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = "scroll";
+      };
+    }, [loadingBoard]);
+  }
 
   if (isLoggedIn) {
     useEffect(() => {
@@ -173,9 +220,17 @@ export default function GameBoard() {
       initializeGameBoard();
     }, [numRows, numCols]);
   }
+  useEffect(() => {
+    const tempBoard = [];
+    for (let i = 0; i < numCols * numRows; i++) {
+      tempBoard.push(i);
+    }
+    setLoadingBoard(tempBoard);
+  }, [numCols, numRows]);
 
   const selectedTile = (tile) => {
     const isSelected = selectedIds.includes(tile.id);
+    const isTooFar = tooFarIds.includes(tile.id);
     const isAdjacent = hasAdjacentSelected(tile);
     const isMostRecent =
       selectedIds.length > 0 && tile.id === selectedIds[selectedIds.length - 1];
@@ -211,6 +266,9 @@ export default function GameBoard() {
       }
       backgroundColor = "#e2d1c4";
     }
+    if (isTooFar) {
+      backgroundColor = "indianRed";
+    }
 
     if (isMostRecent && realWord) {
       backgroundColor = "gold";
@@ -218,6 +276,10 @@ export default function GameBoard() {
     } else if (isMostRecent) {
       backgroundColor = "#4d9039";
       textColor = "white";
+    }
+
+    if (isSelected && fakeWord) {
+      backgroundColor = "indianRed";
     }
 
     return {
@@ -281,11 +343,28 @@ export default function GameBoard() {
         }
       }, 1000);
     } else {
+      setFakeWord(true);
       setInvalidWord(userWord);
-      console.log("not a real word");
-      setSelectedIds([]);
+      setTimeout(async () => {
+        setSelectedIds([]);
+        setFakeWord(false);
+        setInvalidWord("");
+      }, 1000);
     }
   }
+  const toggleSwipeMode = () => {
+    setSwipeMode(!swipeMode);
+    if (swipeMode) {
+      setAlertText("Click Mode Enabled");
+    } else {
+      setAlertText("Swipe Mode Enabled");
+    }
+    setAlertVisible(true);
+    setTimeout(() => {
+      setAlertVisible(false);
+      setAlertText("");
+    }, 1000);
+  };
 
   const handleShuffleBoard = async () => {
     try {
@@ -299,6 +378,27 @@ export default function GameBoard() {
       setShufflePrice(
         shuffleCountToSeedReduction(data.shuffleBoard.dailyShuffleCount)
       );
+      newGameBoard.forEach((tile) => {
+        setTimeout(() => {
+          setNewGameBoard((prevBoard) =>
+            prevBoard.map((t) =>
+              t.id === tile.id ? { ...t, isFlipped: true } : t
+            )
+          );
+        }, tile.id * 5);
+      });
+
+      setTimeout(() => {
+        newGameBoard.forEach((tile) => {
+          setTimeout(() => {
+            setNewGameBoard((prevBoard) =>
+              prevBoard.map((t) =>
+                t.id === tile.id ? { ...t, isFlipped: false } : t
+              )
+            );
+          }, tile.id * 5);
+        });
+      }, 500);
 
       toggleAreYouSure();
     } catch (error) {
@@ -316,7 +416,7 @@ export default function GameBoard() {
       });
       setGoldenSeedAmount(data.addWord.goldenSeeds);
     } catch (error) {
-      console.log("Error adding word");
+      console.log("Error adding word:", error.message);
     }
   };
 
@@ -329,7 +429,7 @@ export default function GameBoard() {
   };
 
   const toggleInsufficientSeeds = () => {
-    setInsufficentSeeds(!insufficientSeeds);
+    setInsufficentSeeds(true);
   };
 
   return (
@@ -337,13 +437,27 @@ export default function GameBoard() {
       {/* <CurrentWord
         selectedLetters={selectedIds.map((id) => getTileById(id).letter)}
       /> */}
+      <div className="flex justify-center">
+        {alertVisible ? (
+          <h1 className="z-20 bg-yellow-300 rounded-lg p-5 absolute mt-2">
+            {alertText}
+          </h1>
+        ) : (
+          <></>
+        )}
+      </div>
+
       <div className="current-word-container flex justify-center align-center md:text-5xl text-2xl">
-        {realWord ? (
+        {invalidWord && (
+          <h1 className="incorrect flex align-center">{invalidWord}</h1>
+        )}
+        {realWord && (
           <h1 className="correct flex align-center">
             {validWord}
             <FlowerSprite wordLength={validWord.length} />
           </h1>
-        ) : (
+        )}
+        {!realWord && !invalidWord ? (
           <h1 className="flex align-center">
             {selectedIds.map((id) => getTileById(id).letter)}
             <FlowerSprite
@@ -352,27 +466,38 @@ export default function GameBoard() {
               }
             />
           </h1>
+        ) : (
+          <></>
         )}
       </div>
       <div className="flex justify-center">
         <div id="main-container">
-          <div id="grid-container">
-            {newGameBoard.length > 0 ? (
-              newGameBoard.map((tile) => (
-                <div
-                  key={tile.id}
-                  style={selectedTile(tile)}
-                  className={`grid-item text-black dark:text-white ${
-                    isFlipped ? "flip-animation" : ""
-                  }`}
-                  onClick={() => addLetter(tile)}
-                >
-                  {tile.letter}
-                </div>
-              ))
-            ) : (
-              <h1>Loading</h1>
-            )}
+          <div
+            id="grid-container"
+            onTouchMove={swipeMode ? (e) => handleTouchMove(e) : null}
+          >
+            {newGameBoard.length > 0
+              ? newGameBoard.map((tile) => (
+                  <div
+                    onTouchStart={
+                      swipeMode ? (e) => handleTouchStart(e, tile) : null
+                    }
+                    key={tile.id}
+                    data-id={tile.id}
+                    style={selectedTile(tile)}
+                    className={`grid-item text-black dark:text-white ${
+                      isFlipped ? "flip-animation" : ""
+                    }`}
+                    onClick={() => addLetter(tile)}
+                  >
+                    {tile.letter}
+                  </div>
+                ))
+              : loadingBoard.map((loader, index) => (
+                  <div className="flex justify-center">
+                    <Loading size={30} />
+                  </div>
+                ))}
           </div>
         </div>
       </div>
@@ -408,7 +533,7 @@ export default function GameBoard() {
             <h1 className="">You need {shufflePrice} seeds to shuffle</h1>
             <div className="">
               <Link
-                to={`/buySeeds`}
+                to={`/buyGoldenSeeds`}
                 onClick={async () => await toggleInsufficientSeeds()}
               >
                 <button className=" dark:bg-green-900 bg-green-300 hover:bg-green-500 dark:text-white text-black">
@@ -445,12 +570,27 @@ export default function GameBoard() {
           </div>
         )}
       </div>
-      <div className="flex justify-center">
+      {isMobile() ? (
+        <div className="flex justify-center">
+          <button
+            onClick={() => toggleSwipeMode()}
+            className=" dark:bg-green-900 bg-green-300 hover:bg-green-500 dark:text-white text-black"
+          >
+            Toggle mode
+          </button>
+        </div>
+      ) : (
+        <></>
+      )}
+      <div className="flex justify-center items-center">
+        <h1 className="m-2">Golden Seeds</h1>
         <h1 className=" bg-yellow-500 p-2 rounded-lg md:text-2xl text-xl mt-2">
           {goldenSeedAmount}
         </h1>
       </div>
-      {isLoggedIn ? (
+      {isMobile() ? (
+        <></>
+      ) : isLoggedIn ? (
         <div className="flex flex-row justify-center mt-5">
           <div>
             {dailyBoardData ? (
