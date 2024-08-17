@@ -12,6 +12,7 @@ import FlowerSprite from "./FlowerSprite";
 import Auth from "../utils/auth";
 import { Link } from "react-router-dom";
 import { shuffleCountToSeedReduction } from "../utils/shuffleCountToSeedReduction";
+import wordLengthToSeedPrice from "../utils/wordLengthToSeedPrice";
 import Loading from "../components/Loading";
 
 export default function DraggingGameBoard() {
@@ -240,7 +241,7 @@ export default function DraggingGameBoard() {
       window.matchMedia &&
       window.matchMedia("(prefers-color-scheme: dark)").matches
     ) {
-      backgroundColor = "#01082e";
+      backgroundColor = "#010b1c";
       textColor = "white";
     } else {
       backgroundColor = "ghostwhite";
@@ -448,6 +449,14 @@ export default function DraggingGameBoard() {
       </div>
 
       <div className="current-word-container flex justify-center align-center md:text-5xl text-2xl">
+        {selectedIds.map((id) => getTileById(id).letter).join("").length >
+          2 && (
+          <span className="bg-yellow-500 p-2 rounded-lg md:text-2xl text-xl text-black absolute top-15 md:right-80 right-6 z-20">
+            {wordLengthToSeedPrice(
+              selectedIds.map((id) => getTileById(id).letter).join("").length
+            )}
+          </span>
+        )}
         {invalidWord && (
           <h1 className="incorrect flex align-center">{invalidWord}</h1>
         )}
@@ -583,8 +592,8 @@ export default function DraggingGameBoard() {
         <></>
       )}
       <div className="flex justify-center items-center">
-        <h1 className="m-2">Golden Seeds</h1>
-        <h1 className=" bg-yellow-500 p-2 rounded-lg md:text-2xl text-xl mt-2">
+        <h1 className="m-2 ">Golden Seeds</h1>
+        <h1 className=" bg-yellow-500 p-2 rounded-lg md:text-2xl text-xl mt-2 text-black">
           {goldenSeedAmount}
         </h1>
       </div>

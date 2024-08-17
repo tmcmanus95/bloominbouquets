@@ -23,6 +23,7 @@ import Shop from "./pages/Shop.jsx";
 import AllUserWords from "./pages/AllUserWords.jsx";
 import AllFriends from "./pages/AllFriends.jsx";
 import SingleWord from "./pages/SingleWord.jsx";
+import AllFriendRequests from "./pages/AllFriendRequests.jsx";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: "/me",
         element: <Profile />,
+      },
+      {
+        path: "/me/friendRequests",
+        element: <AllFriendRequests />,
       },
       {
         path: "/user/:otherPersonsId",

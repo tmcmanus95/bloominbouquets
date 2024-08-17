@@ -8,6 +8,7 @@ import {
   IoIosCloseCircle,
   IoMdFlower,
 } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 export default function ProfilesReceivedFriendRequestsList({ userId }) {
   const { data, error } = useQuery(QUERY_USER_FRIEND_REQUESTS, {
@@ -59,6 +60,12 @@ export default function ProfilesReceivedFriendRequestsList({ userId }) {
             <h1 className="md:text-sm text-xs">No friend requests</h1>
           </div>
         )}
+        <Link
+          to={`/me/friendRequests`}
+          className="border-green-500 border-2 hover:cursor:pointer text-center hover:border-green-700 m-0 relative bottom-0 right-0"
+        >
+          All Friend Requests
+        </Link>
       </div>
     </section>
   );

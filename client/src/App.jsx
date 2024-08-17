@@ -40,6 +40,7 @@ function App() {
     <ApolloProvider client={client}>
       <section
         style={{ maxWidth: "100%", overflowX: "hidden", height: "100%" }}
+        className="dark:text-white"
       >
         <Navbar />
         <div className="md:mt-14 mt-8">

@@ -6,5 +6,11 @@ export default function FlowerSprite({ wordLength }) {
     return null;
   }
 
-  return <img src={selectedFlower} alt="flower" />;
+  return (
+    <img
+      src={selectedFlower}
+      style={{ height: "40px", width: "40px" }}
+      alt="flower"
+    />
+  );
 }
