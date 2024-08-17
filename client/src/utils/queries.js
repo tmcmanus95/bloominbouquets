@@ -152,3 +152,16 @@ export const QUERY_ALL_USER_WORDS = gql`
     }
   }
 `;
+export const QUERY_USERS_FRIENDS = gql`
+  query User($userId: ID!) {
+    user(userId: $userId) {
+      username
+      color
+      friends {
+        _id
+        username
+        color
+      }
+    }
+  }
+`;

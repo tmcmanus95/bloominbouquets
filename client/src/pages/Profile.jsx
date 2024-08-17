@@ -11,6 +11,7 @@ import ProfileFriends from "../components/ProfileFriends";
 import { ColorPicker } from "antd";
 import UserReceivedWords from "../components/UserReceivedWords";
 import Loading from "../components/Loading";
+import { Link } from "react-router-dom";
 
 export default function Profile() {
   const { loading, data } = useQuery(QUERY_ME);
@@ -71,7 +72,7 @@ export default function Profile() {
             </div>
           </div>
           <div className="justify-start">
-            <ProfileFriends friends={data.me.friends} />
+            <ProfileFriends friends={data.me.friends} userId={data.me._id} />
           </div>
 
           <div>
