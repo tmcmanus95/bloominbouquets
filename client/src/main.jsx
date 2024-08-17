@@ -3,7 +3,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 
 import App from "./App.jsx";
-import Game from "./pages/Game";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Error from "./pages/Error";

@@ -16,6 +16,7 @@ import Loading from "../components/Loading";
 
 export default function DraggingGameBoard() {
   const [selectedIds, setSelectedIds] = useState([]);
+  const [tooFarIds, setTooFarIds] = useState([]);
   const [dailyGameBoardString, setDailyGameBoardString] = useState("");
   const [areYouSureVisible, setAreYouSureVisible] = useState(false);
   const [dailyTail, setDailyTail] = useState("");
@@ -60,7 +61,22 @@ export default function DraggingGameBoard() {
       }
     } else {
       if (selectedIds.length === 0 || hasAdjacentSelected(tile)) {
+        setAlertVisible(false);
+
         setSelectedIds([...selectedIds, id]);
+      } else {
+        setTooFarIds([...tooFarIds, id]);
+        setAlertText(
+          "You must select a tile adjacent to a tile you have already selected."
+        );
+        setAlertVisible(true);
+        setTimeout(() => {
+          setTooFarIds([]);
+        }, 500);
+        setTimeout(() => {
+          setAlertText("");
+          setAlertVisible(false);
+        }, 5000);
       }
     }
   };
@@ -210,11 +226,11 @@ export default function DraggingGameBoard() {
       tempBoard.push(i);
     }
     setLoadingBoard(tempBoard);
-    console.log(tempBoard);
   }, [numCols, numRows]);
 
   const selectedTile = (tile) => {
     const isSelected = selectedIds.includes(tile.id);
+    const isTooFar = tooFarIds.includes(tile.id);
     const isAdjacent = hasAdjacentSelected(tile);
     const isMostRecent =
       selectedIds.length > 0 && tile.id === selectedIds[selectedIds.length - 1];
@@ -249,6 +265,9 @@ export default function DraggingGameBoard() {
         textColor = "black";
       }
       backgroundColor = "#e2d1c4";
+    }
+    if (isTooFar) {
+      backgroundColor = "indianRed";
     }
 
     if (isMostRecent && realWord) {
@@ -388,10 +407,6 @@ export default function DraggingGameBoard() {
   };
 
   const handleAddWord = async (newWord) => {
-    console.log(
-      "dailyBoardData.dailyRandomization._id",
-      dailyBoardData.dailyRandomization._id
-    );
     try {
       const { data } = await addWord({
         variables: {
