@@ -1,12 +1,12 @@
 import { hatch } from "ldrs";
 
-export default function Loading() {
+export default function Loading({ size }) {
   hatch.register();
   return (
-    <div className="m-20">
+    <div>
       <l-hatch
         className="text-green-200"
-        size="40"
+        size={size}
         speed="4"
         color="darkgreen"
       ></l-hatch>
