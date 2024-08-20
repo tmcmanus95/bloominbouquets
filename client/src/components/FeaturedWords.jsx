@@ -1,9 +1,9 @@
 export default function FeaturedWords() {
-  const featuredWords = ["First", "Featured", "Words", "Go", "Here"];
+  const featuredWords = ["First", "Featured", "Words", "Go", "Here", "Bucko"];
   return (
     <div>
-      <div>Featured Words</div>
-      <div className="grid grid-cols-5">
+      <div className="text-center text-2xl mt-5">Featured Words</div>
+      <div className="grid md:grid-cols-6 grid-cols-3">
         {featuredWords.map((word, index) => (
           <div className="bg-red border-green border-2 dark:text-white m-4 text-center">
             {word}

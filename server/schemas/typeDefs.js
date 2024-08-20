@@ -78,7 +78,7 @@ type Mutation {
     sendWord(giftedWords: String!, recipientId: ID!, userId: ID!): User
     deleteBouquet(giftedWordsId: ID!): GiftedWords
     updateDailyBoard(userId: ID!, dailyBoard: String!): User
-    addGoldenSeeds(userId: ID!, seeds: Int): User
+    addGoldenSeeds(userId: ID!, seeds: Int!): User
     shuffleBoard(userId: ID!): User
     verifyEmail(token: String!, userId: ID!): AuthPayload
     forgotPassword(email: String!): Boolean
