@@ -90,9 +90,9 @@
   align-items: center;
 }
 
-.flip-animation {
+/* .flip-animation {
   transform: rotateX(360deg);
-}
+} */
 
 #past-words-display-container {
   margin-left: 20px;
