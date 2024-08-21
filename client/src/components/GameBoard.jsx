@@ -15,7 +15,7 @@ import { shuffleCountToSeedReduction } from "../utils/shuffleCountToSeedReductio
 import wordLengthToSeedPrice from "../utils/wordLengthToSeedPrice";
 import Loading from "../components/Loading";
 
-export default function DraggingGameBoard() {
+export default function GameBoard() {
   const [selectedIds, setSelectedIds] = useState([]);
   const [tooFarIds, setTooFarIds] = useState([]);
   const [dailyGameBoardString, setDailyGameBoardString] = useState("");
@@ -300,9 +300,11 @@ export default function DraggingGameBoard() {
       const updatedBoard = newGameBoard.map((tile) =>
         selectedIds.includes(tile.id) ? { ...tile, isFlipped: true } : tile
       );
+      console.log("updated board", updatedBoard);
+
       setRealWord(true);
       setNewGameBoard(updatedBoard);
-      handleAddWord(userWord);
+      let tempString = "";
 
       setTimeout(async () => {
         const resetBoard = newGameBoard.map((tile) =>
@@ -312,21 +314,22 @@ export default function DraggingGameBoard() {
         );
 
         setNewGameBoard(resetBoard);
-        let tempString = "";
-        for (let i = 0; i < resetBoard.length; i++) {
-          tempString += resetBoard[i].letter;
-        }
-        let boardTest = tempString.length + dailyTail.length;
-
-        setDailyGameBoardString(tempString);
-
-        setSelectedIds([]);
-        setRealWord(false);
-        setValidWord("");
-
         if (isLoggedIn) {
           try {
+            await handleAddWord(userWord, resetBoard);
+
+            // console.log("logged in daily board", dailyBoard);
+            console.log("reest board", resetBoard);
+            console.log("new game board", newGameBoard);
+
+            for (let i = 0; i < resetBoard.length; i++) {
+              tempString += resetBoard[i].letter;
+            }
             const dailyBoard = isMobile() ? tempString + dailyTail : tempString;
+
+            // let boardTest = tempString.length + dailyTail.length;
+
+            setDailyGameBoardString(tempString);
 
             const { data: updatedBoardData } = await updateBoard({
               variables: {
@@ -342,6 +345,10 @@ export default function DraggingGameBoard() {
 
           localStorage.setItem("dailyBoard", dailyBoard);
         }
+
+        setSelectedIds([]);
+        setRealWord(false);
+        setValidWord("");
       }, 1000);
     } else {
       setFakeWord(true);
@@ -407,7 +414,7 @@ export default function DraggingGameBoard() {
     }
   };
 
-  const handleAddWord = async (newWord) => {
+  const handleAddWord = async (newWord, currentBoard) => {
     try {
       const { data } = await addWord({
         variables: {
@@ -415,12 +422,17 @@ export default function DraggingGameBoard() {
           userId: dailyBoardData.dailyRandomization._id,
         },
       });
-      setGoldenSeedAmount(data.addWord.goldenSeeds);
+
+      if (data) {
+        console.log("Word added successfully:", data.addWord);
+        setGoldenSeedAmount(data.addWord.goldenSeeds);
+
+        setNewGameBoard(currentBoard);
+      }
     } catch (error) {
-      console.log("Error adding word:", error.message);
+      console.error("Error adding word:", error.message);
     }
   };
-
   const hasEnoughSeeds = () => {
     if (goldenSeedAmount >= shufflePrice) {
       toggleAreYouSure();
