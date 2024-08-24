@@ -510,7 +510,12 @@ const resolvers = {
       try {
         const user = await User.findById(userId);
         if (!user) {
-          throw new Error("User not found");
+          if (!wordList.includes(word.toLowerCase())) {
+            console.log(`${word} not in the word dictionary`);
+            return { success: false, message: "Word not in the dictionary" };
+          } else {
+            return { success: true, message: "Word is valid", userWord: word };
+          }
         }
         if (!wordList.includes(word.toLowerCase())) {
           console.log(`${word} not in the word dictionary`);
@@ -520,7 +525,7 @@ const resolvers = {
           return { success: false, message: "Word already added" };
         }
 
-        return { success: true, message: "Word is valid" };
+        return { success: true, message: "Word is valid", userWord: word };
       } catch (error) {
         return {
           success: false,

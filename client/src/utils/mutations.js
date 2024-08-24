@@ -160,10 +160,11 @@ export const BUY_WORD = gql`
   }
 `;
 export const CHECK_WORD_VALIDITY = gql`
-  mutation Mutation($word: String!, $userId: ID!) {
+  mutation Mutation($word: String!, $userId: ID) {
     checkWordValidity(word: $word, userId: $userId) {
       success
       message
+      userWord
     }
   }
 `;

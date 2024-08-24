@@ -7,7 +7,6 @@ import { UPDATE_DAILY_BOARD, SHUFFLE_BOARD } from "../utils/mutations";
 import CurrentWord from "./CurrentWord";
 import GameBoardBestWordList from "./GameBoardBestWordList";
 import GameBoardMostRecentWordList from "./GameBoardMostRecentWordList";
-import wordsDictionary from "../assets/wordlist";
 import FlowerSprite from "./FlowerSprite";
 import Auth from "../utils/auth";
 import { Link } from "react-router-dom";
@@ -294,16 +293,17 @@ export default function GameBoard() {
   };
   async function checkWordValidityTesting(word) {
     const userWord = word.join("");
+
     try {
       const { data } = await checkWordValidityTest({
         variables: {
           word: userWord,
-          userId: dailyBoardData.dailyRandomization._id,
+          userId: isLoggedIn ? dailyBoardData.dailyRandomization._id : null,
         },
       });
 
       if (data.checkWordValidity.success) {
-        await addNewWord(word.join(""));
+        await addNewWord(userWord);
       } else {
         setFakeWord(true);
         setInvalidWord(userWord);
@@ -318,15 +318,11 @@ export default function GameBoard() {
     }
   }
   async function addNewWord(word) {
-    if (
-      userWord.length > 2 &&
-      wordsDictionary.includes(userWord.toLowerCase())
-    ) {
-      setValidWord(userWord);
+    if (word.length > 2) {
+      setValidWord(word);
       const updatedBoard = newGameBoard.map((tile) =>
         selectedIds.includes(tile.id) ? { ...tile, isFlipped: true } : tile
       );
-      console.log("updated board", updatedBoard);
 
       setRealWord(true);
       setNewGameBoard(updatedBoard);
@@ -342,7 +338,7 @@ export default function GameBoard() {
         setNewGameBoard(resetBoard);
         if (isLoggedIn) {
           try {
-            await handleAddWord(userWord, resetBoard);
+            await handleAddWord(word, resetBoard);
 
             // console.log("logged in daily board", dailyBoard);
 
@@ -376,7 +372,7 @@ export default function GameBoard() {
       }, 1000);
     } else {
       setFakeWord(true);
-      setInvalidWord(userWord);
+      setInvalidWord(word);
       setTimeout(async () => {
         setSelectedIds([]);
         setFakeWord(false);
@@ -448,7 +444,6 @@ export default function GameBoard() {
       });
 
       if (data) {
-        console.log("Word added successfully:", data.addWord);
         setGoldenSeedAmount(data.addWord.goldenSeeds);
 
         setNewGameBoard(currentBoard);
