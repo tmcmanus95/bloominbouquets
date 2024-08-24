@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import { shuffleCountToSeedReduction } from "../utils/shuffleCountToSeedReduction";
 import wordLengthToSeedPrice from "../utils/wordLengthToSeedPrice";
 import Loading from "../components/Loading";
+import { CHECK_WORD_VALIDITY } from "../utils/mutations";
 
 export default function GameBoard() {
   const [selectedIds, setSelectedIds] = useState([]);
@@ -45,6 +46,8 @@ export default function GameBoard() {
   const [addWord, error] = useMutation(ADD_WORD);
   const [shuffleBoard, { error: shuffleBoardError }] =
     useMutation(SHUFFLE_BOARD);
+  const [checkWordValidityTest, { error: checkWordValidityTestError }] =
+    useMutation(CHECK_WORD_VALIDITY);
   function isMobile() {
     return window.innerWidth <= 599;
   }
@@ -289,9 +292,32 @@ export default function GameBoard() {
       transform: tile.isFlipped ? "rotateX(180deg)" : "none",
     };
   };
-
-  async function checkWordValidity(word) {
+  async function checkWordValidityTesting(word) {
     const userWord = word.join("");
+    try {
+      const { data } = await checkWordValidityTest({
+        variables: {
+          word: userWord,
+          userId: dailyBoardData.dailyRandomization._id,
+        },
+      });
+
+      if (data.checkWordValidity.success) {
+        await addNewWord(word.join(""));
+      } else {
+        setFakeWord(true);
+        setInvalidWord(userWord);
+        setTimeout(async () => {
+          setSelectedIds([]);
+          setFakeWord(false);
+          setInvalidWord("");
+        }, 1000);
+      }
+    } catch (error) {
+      console.error("Error checking word validity:", error.message);
+    }
+  }
+  async function addNewWord(word) {
     if (
       userWord.length > 2 &&
       wordsDictionary.includes(userWord.toLowerCase())
@@ -319,8 +345,6 @@ export default function GameBoard() {
             await handleAddWord(userWord, resetBoard);
 
             // console.log("logged in daily board", dailyBoard);
-            console.log("reest board", resetBoard);
-            console.log("new game board", newGameBoard);
 
             for (let i = 0; i < resetBoard.length; i++) {
               tempString += resetBoard[i].letter;
@@ -527,7 +551,7 @@ export default function GameBoard() {
           <button
             className="flex dark:bg-green-900 bg-green-300 hover:bg-green-500 dark:text-white text-black"
             onClick={async () => {
-              await checkWordValidity(
+              await checkWordValidityTesting(
                 selectedIds.map((id) => getTileById(id).letter)
               );
             }}

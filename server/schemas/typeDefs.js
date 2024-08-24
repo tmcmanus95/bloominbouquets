@@ -54,6 +54,11 @@ type AuthPayload {
     token: String
     user: User
 }
+type CheckWordValidityResponse {
+  success: Boolean!
+  message: String
+}
+
 
 type Query {
     users: [User]
@@ -64,6 +69,7 @@ type Query {
     usersFriendRequests(userId: ID!): User
     searchUsers(username: String): User
     dailyRandomization: User
+
 }
     
 type Mutation {
@@ -86,6 +92,8 @@ type Mutation {
     resetPassword(token: String!, email: String!, newPassword: String!): AuthPayload
     checkout(seedPackageId: ID!): Checkout
     buyWord(word: String): User
+    checkWordValidity(word: String!, userId: ID!): CheckWordValidityResponse
+
 }
 `;
 module.exports = typeDefs;
