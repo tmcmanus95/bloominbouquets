@@ -7,13 +7,13 @@ import { UPDATE_DAILY_BOARD, SHUFFLE_BOARD } from "../utils/mutations";
 import CurrentWord from "./CurrentWord";
 import GameBoardBestWordList from "./GameBoardBestWordList";
 import GameBoardMostRecentWordList from "./GameBoardMostRecentWordList";
-import wordsDictionary from "../assets/wordlist";
 import FlowerSprite from "./FlowerSprite";
 import Auth from "../utils/auth";
 import { Link } from "react-router-dom";
 import { shuffleCountToSeedReduction } from "../utils/shuffleCountToSeedReduction";
 import wordLengthToSeedPrice from "../utils/wordLengthToSeedPrice";
 import Loading from "../components/Loading";
+import { CHECK_WORD_VALIDITY } from "../utils/mutations";
 
 export default function GameBoard() {
   const [selectedIds, setSelectedIds] = useState([]);
@@ -45,6 +45,8 @@ export default function GameBoard() {
   const [addWord, error] = useMutation(ADD_WORD);
   const [shuffleBoard, { error: shuffleBoardError }] =
     useMutation(SHUFFLE_BOARD);
+  const [checkWordValidityTest, { error: checkWordValidityTestError }] =
+    useMutation(CHECK_WORD_VALIDITY);
   function isMobile() {
     return window.innerWidth <= 599;
   }
@@ -289,18 +291,38 @@ export default function GameBoard() {
       transform: tile.isFlipped ? "rotateX(180deg)" : "none",
     };
   };
-
-  async function checkWordValidity(word) {
+  async function checkWordValidityTesting(word) {
     const userWord = word.join("");
-    if (
-      userWord.length > 2 &&
-      wordsDictionary.includes(userWord.toLowerCase())
-    ) {
-      setValidWord(userWord);
+
+    try {
+      const { data } = await checkWordValidityTest({
+        variables: {
+          word: userWord,
+          userId: isLoggedIn ? dailyBoardData.dailyRandomization._id : null,
+        },
+      });
+
+      if (data.checkWordValidity.success) {
+        await addNewWord(userWord);
+      } else {
+        setFakeWord(true);
+        setInvalidWord(userWord);
+        setTimeout(async () => {
+          setSelectedIds([]);
+          setFakeWord(false);
+          setInvalidWord("");
+        }, 1000);
+      }
+    } catch (error) {
+      console.error("Error checking word validity:", error.message);
+    }
+  }
+  async function addNewWord(word) {
+    if (word.length > 2) {
+      setValidWord(word);
       const updatedBoard = newGameBoard.map((tile) =>
         selectedIds.includes(tile.id) ? { ...tile, isFlipped: true } : tile
       );
-      console.log("updated board", updatedBoard);
 
       setRealWord(true);
       setNewGameBoard(updatedBoard);
@@ -316,11 +338,9 @@ export default function GameBoard() {
         setNewGameBoard(resetBoard);
         if (isLoggedIn) {
           try {
-            await handleAddWord(userWord, resetBoard);
+            await handleAddWord(word, resetBoard);
 
             // console.log("logged in daily board", dailyBoard);
-            console.log("reest board", resetBoard);
-            console.log("new game board", newGameBoard);
 
             for (let i = 0; i < resetBoard.length; i++) {
               tempString += resetBoard[i].letter;
@@ -352,7 +372,7 @@ export default function GameBoard() {
       }, 1000);
     } else {
       setFakeWord(true);
-      setInvalidWord(userWord);
+      setInvalidWord(word);
       setTimeout(async () => {
         setSelectedIds([]);
         setFakeWord(false);
@@ -424,7 +444,6 @@ export default function GameBoard() {
       });
 
       if (data) {
-        console.log("Word added successfully:", data.addWord);
         setGoldenSeedAmount(data.addWord.goldenSeeds);
 
         setNewGameBoard(currentBoard);
@@ -527,7 +546,7 @@ export default function GameBoard() {
           <button
             className="flex dark:bg-green-900 bg-green-300 hover:bg-green-500 dark:text-white text-black"
             onClick={async () => {
-              await checkWordValidity(
+              await checkWordValidityTesting(
                 selectedIds.map((id) => getTileById(id).letter)
               );
             }}

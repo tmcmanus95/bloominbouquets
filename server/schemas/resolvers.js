@@ -6,6 +6,7 @@ const shuffleCountToSeedReduction = require("../utils/shuffleCountToSeedReductio
 const wordLengthToSeeds = require("../utils/wordLengthToSeeds");
 const { sendEmail } = require("../utils/sendEmail");
 const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
+const { wordList } = require("../assets/wordList");
 
 const resolvers = {
   Query: {
@@ -267,6 +268,12 @@ const resolvers = {
         if (!user) {
           throw new Error("User not found");
         }
+        if (!wordList.includes(word.toLowerCase())) {
+          console.log(`${word} not in the word dictionary`);
+          throw new Error("word not there!");
+        } else {
+          console.log(`${word} in the word list`);
+        }
         if (!user.words.includes(word)) {
           user.words.push(word);
         } else {
@@ -497,6 +504,33 @@ const resolvers = {
         }
       } catch (error) {
         console.log("could not buy word", error);
+      }
+    },
+    checkWordValidity: async (_, { word, userId }, context) => {
+      try {
+        const user = await User.findById(userId);
+        if (!user) {
+          if (!wordList.includes(word.toLowerCase())) {
+            console.log(`${word} not in the word dictionary`);
+            return { success: false, message: "Word not in the dictionary" };
+          } else {
+            return { success: true, message: "Word is valid", userWord: word };
+          }
+        }
+        if (!wordList.includes(word.toLowerCase())) {
+          console.log(`${word} not in the word dictionary`);
+          return { success: false, message: "Word not in the dictionary" };
+        }
+        if (user.words.includes(word)) {
+          return { success: false, message: "Word already added" };
+        }
+
+        return { success: true, message: "Word is valid", userWord: word };
+      } catch (error) {
+        return {
+          success: false,
+          message: `Could not ascertain word validity: ${error.message}`,
+        };
       }
     },
   },

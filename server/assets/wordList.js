@@ -1,4 +1,4 @@
-const words = [
+const wordList = [
   "aa",
   "aah",
   "aahed",
@@ -274927,4 +274927,4 @@ const words = [
   "zzzs",
 ];
 
-export default words;
+module.exports = { wordList };
