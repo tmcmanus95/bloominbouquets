@@ -24,10 +24,6 @@ export default function Shop() {
     return <div>Loading...</div>;
   }
 
-  if (error) {
-    return <div>Error loading shop data: {error.message}</div>;
-  }
-
   return (
     <div className="mt-20 dark:text-white m-5 ">
       <div className="text-center md:text-5xl text-3xl flex flex-col bg-green-400 dark:bg-green-950 p-5 rounded-lg">

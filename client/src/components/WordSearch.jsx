@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { BUY_WORD } from "../utils/mutations";
-import wordsDictionary from "../assets/wordlist";
 import wordLengthToSeedPrice from "../utils/wordLengthToSeedPrice";
 import FlowerSprite from "./FlowerSprite";
+import Auth from "../utils/auth";
+import { CHECK_WORD_VALIDITY } from "../utils/mutations";
+import { Link } from "react-router-dom";
 
 export default function WordSearch({
   initialWords,
@@ -17,32 +19,47 @@ export default function WordSearch({
   const [wordPrice, setWordPrice] = useState(0);
   const [alertText, setAlertText] = useState("");
   const [buyable, setBuyable] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(Auth.loggedIn());
+  const [checkWordValidityTest, { error: checkWordValidityTestError }] =
+    useMutation(CHECK_WORD_VALIDITY);
 
   const [buyWord, error] = useMutation(BUY_WORD);
-  console.log(`seeds to spend ${seedsToSpend} `);
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
 
-  const handleSearchWord = (e) => {
+  async function handleSearchWord(e) {
     e.preventDefault();
-    if (wordsDictionary.includes(inputValue.toLowerCase())) {
-      if (!words.includes(inputValue.toUpperCase())) {
-        setWordDisplayed(inputValue);
-        setWordPrice(wordLengthToSeedPrice(inputValue.length));
-        console.log(`seeds to spend ${seedsToSpend} | word price ${wordPrice}`);
-        if (seedsToSpend >= wordPrice) {
-          setBuyable(true);
+    try {
+      const { data } = await checkWordValidityTest({
+        variables: {
+          word: inputValue,
+          userId: isLoggedIn ? dailyBoardData.dailyRandomization._id : null,
+        },
+      });
+
+      if (data.checkWordValidity.success) {
+        if (!words.includes(inputValue.toUpperCase())) {
+          setWordDisplayed(inputValue);
+          setWordPrice(wordLengthToSeedPrice(inputValue.length));
+          console.log(
+            `seeds to spend ${seedsToSpend} | word price ${wordPrice}`
+          );
+          if (seedsToSpend >= wordPrice) {
+            setBuyable(true);
+          }
+        } else {
+          setWordDisplayed(`${inputValue} already owned 🌸`);
         }
       } else {
-        setWordDisplayed(`${inputValue} already owned 🌸`);
+        setWordDisplayed(`Could not find ${inputValue}`);
       }
-    } else {
-      setWordDisplayed(`Could not find ${inputValue}`);
+      setInputValue("");
+    } catch (error) {
+      console.error("Error checking word validity:", error.message);
     }
-    setInputValue("");
-  };
+  }
 
   const handleBuyWord = async () => {
     try {
@@ -105,12 +122,20 @@ export default function WordSearch({
                 <span className="ml-2">Golden seed</span>
               )}
             </div>
-            <button
-              className="bg-green-500 hover:bg-green-700 text-white ml-2 mt-4"
-              onClick={handleBuyWord}
-            >
-              Buy
-            </button>
+            {isLoggedIn ? (
+              <button
+                className="bg-green-500 hover:bg-green-700 text-white ml-2 mt-4"
+                onClick={handleBuyWord}
+              >
+                Buy
+              </button>
+            ) : (
+              <Link to={`/login`}>
+                <button className="bg-green-500 hover:bg-green-700 text-white ml-2 mt-4">
+                  Log In to Buy
+                </button>
+              </Link>
+            )}
           </div>
         )}
       </div>
