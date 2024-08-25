@@ -92,7 +92,7 @@ export default function WordSearch({
         <input
           value={inputValue}
           onChange={(e) => handleInputChange(e)}
-          className="text-black text-3xl"
+          className="text-black border-2 border-green-700 text-3xl"
         ></input>
       </form>
       <div className="text-xl">{alertText}</div>

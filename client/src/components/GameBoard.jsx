@@ -51,8 +51,8 @@ export default function GameBoard() {
     return window.innerWidth <= 599;
   }
 
-  const numRows = isMobile() ? 7 : 10;
-  const numCols = isMobile() ? 7 : 10;
+  const numRows = isMobile() ? 8 : 10;
+  const numCols = isMobile() ? 8 : 10;
 
   const addLetter = (tile) => {
     const { id } = tile;
