@@ -19,7 +19,6 @@ export default function Shop() {
   const handleUpdateSeeds = (newSeeds) => {
     setInitialSeedsToSpend(newSeeds);
   };
-  console.log(`initial seeds to spend ${initialSeedsToSpend}`);
   if (loading) {
     return <div>Loading...</div>;
   }
