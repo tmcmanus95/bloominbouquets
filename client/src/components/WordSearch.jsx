@@ -11,6 +11,7 @@ export default function WordSearch({
   initialWords,
   initialSeedsToSpend,
   updateSeeds,
+  userId,
 }) {
   const [inputValue, setInputValue] = useState("");
   const [wordDisplayed, setWordDisplayed] = useState("");
@@ -35,7 +36,7 @@ export default function WordSearch({
       const { data } = await checkWordValidityTest({
         variables: {
           word: inputValue,
-          userId: isLoggedIn ? dailyBoardData.dailyRandomization._id : null,
+          userId: isLoggedIn ? userId : null,
         },
       });
 

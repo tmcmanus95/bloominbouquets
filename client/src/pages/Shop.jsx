@@ -8,11 +8,13 @@ export default function Shop() {
   const { data, loading, error } = useQuery(QUERY_SHOP_ME);
   const [initialSeedsToSpend, setInitialSeedsToSpend] = useState(0);
   const [initialWords, setInitialWords] = useState([]);
+  const [userId, setUserId] = useState("");
 
   useEffect(() => {
     if (data) {
       setInitialSeedsToSpend(data?.me?.goldenSeeds || 0);
       setInitialWords(data?.me?.words || []);
+      setUserId(data?.me?._id);
     }
   }, [data]);
 
