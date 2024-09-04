@@ -55,6 +55,7 @@ export default function GameBoard() {
   const numCols = isMobile() ? 8 : 10;
 
   const addLetter = (tile) => {
+    setAlertVisible(false);
     const { id } = tile;
     if (selectedIds.includes(id)) {
       const lastSelectedId = selectedIds[selectedIds.length - 1];
@@ -303,6 +304,14 @@ export default function GameBoard() {
       });
 
       if (data.checkWordValidity.success) {
+        if (data.checkWordValidity.message == "Word already added") {
+          setAlertText(`${userWord} already owned`);
+          setAlertVisible(true);
+          setTimeout(() => {
+            setAlertText("");
+            setAlertVisible(false);
+          }, 1000);
+        }
         await addNewWord(userWord);
       } else {
         setFakeWord(true);
@@ -364,6 +373,14 @@ export default function GameBoard() {
           const dailyBoard = isMobile() ? tempString + dailyTail : tempString;
 
           localStorage.setItem("dailyBoard", dailyBoard);
+          setAlertText(
+            "Login to save words and flowers and earn golden seeds!"
+          );
+          setAlertVisible(true);
+          setTimeout(() => {
+            setAlertText("");
+            setAlertVisible(false);
+          }, 2000);
         }
 
         setSelectedIds([]);
