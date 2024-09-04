@@ -303,6 +303,14 @@ export default function GameBoard() {
       });
 
       if (data.checkWordValidity.success) {
+        if (data.checkWordValidity.message == "Word already added") {
+          setAlertText(`${userWord} already owned`);
+          setAlertVisible(true);
+          setTimeout(() => {
+            setAlertText("");
+            setAlertVisible(false);
+          }, 1000);
+        }
         await addNewWord(userWord);
       } else {
         setFakeWord(true);

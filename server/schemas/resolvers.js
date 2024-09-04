@@ -522,7 +522,7 @@ const resolvers = {
           return { success: false, message: "Word not in the dictionary" };
         }
         if (user.words.includes(word)) {
-          return { success: false, message: "Word already added" };
+          return { success: true, message: "Word already added" };
         }
 
         return { success: true, message: "Word is valid", userWord: word };
