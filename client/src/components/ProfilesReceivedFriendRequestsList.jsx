@@ -34,7 +34,7 @@ export default function ProfilesReceivedFriendRequestsList({ userId }) {
     }
   }, [data]);
   return (
-    <section className="flex justify-center flex-col md:text-xl text-base border-2 border-black dark:border-white m-2">
+    <section className="relative flex justify-center flex-col md:text-xl text-base border-2 border-black dark:border-white m-2 p-2">
       <h1 className="md:text-xl ml-2">Friend Requests</h1>
       <div className="grid grid-cols-2 md:grid-cols-5 justify-center ml-2">
         {receivedFriendRequests.length > 0 ? (
@@ -62,7 +62,7 @@ export default function ProfilesReceivedFriendRequestsList({ userId }) {
         )}
         <Link
           to={`/me/friendRequests`}
-          className="border-green-500 border-2 hover:cursor:pointer text-center hover:border-green-700 m-0 relative bottom-0 right-0"
+          className="border-green-500 border-2 hover:cursor:pointer text-center hover:border-green-700 absolute bottom-2 right-2 p-1 "
         >
           All Friend Requests
         </Link>

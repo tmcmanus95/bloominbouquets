@@ -25,7 +25,11 @@ const CheckoutButton = ({ seedPackageId }) => {
     }
   };
 
-  return <button onClick={handleCheckout}>Buy Seeds</button>;
+  return (
+    <button className="hover:bg-green-200 md:text-2xl" onClick={handleCheckout}>
+      Buy Seeds
+    </button>
+  );
 };
 
 export default function BuyGoldenSeeds() {
@@ -41,10 +45,12 @@ export default function BuyGoldenSeeds() {
       {seedPackages.map((seedPackage) => (
         <div
           key={seedPackage._id}
-          className="p-4 border-2 dark:border-white m-2 hover:cursor-pointer"
+          className="p-4 border-2 dark:border-white m-2 md:text-4xl text-2xl hover:cursor-pointer border-green-700  text-center"
         >
-          <h1>{seedPackage.quantity.toLocaleString()} Seeds</h1>
-          <h3>${seedPackage.price.toFixed(2)}</h3>
+          <p className="border-b-2 border-green-950 mb-2">
+            {seedPackage.quantity.toLocaleString()} Seeds
+          </p>
+          <p className="">${seedPackage.price.toFixed(2)}</p>
           <CheckoutButton seedPackageId={seedPackage._id} />
         </div>
       ))}

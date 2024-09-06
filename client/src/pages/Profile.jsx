@@ -30,9 +30,6 @@ export default function Profile() {
     const hexColor = rgbToHex(r, g, b);
     let hex = hexColor.split(".");
     let userId = data.me._id;
-    console.log("hex", hex[0]);
-    console.log("data.me._id", data.me);
-    console.log("editing color");
     try {
       const { data } = await editUserColor({
         variables: { userId: userId, color: hex[0] },

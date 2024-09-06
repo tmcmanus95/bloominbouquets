@@ -269,15 +269,10 @@ const resolvers = {
           throw new Error("User not found");
         }
         if (!wordList.includes(word.toLowerCase())) {
-          console.log(`${word} not in the word dictionary`);
           throw new Error("word not there!");
-        } else {
-          console.log(`${word} in the word list`);
         }
         if (!user.words.includes(word)) {
           user.words.push(word);
-        } else {
-          console.log("word already there");
         }
         const seeds = wordLengthToSeeds(word.length);
         user.goldenSeeds += seeds;
@@ -344,7 +339,6 @@ const resolvers = {
 
         const seedCost = shuffleCountToSeedReduction(dailyShuffleCount);
         if (user.goldenSeeds < seedCost) {
-          console.log("Not enough golden seeds");
           return;
         }
 
@@ -433,7 +427,6 @@ const resolvers = {
           user.passwordResetToken = null;
           user.passwordResetExpires = null;
         } else {
-          console.log("user.passwordResetToken and token do not match!");
           return;
         }
         await user.save();
@@ -498,8 +491,6 @@ const resolvers = {
             user.goldenSeeds -= wordLengthToSeeds(word.length);
             await user.save();
             return user;
-          } else {
-            console.log("Word already there");
           }
         }
       } catch (error) {
@@ -511,14 +502,12 @@ const resolvers = {
         const user = await User.findById(userId);
         if (!user) {
           if (!wordList.includes(word.toLowerCase())) {
-            console.log(`${word} not in the word dictionary`);
             return { success: false, message: "Word not in the dictionary" };
           } else {
             return { success: true, message: "Word is valid", userWord: word };
           }
         }
         if (!wordList.includes(word.toLowerCase())) {
-          console.log(`${word} not in the word dictionary`);
           return { success: false, message: "Word not in the dictionary" };
         }
         if (user.words.includes(word)) {

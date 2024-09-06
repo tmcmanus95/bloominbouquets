@@ -44,7 +44,6 @@ type Checkout {
     session: ID
 }
 
-
 type Auth {
     token: ID!
     user: User
@@ -59,7 +58,6 @@ type CheckWordValidityResponse {
   message: String
   userWord: String
 }
-
 
 type Query {
     users: [User]
