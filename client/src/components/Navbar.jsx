@@ -48,18 +48,27 @@ export default function Navbar() {
           {data ? (
             <div className="hidden md:gap-5 md:flex md:flex-row">
               {Auth.loggedIn ? (
-                <Link to="/me" className="hover:bg-green-900 lg:p-2 rounded-lg">
+                <Link
+                  to="/me"
+                  className="hover:bg-green-900 lg:p-2 rounded-lg dark:hover:bg-green-950"
+                >
                   Welcome {data?.me?.username}
                 </Link>
               ) : (
-                <Link className="hover:bg-green-900 lg:p-2 rounded-lg" to="/">
+                <Link
+                  className="hover:bg-green-900 dark:hover:bg-green-950 lg:p-2 rounded-lg"
+                  to="/"
+                >
                   Bloomin Bouquets
                 </Link>
               )}
             </div>
           ) : (
             <div className="hidden md:gap-5 md:flex md:flex-row">
-              <Link className="hover:bg-green-900 lg:p-2 rounded-lg" to="/">
+              <Link
+                className="hover:bg-green-900 dark:hover:bg-green-950 lg:p-2 rounded-lg"
+                to="/"
+              >
                 Bloomin Bouquets
               </Link>
             </div>
@@ -67,23 +76,35 @@ export default function Navbar() {
 
           <Link
             to="/howToPlay"
-            className="hover:bg-green-900 lg:p-2 rounded-lg"
+            className="hover:bg-green-900 dark:hover:bg-green-950 lg:p-2 rounded-lg"
           >
             How To Play
           </Link>
-          <Link to="/contact" className="hover:bg-green-900 lg:p-2 rounded-lg">
+          <Link
+            to="/contact"
+            className="hover:bg-green-900 dark:hover:bg-green-950 lg:p-2 rounded-lg"
+          >
             Contact
           </Link>
-          <Link
-            to="/buyGoldenSeeds"
-            className="hover:bg-green-900 lg:p-2 rounded-lg"
-          >
-            Buy More Seeds
-          </Link>
+          {Auth.loggedIn() ? (
+            <>
+              <Link
+                to="/buyGoldenSeeds"
+                className="hover:bg-green-900 dark:hover:bg-green-950 lg:p-2 rounded-lg"
+              >
+                Buy More Seeds
+              </Link>
 
-          <Link to="/shop" className="hover:bg-green-900 lg:p-2 rounded-lg">
-            Shop
-          </Link>
+              <Link
+                to="/shop"
+                className="hover:bg-green-900  dark:hover:bg-green-950 lg:p-2 rounded-lg"
+              >
+                Shop
+              </Link>
+            </>
+          ) : (
+            <></>
+          )}
         </div>
         {userSearchOpen ? (
           <div className="mx-5 flex justify-center align-center items-center">
@@ -95,48 +116,54 @@ export default function Navbar() {
         )}
         {/* <div className="mx-5 flex justify-center align-center items-center"></div> */}
         {menuOpen && (
-          <div className="absolute inset-x-0 md:relative top-full md:top-auto md:left-auto md:flex flex-col items-center  space-x-1 pb-3 md:pb-0  dark:bg-slate-900 bg-green-600">
+          <div className="absolute inset-x-0 md:relative top-full md:top-auto md:left-auto md:flex flex-col items-center  space-x-1 pb-3 md:pb-0  dark:bg-green-900 bg-green-600">
             <Link
               onClick={toggleMenu}
               to="/howToPlay"
-              className="py-2 px-3 block w-full hover:bg-green-900 hover:text-white"
+              className="py-2 px-3 block w-full hover:bg-green-950 hover:text-white "
             >
               How To Play
             </Link>
             <Link
               onClick={toggleMenu}
               to="/contact"
-              className="py-2 px-3 block w-full hover:bg-green-900 hover:text-white"
+              className="py-2 px-3 block w-full hover:bg-green-950 hover:text-white"
             >
               Contact
             </Link>
-            <Link
-              to="/shop"
-              onClick={toggleMenu}
-              className="py-2 px-3 block w-full hover:bg-green-900 hover:text-white"
-            >
-              Shop
-            </Link>
-            <Link
-              to="/buyGoldenSeeds"
-              onClick={toggleMenu}
-              className="py-2 px-3 block w-full hover:bg-green-900 hover:text-white"
-            >
-              Buy More Seeds
-            </Link>
+            {Auth.loggedIn() ? (
+              <>
+                <Link
+                  to="/shop"
+                  onClick={toggleMenu}
+                  className="py-2 px-3 block w-full hover:bg-green-950 hover:text-white"
+                >
+                  Shop
+                </Link>
+                <Link
+                  to="/buyGoldenSeeds"
+                  onClick={toggleMenu}
+                  className="py-2 px-3 block w-full hover:bg-green-950 hover:text-white"
+                >
+                  Buy More Seeds
+                </Link>
+              </>
+            ) : (
+              <></>
+            )}
 
             {Auth.loggedIn() ? (
               <>
                 <Link
                   onClick={toggleMenu}
                   to="/me"
-                  className="py-2 px-3 block w-full hover:bg-green-900 hover:text-white"
+                  className="py-2 px-3 block w-full hover:bg-green-950 hover:text-white"
                 >
                   View My Profile
                 </Link>
                 <button
                   onClick={logout}
-                  className="btn text-left py-2 px-3 block w-full hover:bg-green-900 hover:text-white"
+                  className="btn text-left py-2 px-3 block w-full hover:bg-green-950 hover:text-white"
                 >
                   Logout
                 </button>
@@ -145,7 +172,7 @@ export default function Navbar() {
               <>
                 <Link
                   to="/login"
-                  className="py-2 px-3 block w-full hover:bg-green-900 "
+                  className="py-2 px-3 block w-full hover:bg-green-900 dark:hover:bg-green-950"
                   onClick={toggleMenu}
                 >
                   Login
@@ -167,13 +194,13 @@ export default function Navbar() {
         {Auth.loggedIn() ? (
           <>
             <Link to="/me">
-              <button className="hover:bg-green-900 p-2 rounded-lg">
+              <button className="hover:bg-green-900 dark:hover:bg-green-950 p-2 rounded-lg">
                 Profile
               </button>
             </Link>
             <button
               onClick={logout}
-              className="hover:bg-green-900 p-2 rounded-lg"
+              className="hover:bg-green-900 dark:hover:bg-green-950 p-2 rounded-lg"
             >
               Logout
             </button>
@@ -181,12 +208,12 @@ export default function Navbar() {
         ) : (
           <>
             <Link to="/login">
-              <button className="hover:bg-green-900 p-2 rounded-lg">
+              <button className="hover:bg-green-900 dark:hover:bg-green-950 p-2 rounded-lg">
                 Login
               </button>
             </Link>
             <Link to="/signup">
-              <button className="hover:bg-green-900 p-2 rounded-lg">
+              <button className="hover:bg-green-900 dark:hover:bg-green-950 p-2 rounded-lg">
                 Signup
               </button>
             </Link>

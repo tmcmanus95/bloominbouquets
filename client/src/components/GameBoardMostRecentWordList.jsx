@@ -10,8 +10,11 @@ export default function GameBoardMostRecentWordList({ words }) {
       <div className="flex justify-center flex-col ">
         {sortedWords ? (
           sortedWords.map((word, index) => (
-            <div className="flex flex-row justify-end md:text-2xl text-base">
-              <p key={index}>
+            <div
+              key={index}
+              className="flex flex-row justify-end md:text-2xl text-base"
+            >
+              <p>
                 <span>{word.length} </span>
                 {word}
               </p>
