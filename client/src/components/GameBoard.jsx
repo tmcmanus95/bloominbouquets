@@ -489,7 +489,7 @@ export default function GameBoard() {
       /> */}
       <div className="flex justify-center">
         {alertVisible ? (
-          <h1 className="z-20 bg-yellow-300 rounded-lg p-5 absolute mt-2">
+          <h1 className="z-20 bg-yellow-300 text-black rounded-lg p-5 absolute mt-2">
             {alertText}
           </h1>
         ) : (
@@ -656,6 +656,7 @@ export default function GameBoard() {
               {dailyBoardData ? (
                 <GameBoardMostRecentWordListMobile
                   words={dailyBoardData?.dailyRandomization?.words}
+                  userId={dailyBoardData.dailyRandomization?._id}
                 />
               ) : (
                 <></>
