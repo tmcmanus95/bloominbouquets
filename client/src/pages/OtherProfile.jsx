@@ -28,7 +28,6 @@ export default function OtherProfile() {
   if (data && otherPersonsId == data.me._id) {
     window.location.assign("/me");
   }
-  console.log("other profiles data, ", data);
   let isFriend = false;
   let myId;
   const [sendFriendRequest, error] = useMutation(SEND_FRIEND_REQUEST);

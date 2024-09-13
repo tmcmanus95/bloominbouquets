@@ -36,7 +36,7 @@ export default function GameBoard() {
   const [goldenSeedAmount, setGoldenSeedAmount] = useState(0);
   const [dailyShuffleCount, setDailyShuffleCount] = useState(0);
   const [updateBoard] = useMutation(UPDATE_DAILY_BOARD);
-  const [swipeMode, setSwipeMode] = useState(true);
+  const [swipeMode, setSwipeMode] = useState(false);
   const [alertVisible, setAlertVisible] = useState(false);
   const [alertText, setAlertText] = useState("");
   const [loadingBoard, setLoadingBoard] = useState([]);
