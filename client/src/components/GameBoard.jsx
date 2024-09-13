@@ -7,6 +7,7 @@ import { UPDATE_DAILY_BOARD, SHUFFLE_BOARD } from "../utils/mutations";
 import CurrentWord from "./CurrentWord";
 import GameBoardBestWordList from "./GameBoardBestWordList";
 import GameBoardMostRecentWordList from "./GameBoardMostRecentWordList";
+import GameBoardMostRecentWordListMobile from "./GameBoadMostRecentListMobile";
 import FlowerSprite from "./FlowerSprite";
 import Auth from "../utils/auth";
 import { Link } from "react-router-dom";
@@ -51,8 +52,8 @@ export default function GameBoard() {
     return window.innerWidth <= 599;
   }
 
-  const numRows = isMobile() ? 8 : 10;
-  const numCols = isMobile() ? 8 : 10;
+  const numRows = isMobile() ? 7 : 10;
+  const numCols = isMobile() ? 7 : 10;
 
   const addLetter = (tile) => {
     setAlertVisible(false);
@@ -558,121 +559,140 @@ export default function GameBoard() {
           </div>
         </div>
       </div>
-      <div className="flex-col justify-center text-center">
-        <div className="flex justify-center">
-          <button
-            className="flex dark:bg-green-900 bg-green-300 hover:bg-green-500 dark:text-white text-black"
-            onClick={async () => {
-              await checkWordValidityTesting(
-                selectedIds.map((id) => getTileById(id).letter)
-              );
-            }}
-          >
-            Submit
-          </button>
-          {isLoggedIn && (
+      <div className=" flex justify-center items-center md:flex-col">
+        <div className=" flex flex-col md:mr-0 mr-3 ">
+          <div className="flex-col justify-center text-center ">
+            <div className="flex justify-center">
+              <button
+                className="flex dark:bg-green-900 bg-green-300 hover:bg-green-500 dark:text-white text-black"
+                onClick={async () => {
+                  await checkWordValidityTesting(
+                    selectedIds.map((id) => getTileById(id).letter)
+                  );
+                }}
+              >
+                Submit
+              </button>
+              {isLoggedIn && (
+                <>
+                  {!areYouSureVisible ? (
+                    <button
+                      className="flex dark:bg-green-900 bg-green-300 hover:bg-green-500 dark:text-white text-black"
+                      onClick={async () => await hasEnoughSeeds()}
+                    >
+                      Shuffle
+                    </button>
+                  ) : (
+                    <></>
+                  )}
+                </>
+              )}
+            </div>
+
+            {insufficientSeeds && (
+              <div>
+                <h1 className="">You need {shufflePrice} seeds to shuffle</h1>
+                <div className="">
+                  <Link
+                    to={`/buyGoldenSeeds`}
+                    onClick={async () => await toggleInsufficientSeeds()}
+                  >
+                    <button className=" dark:bg-green-900 bg-green-300 hover:bg-green-500 dark:text-white text-black">
+                      Buy more
+                    </button>
+                  </Link>
+                  <button
+                    className=" dark:bg-red-900 bg-red-300 hover:bg-red-500 dark:text-white text-black"
+                    onClick={async () => await toggleInsufficientSeeds()}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {areYouSureVisible && (
+              <div>
+                <h1 className="">Shuffling will cost {shufflePrice} seeds</h1>
+                <div className="">
+                  <button
+                    className=" dark:bg-green-900 bg-green-300 hover:bg-green-500 dark:text-white text-black"
+                    onClick={async () => await handleShuffleBoard()}
+                  >
+                    Shuffle anyway
+                  </button>
+                  <button
+                    className=" dark:bg-red-900 bg-red-300 hover:bg-red-500 dark:text-white text-black"
+                    onClick={async () => await toggleAreYouSure()}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+          {isMobile() ? (
+            <div className="flex justify-center">
+              <button
+                onClick={() => toggleSwipeMode()}
+                className=" dark:bg-green-900 bg-green-300 hover:bg-green-500 dark:text-white text-black"
+              >
+                Toggle mode
+              </button>
+            </div>
+          ) : (
+            <></>
+          )}
+          <div className="flex justify-center items-center">
+            <h1 className="m-2">Golden Seeds</h1>
+            <h1 className=" bg-yellow-500 p-2 rounded-lg md:text-2xl text-xl mt-2 text-black">
+              {goldenSeedAmount}
+            </h1>
+          </div>
+        </div>
+        {isMobile() ? (
+          isLoggedIn ? (
             <>
-              {!areYouSureVisible ? (
-                <button
-                  className="flex dark:bg-green-900 bg-green-300 hover:bg-green-500 dark:text-white text-black"
-                  onClick={async () => await hasEnoughSeeds()}
-                >
-                  Shuffle {dailyShuffleCount}
-                </button>
+              {dailyBoardData ? (
+                <GameBoardMostRecentWordListMobile
+                  words={dailyBoardData?.dailyRandomization?.words}
+                />
               ) : (
                 <></>
               )}
             </>
-          )}
-        </div>
-        {insufficientSeeds && (
-          <div>
-            <h1 className="">You need {shufflePrice} seeds to shuffle</h1>
-            <div className="">
-              <Link
-                to={`/buyGoldenSeeds`}
-                onClick={async () => await toggleInsufficientSeeds()}
-              >
-                <button className=" dark:bg-green-900 bg-green-300 hover:bg-green-500 dark:text-white text-black">
-                  Buy more
-                </button>
-              </Link>
-              <button
-                className=" dark:bg-red-900 bg-red-300 hover:bg-red-500 dark:text-white text-black"
-                onClick={async () => await toggleInsufficientSeeds()}
-              >
-                Cancel
-              </button>
+          ) : (
+            <div className="flex flex-row justify-center mt-5">
+              Login to save words
+            </div>
+          )
+        ) : isLoggedIn ? (
+          <div className="flex flex-row justify-center mt-5">
+            <div>
+              {dailyBoardData ? (
+                <GameBoardBestWordList
+                  words={dailyBoardData?.dailyRandomization?.words}
+                />
+              ) : (
+                <></>
+              )}
+            </div>
+            <div>
+              {dailyBoardData ? (
+                <GameBoardMostRecentWordList
+                  words={dailyBoardData?.dailyRandomization?.words}
+                />
+              ) : (
+                <></>
+              )}
             </div>
           </div>
-        )}
-
-        {areYouSureVisible && (
-          <div>
-            <h1 className="">Shuffling will cost {shufflePrice} seeds</h1>
-            <div className="">
-              <button
-                className=" dark:bg-green-900 bg-green-300 hover:bg-green-500 dark:text-white text-black"
-                onClick={async () => await handleShuffleBoard()}
-              >
-                Shuffle anyway
-              </button>
-              <button
-                className=" dark:bg-red-900 bg-red-300 hover:bg-red-500 dark:text-white text-black"
-                onClick={async () => await toggleAreYouSure()}
-              >
-                Cancel
-              </button>
-            </div>
+        ) : (
+          <div className="flex flex-row justify-center mt-5">
+            Login to save words
           </div>
         )}
       </div>
-      {isMobile() ? (
-        <div className="flex justify-center">
-          <button
-            onClick={() => toggleSwipeMode()}
-            className=" dark:bg-green-900 bg-green-300 hover:bg-green-500 dark:text-white text-black"
-          >
-            Toggle mode
-          </button>
-        </div>
-      ) : (
-        <></>
-      )}
-      <div className="flex justify-center items-center">
-        <h1 className="m-2 ">Golden Seeds</h1>
-        <h1 className=" bg-yellow-500 p-2 rounded-lg md:text-2xl text-xl mt-2 text-black">
-          {goldenSeedAmount}
-        </h1>
-      </div>
-      {isMobile() ? (
-        <></>
-      ) : isLoggedIn ? (
-        <div className="flex flex-row justify-center mt-5">
-          <div>
-            {dailyBoardData ? (
-              <GameBoardBestWordList
-                words={dailyBoardData?.dailyRandomization?.words}
-              />
-            ) : (
-              <></>
-            )}
-          </div>
-          <div>
-            {dailyBoardData ? (
-              <GameBoardMostRecentWordList
-                words={dailyBoardData?.dailyRandomization?.words}
-              />
-            ) : (
-              <></>
-            )}
-          </div>
-        </div>
-      ) : (
-        <div className="flex flex-row justify-center mt-5">
-          Login to save words
-        </div>
-      )}
     </div>
   );
 }
