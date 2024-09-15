@@ -673,6 +673,7 @@ export default function GameBoard() {
               {dailyBoardData ? (
                 <GameBoardBestWordList
                   words={dailyBoardData?.dailyRandomization?.words}
+                  userId={dailyBoardData?.dailyRandomization?._id}
                 />
               ) : (
                 <></>
@@ -682,6 +683,7 @@ export default function GameBoard() {
               {dailyBoardData ? (
                 <GameBoardMostRecentWordList
                   words={dailyBoardData?.dailyRandomization?.words}
+                  userId={dailyBoardData?.dailyRandomization?._id}
                 />
               ) : (
                 <></>
