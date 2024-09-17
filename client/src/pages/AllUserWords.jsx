@@ -97,11 +97,8 @@ export default function AllUserWords() {
           {words && (
             <>
               {words.map((word, index) => (
-                <Link to={`/singleWord/${word}`}>
-                  <div
-                    key={index}
-                    className="md:text-sm text-xs overflow-hidden border-2 hover:border-green-300 border-transparent rounded-lg m-2 flex flex-col items-center"
-                  >
+                <Link key={index} to={`/singleWord/${word}`}>
+                  <div className="md:text-sm text-xs overflow-hidden border-2 hover:border-green-300 border-transparent rounded-lg m-2 flex flex-col items-center">
                     {word}
                     <div className="align-center justify-center">
                       <FlowerSprite wordLength={word.length} />

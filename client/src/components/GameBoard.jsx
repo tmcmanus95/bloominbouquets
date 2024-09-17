@@ -15,7 +15,7 @@ import { shuffleCountToSeedReduction } from "../utils/shuffleCountToSeedReductio
 import wordLengthToSeedPrice from "../utils/wordLengthToSeedPrice";
 import Loading from "../components/Loading";
 import { CHECK_WORD_VALIDITY } from "../utils/mutations";
-
+import { getTileBackground } from "../utils/getTileBackground";
 export default function GameBoard() {
   const [selectedIds, setSelectedIds] = useState([]);
   const [tooFarIds, setTooFarIds] = useState([]);
@@ -253,7 +253,7 @@ export default function GameBoard() {
     }
 
     if (isSelected && realWord) {
-      backgroundColor = "gold";
+      backgroundColor = getTileBackground(wordLength);
       textColor = "#2d5421";
     } else if (isSelected && !realWord) {
       if (
@@ -277,10 +277,7 @@ export default function GameBoard() {
     }
 
     if (isMostRecent && realWord) {
-      if (wordLength == 3) {
-        console.log("word length!");
-        backgroundColor = "white";
-      }
+      backgroundColor = getTileBackground(wordLength);
       textColor = "#2d5421";
     } else if (isMostRecent) {
       backgroundColor = "#4d9039";

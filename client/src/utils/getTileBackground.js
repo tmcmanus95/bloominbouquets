@@ -1,35 +1,35 @@
-export function flowerSourceFinder(wordLength) {
+export function getTileBackground(wordLength) {
   switch (wordLength) {
     case 3:
-      return "";
+      return "green";
     case 4:
-      return "/b;
+      return "khaki";
     case 5:
-      return;
+      return "ivory";
     case 6:
-      retur;
+      return "lightpink";
     case 7:
-      return;
+      return "mediumpurple";
     case 8:
-      return "/b;
+      return "yellow";
     case 9:
-      return ;
+      return "magenta";
     case 10:
-      retur;
+      return "maroon";
     case 11:
-      return ;
+      return "orchid";
     case 12:
-      return "/bo;
+      return "gold";
     case 13:
-      return "/bo;
+      return "gold";
     case 14:
-      return "/bo;
+      return "gold";
     case 15:
-      return "/bo;
+      return "gold";
     case 16:
-      return "/bo;
+      return "gold";
 
     default:
-      return "/bo;
+      return "green";
   }
 }
