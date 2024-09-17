@@ -41,6 +41,7 @@ export default function GameBoard() {
   const [alertVisible, setAlertVisible] = useState(false);
   const [alertText, setAlertText] = useState("");
   const [loadingBoard, setLoadingBoard] = useState([]);
+  const [wordLength, setWordLength] = useState(0);
   const { data: dailyBoardData, error: dailyBoardError } =
     useQuery(GET_DAILY_BOARD);
   const [addWord, error] = useMutation(ADD_WORD);
@@ -276,7 +277,10 @@ export default function GameBoard() {
     }
 
     if (isMostRecent && realWord) {
-      backgroundColor = "gold";
+      if (wordLength == 3) {
+        console.log("word length!");
+        backgroundColor = "white";
+      }
       textColor = "#2d5421";
     } else if (isMostRecent) {
       backgroundColor = "#4d9039";
@@ -335,6 +339,7 @@ export default function GameBoard() {
       );
 
       setRealWord(true);
+      setWordLength(word.length);
       setNewGameBoard(updatedBoard);
       let tempString = "";
 
