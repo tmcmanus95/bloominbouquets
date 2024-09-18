@@ -514,7 +514,9 @@ export default function GameBoard() {
         {realWord && (
           <h1 className="correct flex align-center">
             {validWord}
-            <FlowerSprite wordLength={validWord.length} />
+            <span className="rounded-lg ml-2 dark:bg-black bg-white">
+              <FlowerSprite wordLength={validWord.length} />
+            </span>
           </h1>
         )}
         {!realWord && !invalidWord ? (
