@@ -233,7 +233,13 @@ export default function GameBoard() {
     }
     setLoadingBoard(tempBoard);
   }, [numCols, numRows]);
+  const wordLengthStyle = (wordLength) => {
+    let backgroundColor = getTileBackground(wordLength);
 
+    return {
+      background: backgroundColor,
+    };
+  };
   const selectedTile = (tile) => {
     const isSelected = selectedIds.includes(tile.id);
     const isTooFar = tooFarIds.includes(tile.id);
@@ -512,7 +518,10 @@ export default function GameBoard() {
           <h1 className="incorrect flex align-center">{invalidWord}</h1>
         )}
         {realWord && (
-          <h1 className="correct flex align-center">
+          <h1
+            className="flex align-center "
+            style={wordLengthStyle(validWord.length)}
+          >
             {validWord}
             <span className="rounded-lg ml-2 dark:bg-black bg-white">
               <FlowerSprite wordLength={validWord.length} />
