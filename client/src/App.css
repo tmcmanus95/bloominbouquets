@@ -45,8 +45,8 @@
 
 .correct {
   padding: 5px;
-  background-color: darkseagreen;
   border-radius: 3px;
+  border: darkseagreen solid 5px;
 }
 .incorrect {
   padding: 5px;

@@ -51,7 +51,7 @@ const router = createBrowserRouter([
         path: "/user/:userId/friends",
         element: <AllFriends />,
       },
-      { path: "/sendABouquet", element: <SendWord /> },
+      { path: "/sendABouquet/:userId", element: <SendWord /> },
       {
         path: "/login",
         element: <Login />,

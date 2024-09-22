@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
+import { useParams } from "react-router-dom";
 import { SEND_WORD } from "../utils/mutations";
 import { QUERY_MY_WORDS_AND_MY_FRIENDS } from "../utils/queries";
 import FlowerSprite from "../components/FlowerSprite";
@@ -16,6 +17,7 @@ export default function SendWord() {
   const [searchTerm, setSearchTerm] = useState("");
   const [words, setWords] = useState([]);
   const [wordsToSend, setWordsToSend] = useState([]);
+  const initialRecipient = useParams();
   const handleSendWord = async (wordsToSend) => {
     let userId = data.me._id;
     const stringWordsToSend = wordsToSend.join(",");
@@ -55,6 +57,13 @@ export default function SendWord() {
     if (data) {
       if (data.me.friends.length > 0) {
         setFriends(data.me.friends);
+        setRecipientId(initialRecipient.userId);
+        for (let i = 0; i < data.me.friends.length; i++) {
+          if (data.me.friends[i]._id == initialRecipient.userId) {
+            setRecipientUsername(data.me.friends[i].username);
+          }
+        }
+        setSelectedRecipient(true);
       }
       if (data.me.words.length > 0) {
         setWords(data.me.words);
