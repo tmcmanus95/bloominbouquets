@@ -38,7 +38,10 @@ export default function UserReceivedWords({ bouquets: initialBouquets }) {
               <IoCloseOutline onClick={handleToggleEdit} />
             </div>
           ) : (
-            isMyProfile && <FaUserEdit onClick={handleToggleEdit}></FaUserEdit>
+            isMyProfile &&
+            bouquets?.length > 0 && (
+              <FaUserEdit onClick={handleToggleEdit}></FaUserEdit>
+            )
           )}
         </div>
 

@@ -519,7 +519,7 @@ export default function GameBoard() {
         )}
         {realWord && (
           <h1
-            className="flex align-center "
+            className="flex align-center correct"
             style={wordLengthStyle(validWord.length)}
           >
             {validWord}

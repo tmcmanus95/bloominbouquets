@@ -46,7 +46,7 @@ export default function ProfileWords({ words, userId }) {
           )}
           <Link
             to={`/user/${userId}/allWords`}
-            className="border-green-500 border-2 hover:cursor:pointer text-center hover:border-green-700 m-0 absolute bottom-2 right-2 p-1"
+            className="border-green-500 border-2 hover:cursor:pointer text-center hover:border-green-700 m-0 absolute bottom-2 right-2 p-1 bg-white dark:bg-black"
           >
             All Words
           </Link>

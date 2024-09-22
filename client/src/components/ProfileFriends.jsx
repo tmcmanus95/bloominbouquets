@@ -28,7 +28,7 @@ export default function ProfileFriends({ friends, userId }) {
       </div>
       <Link
         to={`/user/${userId}/friends`}
-        className="border-green-500 border-2 inline-block hover:cursor:pointer text-center hover:border-green-700 m-0 absolute bottom-2 right-2 p-1 "
+        className="border-green-500 border-2 inline-block hover:cursor:pointer text-center hover:border-green-700 m-0 absolute bottom-2 right-2 p-1 bg-white dark:bg-black"
       >
         All Friends
       </Link>
