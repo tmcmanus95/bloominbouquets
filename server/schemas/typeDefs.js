@@ -12,6 +12,7 @@ type User {
     goldenSeeds: Float
     friendRequests: [User]
     friends: [User]
+    achievements: [Achievement]
     words: [String]
     giftedWords: [GiftedWords]
     isVerified: Boolean
@@ -19,6 +20,16 @@ type User {
     passwordResetToken: String
     passwordResetExpires: String
     orders: [Order]
+}
+
+type Achievement {
+    _id: ID
+    title: String
+    description: String
+    isLimited: Boolean
+    dateActive: String
+    difficulty: String
+    visible: Boolean
 }
 
 type GiftedWords {
@@ -61,6 +72,7 @@ type CheckWordValidityResponse {
 
 type Query {
     users: [User]
+    achievements: [Achievement]
     user(userId: ID!): User
     me: User
     meId: User
@@ -68,7 +80,6 @@ type Query {
     usersFriendRequests(userId: ID!): User
     searchUsers(username: String): User
     dailyRandomization: User
-
 }
     
 type Mutation {

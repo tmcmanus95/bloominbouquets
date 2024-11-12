@@ -1,4 +1,10 @@
-const { User, GiftedWords, Order, SeedPackage } = require("../models");
+const {
+  User,
+  GiftedWords,
+  Order,
+  SeedPackage,
+  Achievement,
+} = require("../models");
 const crypto = require("crypto");
 const { signToken, AuthenticationError } = require("../utils/auth");
 const getDailyBoard = require("../utils/getDailyBoard");
@@ -25,6 +31,11 @@ const resolvers = {
             model: "User",
           },
         });
+    },
+    achievements: async () => {
+      const achievements = await Achievement.find();
+      console.log(`There are ${achievements.length} achievements`);
+      return achievements;
     },
 
     user: async (parent, { userId }) => {

@@ -72,6 +72,7 @@ const userSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  achievements: [{ type: Schema.Types.ObjectId, ref: "Achievements" }],
   emailVerificationToken: String,
   passwordResetToken: String,
   passwordResetExpires: Date,
