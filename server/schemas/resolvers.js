@@ -533,6 +533,19 @@ const resolvers = {
         };
       }
     },
+    addAchievement: async (_, { achievementId, userId }, context) => {
+      const user = await User.findById(userId).populate("achievements");
+      if (
+        !user.achievements.find((achievement) =>
+          achievement._id.equals(achievementId)
+        )
+      ) {
+        const newAchievement = await Achievement.findById(achievementId);
+        user.achievements.push(newAchievement);
+        user.save();
+        return user;
+      }
+    },
   },
 };
 
