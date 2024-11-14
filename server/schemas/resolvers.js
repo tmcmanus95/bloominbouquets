@@ -113,6 +113,10 @@ const resolvers = {
         throw new Error("Could not get daily board");
       }
     },
+    numberOfWords: async (parent, args, context) => {
+      let user = await User.findById(context.user._id);
+      return user.words.length;
+    },
   },
   Mutation: {
     addUser: async (parent, { username, email, password, color }) => {

@@ -16,6 +16,7 @@ import wordLengthToSeedPrice from "../utils/wordLengthToSeedPrice";
 import Loading from "../components/Loading";
 import { CHECK_WORD_VALIDITY } from "../utils/mutations";
 import { getTileBackground } from "../utils/getTileBackground";
+import { checkAchievements } from "../utils/checkAchievements";
 export default function GameBoard() {
   const [selectedIds, setSelectedIds] = useState([]);
   const [tooFarIds, setTooFarIds] = useState([]);
@@ -42,8 +43,11 @@ export default function GameBoard() {
   const [alertText, setAlertText] = useState("");
   const [loadingBoard, setLoadingBoard] = useState([]);
   const [wordLength, setWordLength] = useState(0);
-  const { data: dailyBoardData, error: dailyBoardError } =
-    useQuery(GET_DAILY_BOARD);
+  const {
+    data: dailyBoardData,
+    error: dailyBoardError,
+    refetch,
+  } = useQuery(GET_DAILY_BOARD);
   const [addWord, error] = useMutation(ADD_WORD);
   const [shuffleBoard, { error: shuffleBoardError }] =
     useMutation(SHUFFLE_BOARD);
@@ -375,6 +379,8 @@ export default function GameBoard() {
                 dailyBoard: dailyBoard,
               },
             });
+            const { data: updatedUserData } = await refetch();
+            await checkAchievements(updatedUserData);
           } catch (error) {
             console.error("Error updating board:", error);
           }
@@ -471,7 +477,6 @@ export default function GameBoard() {
 
       if (data) {
         setGoldenSeedAmount(data.addWord.goldenSeeds);
-
         setNewGameBoard(currentBoard);
       }
     } catch (error) {

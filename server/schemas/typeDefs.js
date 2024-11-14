@@ -80,6 +80,7 @@ type Query {
     usersFriendRequests(userId: ID!): User
     searchUsers(username: String): User
     dailyRandomization: User
+    numberOfWords: User
 }
     
 type Mutation {

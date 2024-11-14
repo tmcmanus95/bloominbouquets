@@ -178,3 +178,10 @@ export const QUERY_USERS_FRIEND_REQUESTS = gql`
     }
   }
 `;
+export const QUERY_NUMBER_OF_WORDS = gql`
+  query Query {
+    numberOfWords {
+      words
+    }
+  }
+`;
