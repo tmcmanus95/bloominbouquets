@@ -123,6 +123,11 @@ export const GET_DAILY_BOARD = gql`
       goldenSeeds
       words
       dailyShuffleCount
+      achievements {
+        _id
+        title
+        description
+      }
     }
   }
 `;
