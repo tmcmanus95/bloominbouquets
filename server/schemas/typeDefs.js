@@ -104,7 +104,7 @@ type Mutation {
     checkout(seedPackageId: ID!): Checkout
     buyWord(word: String): User
     checkWordValidity(word: String!, userId: ID): CheckWordValidityResponse
-    addAchievement(achievementId: ID!, userId: ID!): User
+    addAchievement(title: String!, userId: ID!): User
 }
 `;
 module.exports = typeDefs;

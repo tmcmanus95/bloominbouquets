@@ -190,3 +190,22 @@ export const QUERY_NUMBER_OF_WORDS = gql`
     }
   }
 `;
+export const QUERY_ALL_ACHIEVEMENTS = gql`
+  query Query($userId: ID!) {
+    achievements {
+      _id
+      title
+      description
+      visible
+    }
+    user(userId: $userId) {
+      _id
+      username
+      color
+      achievements {
+        _id
+        title
+      }
+    }
+  }
+`;

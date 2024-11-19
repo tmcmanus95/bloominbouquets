@@ -1,7 +1,6 @@
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
-
 import App from "./App.jsx";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
@@ -24,6 +23,7 @@ import AllUserWords from "./pages/AllUserWords.jsx";
 import AllFriends from "./pages/AllFriends.jsx";
 import SingleWord from "./pages/SingleWord.jsx";
 import AllFriendRequests from "./pages/AllFriendRequests.jsx";
+import AllAchievements from "./pages/AllAchievements.jsx";
 
 const router = createBrowserRouter([
   {
@@ -100,7 +100,10 @@ const router = createBrowserRouter([
         path: "/singleWord/:word",
         element: <SingleWord />,
       },
-
+      {
+        path: "achievements/:userId",
+        element: <AllAchievements />,
+      },
       {
         path: "/shop",
         element: <Shop />,

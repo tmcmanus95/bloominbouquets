@@ -49,7 +49,8 @@ const resolvers = {
             path: "sender",
             model: "User",
           },
-        });
+        })
+        .populate("achievements");
     },
     me: async (parent, args, context) => {
       if (context.user) {
@@ -537,14 +538,14 @@ const resolvers = {
         };
       }
     },
-    addAchievement: async (_, { achievementId, userId }, context) => {
+    addAchievement: async (_, { title, userId }, context) => {
       const user = await User.findById(userId).populate("achievements");
+      const newAchievement = await Achievement.findOne({ title });
       if (
         !user.achievements.find((achievement) =>
-          achievement._id.equals(achievementId)
+          achievement._id.equals(newAchievement._id)
         )
       ) {
-        const newAchievement = await Achievement.findById(achievementId);
         user.achievements.push(newAchievement);
         user.save();
         return user;

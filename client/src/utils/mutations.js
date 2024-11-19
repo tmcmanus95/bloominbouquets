@@ -168,3 +168,14 @@ export const CHECK_WORD_VALIDITY = gql`
     }
   }
 `;
+export const ADD_ACHIEVEMENT = gql`
+  mutation Mutation($title: String!, $userId: ID!) {
+    addAchievement(title: $title, userId: $userId) {
+      _id
+      achievements {
+        _id
+        title
+      }
+    }
+  }
+`;
