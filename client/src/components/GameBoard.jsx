@@ -17,6 +17,7 @@ import Loading from "../components/Loading";
 import { CHECK_WORD_VALIDITY } from "../utils/mutations";
 import { getTileBackground } from "../utils/getTileBackground";
 import { checkAchievements } from "../utils/checkAchievements";
+import { ADD_ACHIEVEMENT } from "../utils/mutations";
 export default function GameBoard() {
   const [selectedIds, setSelectedIds] = useState([]);
   const [tooFarIds, setTooFarIds] = useState([]);
@@ -38,11 +39,13 @@ export default function GameBoard() {
   const [goldenSeedAmount, setGoldenSeedAmount] = useState(0);
   const [dailyShuffleCount, setDailyShuffleCount] = useState(0);
   const [updateBoard] = useMutation(UPDATE_DAILY_BOARD);
+  const [addAchievement] = useMutation(ADD_ACHIEVEMENT);
   const [swipeMode, setSwipeMode] = useState(false);
   const [alertVisible, setAlertVisible] = useState(false);
   const [alertText, setAlertText] = useState("");
   const [loadingBoard, setLoadingBoard] = useState([]);
   const [wordLength, setWordLength] = useState(0);
+  const [newAchievement, setNewAchievement] = useState("");
   const {
     data: dailyBoardData,
     error: dailyBoardError,
@@ -380,7 +383,21 @@ export default function GameBoard() {
               },
             });
             const { data: updatedUserData } = await refetch();
-            await checkAchievements(updatedUserData);
+            try {
+              const achievement = await checkAchievements(updatedUserData);
+              if (achievement) {
+                console.log("achievement", achievement);
+                setNewAchievement(achievement);
+                const { data: achievementData } = await addAchievement({
+                  variables: {
+                    userId: dailyBoardData.dailyRandomization._id,
+                    title: achievement,
+                  },
+                });
+              }
+            } catch (error) {
+              console.error("Error checking achievements:", error);
+            }
           } catch (error) {
             console.error("Error updating board:", error);
           }

@@ -539,6 +539,7 @@ const resolvers = {
       }
     },
     addAchievement: async (_, { title, userId }, context) => {
+      console.log(`trying to add achievement ${title} for ${userId}`);
       const user = await User.findById(userId).populate("achievements");
       const newAchievement = await Achievement.findOne({ title });
       if (
