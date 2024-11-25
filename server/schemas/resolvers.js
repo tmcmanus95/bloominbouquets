@@ -86,7 +86,9 @@ const resolvers = {
     dailyRandomization: async (parent, args, context) => {
       try {
         if (context.user) {
-          const user = await User.findOne({ _id: context.user._id });
+          const user = await User.findOne({ _id: context.user._id }).populate(
+            "achievements"
+          );
           const now = new Date();
           const lastGenerated = user.lastBoardGeneratedAt;
 
@@ -542,6 +544,7 @@ const resolvers = {
       console.log(`trying to add achievement ${title} for ${userId}`);
       const user = await User.findById(userId).populate("achievements");
       const newAchievement = await Achievement.findOne({ title });
+      console.log("new achievement", newAchievement);
       if (
         !user.achievements.find((achievement) =>
           achievement._id.equals(newAchievement._id)

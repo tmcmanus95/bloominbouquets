@@ -24,6 +24,14 @@
     "visible": true
   },
   {
+    "title": "ten-ding to your garden",
+    "description": "grow ten unique words",
+    "isLimited": false,
+    "dateActive": null,
+    "difficulty": "easy",
+    "visible": true
+  },
+  {
     "title": "inch by inch",
     "description": "grow fifty unique words",
     "isLimited": false,

@@ -396,6 +396,7 @@ export default function GameBoard() {
                 });
               }
             } catch (error) {
+              console.log("updated user data", updatedUserData);
               console.error("Error checking achievements:", error);
             }
           } catch (error) {
