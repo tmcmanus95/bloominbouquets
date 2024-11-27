@@ -44,7 +44,6 @@ const userSchema = new Schema({
     type: Number,
     default: 0,
   },
-
   friendRequests: [
     {
       type: Schema.Types.ObjectId,
@@ -62,6 +61,10 @@ const userSchema = new Schema({
       type: String,
     },
   ],
+  totalWords: {
+    type: Number,
+    default: 0,
+  },
   giftedWords: [
     {
       type: Schema.Types.ObjectId,

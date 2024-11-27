@@ -241,10 +241,13 @@ export default function GameBoard() {
     setLoadingBoard(tempBoard);
   }, [numCols, numRows]);
   const wordLengthStyle = (wordLength) => {
-    let backgroundColor = getTileBackground(wordLength);
+    let borderColor = getTileBackground(wordLength);
 
     return {
-      background: backgroundColor,
+      borderColor: borderColor,
+      borderWidth: "2px",
+      borderStyle: "solid",
+      borderRadius: "8px",
     };
   };
   const selectedTile = (tile) => {
@@ -254,6 +257,7 @@ export default function GameBoard() {
     const isMostRecent =
       selectedIds.length > 0 && tile.id === selectedIds[selectedIds.length - 1];
     let backgroundColor;
+    let borderColor;
     let textColor = "black";
     if (
       window.matchMedia &&
@@ -541,13 +545,15 @@ export default function GameBoard() {
           <h1 className="incorrect flex align-center">{invalidWord}</h1>
         )}
         {realWord && (
-          <h1
-            className="flex align-center correct"
-            style={wordLengthStyle(validWord.length)}
-          >
-            {validWord}
-            <span className="rounded-lg ml-2 dark:bg-black bg-white">
-              <FlowerSprite wordLength={validWord.length} />
+          <h1 className="flex align-center correct rounded-lg">
+            <span
+              className="m-1 rounded-lg flex flex-row"
+              style={wordLengthStyle(validWord.length)}
+            >
+              {validWord}
+              <span className="rounded-lg ml-2 dark:bg-black bg-white">
+                <FlowerSprite wordLength={validWord.length} />
+              </span>
             </span>
           </h1>
         )}

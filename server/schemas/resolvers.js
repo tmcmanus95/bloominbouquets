@@ -291,6 +291,7 @@ const resolvers = {
         }
         if (!user.words.includes(word)) {
           user.words.push(word);
+          user.totalWords++;
         }
         const seeds = wordLengthToSeeds(word.length);
         user.goldenSeeds += seeds;

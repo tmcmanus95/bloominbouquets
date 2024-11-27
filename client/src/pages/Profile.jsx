@@ -48,9 +48,14 @@ export default function Profile() {
         <div className="dark:text-white ">
           <div className="justify-center flex flex-col ">
             <div className="md:text-4xl flex flex-row items-center justify-between border-black dark:border-white border-2 p-5 m-2 mt-2">
-              <div className="flex flex-row">
-                <IoFlowerOutline style={{ color: userBackgroundColor }} />
-                <h1>{data.me.username}</h1>
+              <div className="flex flex-col">
+                <div className="flex flex-row ">
+                  <IoFlowerOutline style={{ color: userBackgroundColor }} />
+                  <h1>{data.me.username}</h1>
+                </div>
+                <h6 className="text-sm">
+                  Total Flowers: {data?.me?.totalWords}
+                </h6>
               </div>
               <div className="flex flex-row text-base">
                 {toggleEdit ? (
@@ -68,6 +73,7 @@ export default function Profile() {
               </div>
             </div>
           </div>
+
           <div className="justify-start">
             <ProfileFriends friends={data.me.friends} userId={data.me._id} />
           </div>

@@ -14,6 +14,7 @@ type User {
     friends: [User]
     achievements: [Achievement]
     words: [String]
+    totalWords: Float
     giftedWords: [GiftedWords]
     isVerified: Boolean
     emailVerificationToken: String

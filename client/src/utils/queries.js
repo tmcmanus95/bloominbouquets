@@ -17,6 +17,7 @@ export const QUERY_ME = gql`
         color
       }
       words
+      totalWords
       giftedWords {
         _id
         giftedWords
