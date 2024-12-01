@@ -10,6 +10,7 @@ import ProfilesReceivedFriendRequestsList from "../components/ProfilesReceivedFr
 import ProfileFriends from "../components/ProfileFriends";
 import { ColorPicker } from "antd";
 import UserReceivedWords from "../components/UserReceivedWords";
+import RecentAchievements from "../components/RecentAchievements";
 import Loading from "../components/Loading";
 import { Link } from "react-router-dom";
 
@@ -87,6 +88,12 @@ export default function Profile() {
 
           <div className="justify-start">
             <ProfileWords words={data.me.words} userId={data.me._id} />
+          </div>
+          <div>
+            <RecentAchievements
+              achievements={data.me.achievements}
+              userId={data.me._id}
+            />
           </div>
           <div>
             <UserReceivedWords bouquets={data.me.giftedWords} />

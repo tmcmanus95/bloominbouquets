@@ -18,6 +18,11 @@ export const QUERY_ME = gql`
       }
       words
       totalWords
+      achievements {
+        _id
+        title
+        description
+      }
       giftedWords {
         _id
         giftedWords
