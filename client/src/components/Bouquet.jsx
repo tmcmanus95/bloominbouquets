@@ -61,7 +61,7 @@ export default function Bouquet({
       <div className="flex justify-center">
         {wordAmount > 0 && (
           <img
-            className="md:-mt-2 md:scale-100 -mt-4 scale-75"
+            className="md:-mt-4 md:scale-100 -mt-8 scale-75"
             src={wordsToStemMatching(wordAmount)}
           ></img>
         )}

@@ -4,7 +4,7 @@ import { EDIT_USER_COLOR } from "../utils/mutations";
 import { IoFlowerOutline, IoCloseOutline } from "react-icons/io5";
 
 import { FaUserEdit } from "react-icons/fa";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ProfileWords from "../components/ProfileWords";
 import ProfilesReceivedFriendRequestsList from "../components/ProfilesReceivedFriendRequestsList";
 import ProfileFriends from "../components/ProfileFriends";
