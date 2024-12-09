@@ -63,24 +63,31 @@ export default function WordSearch({
   }
 
   const handleBuyWord = async () => {
-    try {
-      const { data } = await buyWord({
-        variables: { word: wordDisplayed.toUpperCase() },
-      });
-      const newSeeds = data?.buyWord?.goldenSeeds;
-      setWords((prevWords) => [...prevWords, wordDisplayed.toUpperCase()]);
-      setSeedsToSpend(newSeeds);
-      updateSeeds(newSeeds);
-      setWordDisplayed("");
-      setInputValue("");
-      setWordPrice(0);
-      setAlertText(`Successfully Purchased ${wordDisplayed}!`);
-      setBuyable(false);
+    if (initialSeedsToSpend >= wordPrice)
+      try {
+        const { data } = await buyWord({
+          variables: { word: wordDisplayed.toUpperCase() },
+        });
+        const newSeeds = data?.buyWord?.goldenSeeds;
+        setWords((prevWords) => [...prevWords, wordDisplayed.toUpperCase()]);
+        setSeedsToSpend(newSeeds);
+        updateSeeds(newSeeds);
+        setWordDisplayed("");
+        setInputValue("");
+        setWordPrice(0);
+        setAlertText(`Successfully Purchased ${wordDisplayed}!`);
+        setBuyable(false);
+        setTimeout(() => {
+          setAlertText("");
+        }, 1000);
+      } catch (error) {
+        console.log("could not buy word");
+      }
+    else {
+      setAlertText("Not enough golden seeds :(");
       setTimeout(() => {
         setAlertText("");
       }, 1000);
-    } catch (error) {
-      console.log("could not buy word");
     }
   };
 

@@ -26,6 +26,7 @@ export default function ProfileWords({ words, userId }) {
   return (
     <section className="relative m-2 flex justify-center flex-col border-black dark:border-white border-2">
       <h1 className="md:text-3xl text-center">Best Words</h1>
+
       <div className="">
         <div className="grid grid-cols-2 md:grid-cols-8 content-start">
           {sortedWords ? (

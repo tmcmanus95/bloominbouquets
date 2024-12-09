@@ -4,12 +4,13 @@ import { EDIT_USER_COLOR } from "../utils/mutations";
 import { IoFlowerOutline, IoCloseOutline } from "react-icons/io5";
 
 import { FaUserEdit } from "react-icons/fa";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ProfileWords from "../components/ProfileWords";
 import ProfilesReceivedFriendRequestsList from "../components/ProfilesReceivedFriendRequestsList";
 import ProfileFriends from "../components/ProfileFriends";
 import { ColorPicker } from "antd";
 import UserReceivedWords from "../components/UserReceivedWords";
+import RecentAchievements from "../components/RecentAchievements";
 import Loading from "../components/Loading";
 import { Link } from "react-router-dom";
 
@@ -48,9 +49,14 @@ export default function Profile() {
         <div className="dark:text-white ">
           <div className="justify-center flex flex-col ">
             <div className="md:text-4xl flex flex-row items-center justify-between border-black dark:border-white border-2 p-5 m-2 mt-2">
-              <div className="flex flex-row">
-                <IoFlowerOutline style={{ color: userBackgroundColor }} />
-                <h1>{data.me.username}</h1>
+              <div className="flex flex-col">
+                <div className="flex flex-row ">
+                  <IoFlowerOutline style={{ color: userBackgroundColor }} />
+                  <h1>{data.me.username}</h1>
+                </div>
+                <h6 className="text-sm">
+                  Total Flowers: {data?.me?.totalWords}
+                </h6>
               </div>
               <div className="flex flex-row text-base">
                 {toggleEdit ? (
@@ -68,6 +74,7 @@ export default function Profile() {
               </div>
             </div>
           </div>
+
           <div className="justify-start">
             <ProfileFriends friends={data.me.friends} userId={data.me._id} />
           </div>
@@ -81,6 +88,12 @@ export default function Profile() {
 
           <div className="justify-start">
             <ProfileWords words={data.me.words} userId={data.me._id} />
+          </div>
+          <div>
+            <RecentAchievements
+              achievements={data.me.achievements}
+              userId={data.me._id}
+            />
           </div>
           <div>
             <UserReceivedWords bouquets={data.me.giftedWords} />

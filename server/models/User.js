@@ -44,7 +44,6 @@ const userSchema = new Schema({
     type: Number,
     default: 0,
   },
-
   friendRequests: [
     {
       type: Schema.Types.ObjectId,
@@ -62,6 +61,10 @@ const userSchema = new Schema({
       type: String,
     },
   ],
+  totalWords: {
+    type: Number,
+    default: 0,
+  },
   giftedWords: [
     {
       type: Schema.Types.ObjectId,
@@ -72,6 +75,7 @@ const userSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  achievements: [{ type: Schema.Types.ObjectId, ref: "Achievement" }],
   emailVerificationToken: String,
   passwordResetToken: String,
   passwordResetExpires: Date,

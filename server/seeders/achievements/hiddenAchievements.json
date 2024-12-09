@@ -1,0 +1,26 @@
+[
+  {
+    "title": "dirt-y",
+    "description": "grow a word of sallacious content",
+    "isLimited": false,
+    "dateActive": null,
+    "difficulty": "medium",
+    "visible": false
+  },
+  {
+    "title": "horticultural therapist",
+    "description": "send someone a bouquet with the word love in it",
+    "isLimited": false,
+    "dateActive": null,
+    "difficulty": "easy",
+    "visible": false
+  },
+  {
+    "title": "shrinking violet",
+    "description": "try to grow a flower with only one letter.",
+    "isLimited": false,
+    "dateActive": null,
+    "difficulty": "hard",
+    "visible": false
+  }
+]

@@ -17,6 +17,12 @@ export const QUERY_ME = gql`
         color
       }
       words
+      totalWords
+      achievements {
+        _id
+        title
+        description
+      }
       giftedWords {
         _id
         giftedWords
@@ -123,6 +129,11 @@ export const GET_DAILY_BOARD = gql`
       goldenSeeds
       words
       dailyShuffleCount
+      achievements {
+        _id
+        title
+        description
+      }
     }
   }
 `;
@@ -174,6 +185,32 @@ export const QUERY_USERS_FRIEND_REQUESTS = gql`
       friendRequests {
         _id
         username
+      }
+    }
+  }
+`;
+export const QUERY_NUMBER_OF_WORDS = gql`
+  query Query {
+    numberOfWords {
+      words
+    }
+  }
+`;
+export const QUERY_ALL_ACHIEVEMENTS = gql`
+  query Query($userId: ID!) {
+    achievements {
+      _id
+      title
+      description
+      visible
+    }
+    user(userId: $userId) {
+      _id
+      username
+      color
+      achievements {
+        _id
+        title
       }
     }
   }

@@ -1,0 +1,196 @@
+[
+  {
+    "title": "fertilizer",
+    "description": "purchase a package of golden seeds.",
+    "isLimited": false,
+    "dateActive": null,
+    "difficulty": "easy",
+    "visible": true
+  },
+  {
+    "title": "spreading your roots",
+    "description": "create a word that contains a tile in the rightmost column, and a tile in the leftmost column.",
+    "isLimited": false,
+    "dateActive": null,
+    "difficulty": "hard",
+    "visible": true
+  },
+  {
+    "title": "the second best time is now",
+    "description": "grow your first word",
+    "isLimited": false,
+    "dateActive": null,
+    "difficulty": "easy",
+    "visible": true
+  },
+  {
+    "title": "ten-ding to your garden",
+    "description": "grow ten unique words",
+    "isLimited": false,
+    "dateActive": null,
+    "difficulty": "easy",
+    "visible": true
+  },
+  {
+    "title": "inch by inch",
+    "description": "grow fifty unique words",
+    "isLimited": false,
+    "dateActive": null,
+    "difficulty": "easy",
+    "visible": true
+  },
+  {
+    "title": "row by row",
+    "description": "grow one hundred unique words",
+    "isLimited": false,
+    "dateActive": null,
+    "difficulty": "easy",
+    "visible": true
+  },
+  {
+    "title": "green thumb",
+    "description": "grow one thousand unique words",
+    "isLimited": false,
+    "dateActive": null,
+    "difficulty": "hard",
+    "visible": true
+  },
+
+  {
+    "title": "fruits of your labor",
+    "description": "successfully grow one hundred unique words.",
+    "isLimited": false,
+    "dateActive": null,
+    "difficulty": "medium",
+    "visible": true
+  },
+  {
+    "title": "wise oak",
+    "description": "grow a word with ten letters or more.",
+    "isLimited": false,
+    "dateActive": null,
+    "difficulty": "hard",
+    "visible": true
+  },
+  {
+    "title": "good nature",
+    "description": "buy a word from the store.",
+    "isLimited": false,
+    "dateActive": null,
+    "difficulty": "easy",
+    "visible": true
+  },
+  {
+    "title": "second nature",
+    "description": "buy one hundred words from the store.",
+    "isLimited": false,
+    "dateActive": null,
+    "difficulty": "medium",
+    "visible": true
+  },
+  {
+    "title": "force of nature",
+    "description": "buy one thousand words from the store.",
+    "isLimited": false,
+    "dateActive": null,
+    "difficulty": "hard",
+    "visible": true
+  },
+  {
+    "title": "reaching out",
+    "description": "add someone as a friend.",
+    "isLimited": false,
+    "dateActive": null,
+    "difficulty": "easy",
+    "visible": true
+  },
+  {
+    "title": "a voice in the wilderness",
+    "description": "send someone a bouquet.",
+    "isLimited": false,
+    "dateActive": null,
+    "difficulty": "easy",
+    "visible": true
+  },
+  {
+    "title": "fresh as a daisy",
+    "description": "grow fifty daisies.",
+    "isLimited": false,
+    "dateActive": null,
+    "difficulty": "medium",
+    "visible": true
+  },
+
+  {
+    "title": "gilding the lily",
+    "description": "grow fifty lilies.",
+    "isLimited": false,
+    "dateActive": null,
+    "difficulty": "medium",
+    "visible": true
+  },
+  {
+    "title": "tulip bubble",
+    "description": "grow fifty tulips.",
+    "isLimited": false,
+    "dateActive": null,
+    "difficulty": "hard",
+    "visible": true
+  },
+  {
+    "title": "face the sun",
+    "description": "grow fifty sunflowers.",
+    "isLimited": false,
+    "dateActive": null,
+    "difficulty": "hard",
+    "visible": true
+  },
+  {
+    "title": "an achievement by any other name",
+    "description": "grow ten roses.",
+    "isLimited": false,
+    "dateActive": null,
+    "difficulty": "hard",
+    "visible": true
+  },
+  {
+    "title": "orchid bulldozer",
+    "description": "grow ten orchids.",
+    "isLimited": false,
+    "dateActive": null,
+    "difficulty": "hard",
+    "visible": true
+  },
+  {
+    "title": "gaia",
+    "description": "grow fifty flowers of ten letters or more",
+    "isLimited": false,
+    "dateActive": null,
+    "difficulty": "extreme",
+    "visible": true
+  },
+  {
+    "title": "course of nature",
+    "description": "shuffle the garden",
+    "isLimited": false,
+    "dateActive": null,
+    "difficulty": "easy",
+    "visible": true
+  },
+  {
+    "title": "rolling stone",
+    "description": "shuffle the garden twice in one day",
+    "isLimited": false,
+    "dateActive": null,
+    "difficulty": "medium",
+    "visible": true
+  },
+  {
+    "title": "cleansing fire",
+    "description": "shuffle the garden three times in one day",
+    "isLimited": false,
+    "dateActive": null,
+    "difficulty": "hard",
+    "visible": true
+  }
+]

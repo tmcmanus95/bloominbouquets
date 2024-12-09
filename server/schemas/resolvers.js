@@ -1,4 +1,10 @@
-const { User, GiftedWords, Order, SeedPackage } = require("../models");
+const {
+  User,
+  GiftedWords,
+  Order,
+  SeedPackage,
+  Achievement,
+} = require("../models");
 const crypto = require("crypto");
 const { signToken, AuthenticationError } = require("../utils/auth");
 const getDailyBoard = require("../utils/getDailyBoard");
@@ -26,6 +32,11 @@ const resolvers = {
           },
         });
     },
+    achievements: async () => {
+      const achievements = await Achievement.find();
+      console.log(`There are ${achievements.length} achievements`);
+      return achievements;
+    },
 
     user: async (parent, { userId }) => {
       return User.findOne({ _id: userId })
@@ -38,7 +49,8 @@ const resolvers = {
             path: "sender",
             model: "User",
           },
-        });
+        })
+        .populate("achievements");
     },
     me: async (parent, args, context) => {
       if (context.user) {
@@ -74,7 +86,9 @@ const resolvers = {
     dailyRandomization: async (parent, args, context) => {
       try {
         if (context.user) {
-          const user = await User.findOne({ _id: context.user._id });
+          const user = await User.findOne({ _id: context.user._id }).populate(
+            "achievements"
+          );
           const now = new Date();
           const lastGenerated = user.lastBoardGeneratedAt;
 
@@ -101,6 +115,10 @@ const resolvers = {
         console.log("Could not get daily board", err);
         throw new Error("Could not get daily board");
       }
+    },
+    numberOfWords: async (parent, args, context) => {
+      let user = await User.findById(context.user._id);
+      return user.words.length;
     },
   },
   Mutation: {
@@ -273,6 +291,7 @@ const resolvers = {
         }
         if (!user.words.includes(word)) {
           user.words.push(word);
+          user.totalWords++;
         }
         const seeds = wordLengthToSeeds(word.length);
         user.goldenSeeds += seeds;
@@ -520,6 +539,21 @@ const resolvers = {
           success: false,
           message: `Could not ascertain word validity: ${error.message}`,
         };
+      }
+    },
+    addAchievement: async (_, { title, userId }, context) => {
+      console.log(`trying to add achievement ${title} for ${userId}`);
+      const user = await User.findById(userId).populate("achievements");
+      const newAchievement = await Achievement.findOne({ title });
+      console.log("new achievement", newAchievement);
+      if (
+        !user.achievements.find((achievement) =>
+          achievement._id.equals(newAchievement._id)
+        )
+      ) {
+        user.achievements.push(newAchievement);
+        user.save();
+        return user;
       }
     },
   },

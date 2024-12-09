@@ -12,13 +12,25 @@ type User {
     goldenSeeds: Float
     friendRequests: [User]
     friends: [User]
+    achievements: [Achievement]
     words: [String]
+    totalWords: Float
     giftedWords: [GiftedWords]
     isVerified: Boolean
     emailVerificationToken: String
     passwordResetToken: String
     passwordResetExpires: String
     orders: [Order]
+}
+
+type Achievement {
+    _id: ID
+    title: String
+    description: String
+    isLimited: Boolean
+    dateActive: String
+    difficulty: String
+    visible: Boolean
 }
 
 type GiftedWords {
@@ -61,6 +73,7 @@ type CheckWordValidityResponse {
 
 type Query {
     users: [User]
+    achievements: [Achievement]
     user(userId: ID!): User
     me: User
     meId: User
@@ -68,7 +81,7 @@ type Query {
     usersFriendRequests(userId: ID!): User
     searchUsers(username: String): User
     dailyRandomization: User
-
+    numberOfWords: User
 }
     
 type Mutation {
@@ -92,7 +105,7 @@ type Mutation {
     checkout(seedPackageId: ID!): Checkout
     buyWord(word: String): User
     checkWordValidity(word: String!, userId: ID): CheckWordValidityResponse
-
+    addAchievement(title: String!, userId: ID!): User
 }
 `;
 module.exports = typeDefs;

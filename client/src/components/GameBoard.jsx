@@ -16,6 +16,8 @@ import wordLengthToSeedPrice from "../utils/wordLengthToSeedPrice";
 import Loading from "../components/Loading";
 import { CHECK_WORD_VALIDITY } from "../utils/mutations";
 import { getTileBackground } from "../utils/getTileBackground";
+import { checkAchievements } from "../utils/checkAchievements";
+import { ADD_ACHIEVEMENT } from "../utils/mutations";
 export default function GameBoard() {
   const [selectedIds, setSelectedIds] = useState([]);
   const [tooFarIds, setTooFarIds] = useState([]);
@@ -37,13 +39,18 @@ export default function GameBoard() {
   const [goldenSeedAmount, setGoldenSeedAmount] = useState(0);
   const [dailyShuffleCount, setDailyShuffleCount] = useState(0);
   const [updateBoard] = useMutation(UPDATE_DAILY_BOARD);
+  const [addAchievement] = useMutation(ADD_ACHIEVEMENT);
   const [swipeMode, setSwipeMode] = useState(false);
   const [alertVisible, setAlertVisible] = useState(false);
   const [alertText, setAlertText] = useState("");
   const [loadingBoard, setLoadingBoard] = useState([]);
   const [wordLength, setWordLength] = useState(0);
-  const { data: dailyBoardData, error: dailyBoardError } =
-    useQuery(GET_DAILY_BOARD);
+  const [newAchievement, setNewAchievement] = useState("");
+  const {
+    data: dailyBoardData,
+    error: dailyBoardError,
+    refetch,
+  } = useQuery(GET_DAILY_BOARD);
   const [addWord, error] = useMutation(ADD_WORD);
   const [shuffleBoard, { error: shuffleBoardError }] =
     useMutation(SHUFFLE_BOARD);
@@ -234,10 +241,13 @@ export default function GameBoard() {
     setLoadingBoard(tempBoard);
   }, [numCols, numRows]);
   const wordLengthStyle = (wordLength) => {
-    let backgroundColor = getTileBackground(wordLength);
+    let borderColor = getTileBackground(wordLength);
 
     return {
-      background: backgroundColor,
+      borderColor: borderColor,
+      borderWidth: "2px",
+      borderStyle: "solid",
+      borderRadius: "8px",
     };
   };
   const selectedTile = (tile) => {
@@ -247,6 +257,7 @@ export default function GameBoard() {
     const isMostRecent =
       selectedIds.length > 0 && tile.id === selectedIds[selectedIds.length - 1];
     let backgroundColor;
+    let borderColor;
     let textColor = "black";
     if (
       window.matchMedia &&
@@ -375,6 +386,23 @@ export default function GameBoard() {
                 dailyBoard: dailyBoard,
               },
             });
+            const { data: updatedUserData } = await refetch();
+            try {
+              const achievement = await checkAchievements(updatedUserData);
+              if (achievement) {
+                console.log("achievement", achievement);
+                setNewAchievement(achievement);
+                const { data: achievementData } = await addAchievement({
+                  variables: {
+                    userId: dailyBoardData.dailyRandomization._id,
+                    title: achievement,
+                  },
+                });
+              }
+            } catch (error) {
+              console.log("updated user data", updatedUserData);
+              console.error("Error checking achievements:", error);
+            }
           } catch (error) {
             console.error("Error updating board:", error);
           }
@@ -471,7 +499,6 @@ export default function GameBoard() {
 
       if (data) {
         setGoldenSeedAmount(data.addWord.goldenSeeds);
-
         setNewGameBoard(currentBoard);
       }
     } catch (error) {
@@ -518,13 +545,15 @@ export default function GameBoard() {
           <h1 className="incorrect flex align-center">{invalidWord}</h1>
         )}
         {realWord && (
-          <h1
-            className="flex align-center correct"
-            style={wordLengthStyle(validWord.length)}
-          >
-            {validWord}
-            <span className="rounded-lg ml-2 dark:bg-black bg-white">
-              <FlowerSprite wordLength={validWord.length} />
+          <h1 className="flex align-center correct rounded-lg">
+            <span
+              className="m-1 rounded-lg flex flex-row"
+              style={wordLengthStyle(validWord.length)}
+            >
+              {validWord}
+              <span className="rounded-lg ml-2 dark:bg-black bg-white">
+                <FlowerSprite wordLength={validWord.length} />
+              </span>
             </span>
           </h1>
         )}
