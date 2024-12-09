@@ -56,7 +56,7 @@ export default function AllUserWords() {
         <h1 className="mb-5"> {username}'s Words</h1>
       </div>
       <FlowerTallyBreakdown words={words} />
-      <div className="border-2 border-green-500 mx-2">
+      <div className=" mx-2">
         <h1 className="md:text-3xl text-2xl text-center">All Words</h1>
 
         <div className="text-center ">

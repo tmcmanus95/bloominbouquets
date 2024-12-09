@@ -23,33 +23,27 @@ export default function FlowerTallyBreakdown(words) {
   }, [words]);
 
   return (
-    <div className="border-2 ">
-      <div className="border-2 border-green grid md:grid-cols-10 grid-cols-5 md:text-m text-xs mx-2">
-        {flowerMapping.map((flower) => (
-          <div className="flex flex-col text-center">
-            <h4 className="border-l-2 border-r-2 border-t-2 border-green-600">
-              {flower.wordLength} Letters
-            </h4>
-            <div
-              key={flower.name}
-              className="border-2 border-green-600 flex flex-col md:mb-0 mb-2"
-            >
-              <h3>{flower.name}</h3>
-              <div className="flex justify-center items-center flex-col ">
-                <FlowerSprite wordLength={flower.wordLength} />
-                <h5>
-                  {flowerTally[flower.countKey]}{" "}
-                  {flowerTally[flower.countKey] != 1 ? (
-                    <span>words</span>
-                  ) : (
-                    <span>word</span>
-                  )}
-                </h5>
-              </div>
+    <div className=" grid md:grid-cols-10 grid-cols-5 md:text-m text-xs mx-2">
+      {flowerMapping.map((flower) => (
+        <div className="flex flex-col  items-center text-center">
+          <h4>{flower.wordLength} Letters</h4>
+          <hr className="h-px w-16 bg-green-600 border-0 dark:bg-green-300 "></hr>
+          <div key={flower.name} className=" flex flex-col md:mb-0 mb-2 ">
+            <h3>{flower.name}</h3>
+            <div className="flex justify-center items-center flex-col ">
+              <FlowerSprite wordLength={flower.wordLength} />
+              <h5>
+                {flowerTally[flower.countKey]}{" "}
+                {flowerTally[flower.countKey] != 1 ? (
+                  <span>words</span>
+                ) : (
+                  <span>word</span>
+                )}
+              </h5>
             </div>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
   );
 }
