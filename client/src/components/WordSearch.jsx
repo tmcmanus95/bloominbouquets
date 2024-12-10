@@ -19,6 +19,7 @@ export default function WordSearch({
   const [seedsToSpend, setSeedsToSpend] = useState(initialSeedsToSpend);
   const [words, setWords] = useState(initialWords);
   const [wordPrice, setWordPrice] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
   const [alertText, setAlertText] = useState("");
   const [isValidWord, setIsValidWord] = useState(false);
   const [buyable, setBuyable] = useState(false);
@@ -83,12 +84,17 @@ export default function WordSearch({
         const newSeeds = data?.buyWord?.goldenSeeds;
         setWords((prevWords) => [...prevWords, wordDisplayed.toUpperCase()]);
         setSeedsToSpend(newSeeds);
+        setIsAnimating(true);
         updateSeeds(newSeeds);
-        setWordDisplayed("");
         setInputValue("");
-        setWordPrice(0);
         setAlertText(`Successfully Purchased ${wordDisplayed}!`);
-        setBuyable(false);
+
+        setWordPrice(0);
+        setTimeout(() => {
+          setIsAnimating(false);
+          setWordDisplayed("");
+          setBuyable(false);
+        }, 1000);
 
         setTimeout(() => {
           setAlertText("");
@@ -120,7 +126,9 @@ export default function WordSearch({
       <div
         className={`buyable-div flex flex-row text-center justify-center mt-10 ${
           wordSearched ? "visible border-r-2 border-black" : ""
-        } dark:border-white p-5 flex flex-row`}
+        } dark:border-white p-5 flex flex-row ${
+          isAnimating ? "animate-bounce" : ""
+        }`}
       >
         <div
           className={`md:text-4xl ${
