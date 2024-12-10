@@ -518,11 +518,18 @@ const resolvers = {
     },
     checkWordValidity: async (_, { word, userId }, context) => {
       try {
+        if (word.length <= 2) {
+          return { success: false, message: "Word too short" };
+        }
+
+        console.log("word", word);
         const user = await User.findById(userId);
         if (!user) {
           if (!wordList.includes(word.toLowerCase())) {
+            console.log("word not in dictionary");
             return { success: false, message: "Word not in the dictionary" };
           } else {
+            console.log("word is valid");
             return { success: true, message: "Word is valid", userWord: word };
           }
         }

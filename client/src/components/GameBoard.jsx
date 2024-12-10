@@ -87,9 +87,8 @@ export default function GameBoard() {
           setTooFarIds([]);
         }, 500);
         setTimeout(() => {
-          setAlertText("");
           setAlertVisible(false);
-        }, 5000);
+        }, 1500);
       }
     }
   };
@@ -327,7 +326,6 @@ export default function GameBoard() {
           setAlertText(`${userWord} already owned`);
           setAlertVisible(true);
           setTimeout(() => {
-            setAlertText("");
             setAlertVisible(false);
           }, 1000);
         }
@@ -523,13 +521,13 @@ export default function GameBoard() {
         selectedLetters={selectedIds.map((id) => getTileById(id).letter)}
       /> */}
       <div className="flex justify-center">
-        {alertVisible ? (
-          <h1 className="z-20 bg-yellow-300 text-black rounded-lg p-5 absolute mt-2">
-            {alertText}
-          </h1>
-        ) : (
-          <></>
-        )}
+        <h1
+          className={`notification-bar bg-yellow-300 z-20 text-black rounded-lg p-5 absolute mt-2 ${
+            alertVisible ? "visible" : ""
+          }`}
+        >
+          {alertText}
+        </h1>
       </div>
 
       <div className="current-word-container flex justify-center align-center md:text-5xl text-2xl">
