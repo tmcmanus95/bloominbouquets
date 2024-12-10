@@ -101,6 +101,12 @@ export default function Navbar() {
               >
                 Shop
               </Link>
+              <Link
+                to="/sendABouquet"
+                className="hover:bg-green-900 dark:hover:bg-green-950 lg:p-2 rounded-lg"
+              >
+                Send a Bouquet
+              </Link>
             </>
           ) : (
             <></>
@@ -146,6 +152,12 @@ export default function Navbar() {
                   className="py-2 px-3 block w-full hover:bg-green-950 hover:text-white"
                 >
                   Buy More Seeds
+                </Link>
+                <Link
+                  to="/sendABouquet"
+                  className="py-2 px-3 block w-full hover:bg-green-950 hover:text-white"
+                >
+                  Send a Bouquet
                 </Link>
               </>
             ) : (

@@ -32,6 +32,6 @@ export default function wordLengthToSeedPrice(wordLength) {
       return 25000;
 
     default:
-      return 1;
+      return 50000;
   }
 }

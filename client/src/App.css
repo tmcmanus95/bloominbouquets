@@ -108,6 +108,23 @@ button {
   font-size: 15px;
   margin: 5px;
 }
+.notification-bar {
+  transform: translateY(-200%);
+  transition: transform 0.5s ease-in-out, background-color 0.5s ease;
+}
+
+.notification-bar.visible {
+  transform: translateY(0);
+}
+
+.buyable-div {
+  transform: translateY(200%);
+  transition: transform 0.5s ease-in-out, background-color 0.5s ease;
+}
+
+.buyable-div.visible {
+  transform: translateY(0);
+}
 
 @media screen and (min-width: 600px) {
   #grid-container {

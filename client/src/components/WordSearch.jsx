@@ -14,11 +14,13 @@ export default function WordSearch({
   userId,
 }) {
   const [inputValue, setInputValue] = useState("");
+  const [wordSearched, setWordSearched] = useState(false);
   const [wordDisplayed, setWordDisplayed] = useState("");
   const [seedsToSpend, setSeedsToSpend] = useState(initialSeedsToSpend);
   const [words, setWords] = useState(initialWords);
   const [wordPrice, setWordPrice] = useState(0);
   const [alertText, setAlertText] = useState("");
+  const [isValidWord, setIsValidWord] = useState(false);
   const [buyable, setBuyable] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(Auth.loggedIn());
   const [checkWordValidityTest, { error: checkWordValidityTestError }] =
@@ -28,10 +30,12 @@ export default function WordSearch({
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
+    setWordSearched(false);
   };
 
   async function handleSearchWord(e) {
     e.preventDefault();
+    setWordSearched(true);
     try {
       const { data } = await checkWordValidityTest({
         variables: {
@@ -39,10 +43,14 @@ export default function WordSearch({
           userId: isLoggedIn ? userId : null,
         },
       });
+      if (data) {
+        console.log("word validity data", data);
+      }
 
       if (data.checkWordValidity.success) {
         if (!words.includes(inputValue.toUpperCase())) {
           setWordDisplayed(inputValue);
+          setIsValidWord(true);
           setWordPrice(wordLengthToSeedPrice(inputValue.length));
           console.log(
             `seeds to spend ${seedsToSpend} | word price ${wordPrice}`
@@ -52,9 +60,13 @@ export default function WordSearch({
           }
         } else {
           setWordDisplayed(`${inputValue} already owned 🌸`);
+          setIsValidWord(false);
         }
+      } else if (data.checkWordValidity.message == "Word too short") {
+        setWordDisplayed(`${inputValue} is too short`);
       } else {
         setWordDisplayed(`Could not find ${inputValue}`);
+        setIsValidWord(false);
       }
       setInputValue("");
     } catch (error) {
@@ -77,6 +89,7 @@ export default function WordSearch({
         setWordPrice(0);
         setAlertText(`Successfully Purchased ${wordDisplayed}!`);
         setBuyable(false);
+
         setTimeout(() => {
           setAlertText("");
         }, 1000);
@@ -104,21 +117,27 @@ export default function WordSearch({
         ></input>
       </form>
       <div className="text-xl">{alertText}</div>
-      <div className="flex flex-row text-center justify-center mt-10">
+      <div
+        className={`buyable-div flex flex-row text-center justify-center mt-10 ${
+          wordSearched ? "visible border-r-2 border-black" : ""
+        } dark:border-white p-5 flex flex-row`}
+      >
         <div
           className={`md:text-4xl ${
-            buyable ? "border-r-2 border-black" : ""
+            buyable && isValidWord ? "border-r-2 border-black" : ""
           } dark:border-white p-5 flex flex-row`}
         >
           {wordDisplayed}
-          {buyable && (
+          {buyable && isValidWord ? (
             <div className="flex flex-row">
               <FlowerSprite wordLength={wordDisplayed.length} />
             </div>
+          ) : (
+            <></>
           )}
         </div>
-        {buyable && (
-          <div className="flex flex-col">
+        {buyable && isValidWord ? (
+          <div>
             <div className="ml-2">
               <span>Price: </span>
               <span className="bg-yellow-500 p-2 rounded-lg md:text-2xl text-lg ml-2">
@@ -145,6 +164,8 @@ export default function WordSearch({
               </Link>
             )}
           </div>
+        ) : (
+          <></>
         )}
       </div>
     </div>
