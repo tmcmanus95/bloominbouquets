@@ -27,6 +27,7 @@ export default function GameBoard() {
   const [localStorageBoard, setLocalStorageBoard] = useState(
     localStorage.getItem("dailyBoard")
   );
+  const [alertCount, setAlertCount] = useState(0);
   const [newGameBoard, setNewGameBoard] = useState([]);
   const [realWord, setRealWord] = useState(false);
   const [fakeWord, setFakeWord] = useState(false);
@@ -186,7 +187,7 @@ export default function GameBoard() {
       const dailyGameBoardData = localStorage.getItem("dailyBoard");
       setDailyGameBoardString(dailyGameBoardData);
       setDailyTail(dailyGameBoardData.slice(48));
-
+      console.log("daily tail", dailiyTail);
       const initializeGameBoard = () => {
         const board = [];
         let id = 0;
@@ -406,16 +407,21 @@ export default function GameBoard() {
           }
         } else {
           const dailyBoard = isMobile() ? tempString + dailyTail : tempString;
+          console.log("tempString", tempString);
+          console.log("dailyTail", dailyTail);
 
           localStorage.setItem("dailyBoard", dailyBoard);
-          setAlertText(
-            "Login to save words and flowers and earn golden seeds!"
-          );
-          setAlertVisible(true);
-          setTimeout(() => {
-            setAlertText("");
-            setAlertVisible(false);
-          }, 2000);
+          if (alertCount < 3) {
+            setAlertText(
+              "Login to save words and flowers and earn golden seeds!"
+            );
+            setAlertCount();
+            setAlertVisible(true);
+            setTimeout(() => {
+              setAlertText("");
+              setAlertVisible(false);
+            }, 2000);
+          }
         }
 
         setSelectedIds([]);

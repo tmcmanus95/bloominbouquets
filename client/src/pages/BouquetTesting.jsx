@@ -63,11 +63,11 @@ export default function BouquetTesting() {
               src="bouquetSprites/azaleaFlower.png"
             ></img>
             <img
-              className="z-10 relative md:-mr-2 -mr-4 hover:z-10 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              className="z-10 relative md:-mr-3 -mr-4 hover:z-10 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
               src="bouquetSprites/daisyFlower.png"
             ></img>
             <img
-              className="z-10 relative md:-ml-2 -ml-3 hover:z-10 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              className="z-10 relative md:-ml-3 -ml-3 hover:z-10 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
               src="bouquetSprites/dandelionFlower.png"
             ></img>
             <img
@@ -77,7 +77,7 @@ export default function BouquetTesting() {
           </div>
           <div className="flex justify-center  ">
             <img
-              className="md:-mt-2 md:scale-100 -mt-4 scale-75"
+              className="md:-mt-4 md:scale-100 -mt-4 scale-75"
               src="stemSprites/threeStem.png"
             ></img>
           </div>
@@ -86,8 +86,44 @@ export default function BouquetTesting() {
         </div>
         <div className="m-5 dark:border-white border-2">
           <h1>5 Words</h1>
+          <div>
+            <div className="bg-purple-500 -mb-6 flex flex-row justify-center">
+              <img
+                className="z-10 relative md:-mr-4 -mr-6 hover:z-10 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+                src="bouquetSprites/azaleaFlower.png"
+                alt="Azalea Flower"
+              ></img>
+              <img
+                className="z-10 relative md:-ml-6 -ml-4 hover:z-10 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+                src="bouquetSprites/daisyFlower.png"
+                alt="Daisy Flower"
+              ></img>
+            </div>
+            <div className="bg-purple-500 flex flex-row justify-center">
+              <img
+                className="relative md:-mr-6 -mr-7 hover:z-20 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+                src="bouquetSprites/azaleaFlower.png"
+                alt="Azalea Flower"
+              ></img>
+              <img
+                className="z-10 relative hover:z-10 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+                src="bouquetSprites/daisyFlower.png"
+                alt="Daisy Flower"
+              ></img>
+              <img
+                className="relative md:-ml-6 -ml-7 hover:z-20 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+                src="bouquetSprites/dandelionFlower.png"
+              ></img>
+            </div>
+            <div className="flex justify-center">
+              <img
+                className="md:-mt-4 md:scale-100 -mt-4 scale-75"
+                src="stemSprites/twoStem.png"
+              ></img>
+            </div>
+          </div>
 
-          <div className="bg-purple-500 flex flex-row justify-center">
+          {/* <div className="bg-purple-500 flex flex-row justify-center">
             <img
               className="relative md:-mr-4 -mr-7 hover:z-20 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
               src="bouquetSprites/azaleaFlower.png"
@@ -114,13 +150,45 @@ export default function BouquetTesting() {
               className="md:-mt-2 md:scale-100 -mt-4 scale-75"
               src="stemSprites/threeStem.png"
             ></img>
-          </div>
+          </div> */}
 
           <h2 className="bg-blue-500">5 stems</h2>
         </div>
         <div className="m-5 dark:border-white border-2">
           <h1>6 Words</h1>
-
+          <div className="bg-purple-500 -mb-6 flex flex-row justify-center">
+            <img
+              className="relative md:-mr-6 -mr-7 hover:z-20 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              src="bouquetSprites/azaleaFlower.png"
+              alt="Azalea Flower"
+            ></img>
+            <img
+              className="z-10 relative hover:z-10 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              src="bouquetSprites/daisyFlower.png"
+              alt="Daisy Flower"
+            ></img>
+            <img
+              className="relative md:-ml-6 -ml-7 hover:z-20 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              src="bouquetSprites/dandelionFlower.png"
+            ></img>
+          </div>
+          <div className="bg-purple-500 flex flex-row justify-center">
+            <img
+              className="relative md:-mr-6 -mr-7 hover:z-20 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              src="bouquetSprites/azaleaFlower.png"
+              alt="Azalea Flower"
+            ></img>
+            <img
+              className="z-10 relative hover:z-10 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              src="bouquetSprites/daisyFlower.png"
+              alt="Daisy Flower"
+            ></img>
+            <img
+              className="relative md:-ml-6 -ml-7 hover:z-20 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              src="bouquetSprites/dandelionFlower.png"
+            ></img>
+          </div>
+          {/* 
           <div className="bg-purple-500 flex flex-row justify-center">
             <img
               className="z-0 relative md:-mr-4 -mr-7 hover:z-30 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
@@ -146,10 +214,10 @@ export default function BouquetTesting() {
               className="z-0 relative md:-ml-4 -ml-7 hover:z-30 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
               src="bouquetSprites/azaleaFlower.png"
             ></img>
-          </div>
+          </div> */}
           <div className="flex justify-center  ">
             <img
-              className="md:-mt-2 md:scale-100 -mt-4 scale-75"
+              className="md:-mt-4 md:scale-100 -mt-4 scale-75"
               src="stemSprites/fiveStem.png"
             ></img>
           </div>
@@ -158,8 +226,43 @@ export default function BouquetTesting() {
         </div>
         <div className="m-5 dark:border-white border-2">
           <h1>7 Words</h1>
+          <div className="bg-purple-500 -mb-6 flex flex-row justify-center">
+            <img
+              className="relative md:-mr-6 -mr-7 hover:z-20 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              src="bouquetSprites/azaleaFlower.png"
+              alt="Azalea Flower"
+            ></img>
+            <img
+              className="z-10 relative hover:z-10 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              src="bouquetSprites/daisyFlower.png"
+              alt="Daisy Flower"
+            ></img>
+            <img
+              className="relative md:-ml-6 -ml-7 hover:z-20 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              src="bouquetSprites/dandelionFlower.png"
+            ></img>
+          </div>
 
           <div className="bg-purple-500 flex flex-row justify-center">
+            <img
+              className="z-0 relative md:-mr-6 -mr-7 hover:z-20 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              src="bouquetSprites/azaleaFlower.png"
+            ></img>
+            <img
+              className="z-10 relative md:-mr-3 -mr-4 hover:z-10 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              src="bouquetSprites/daisyFlower.png"
+            ></img>
+            <img
+              className="z-10 relative md:-ml-3 -ml-3 hover:z-10 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              src="bouquetSprites/dandelionFlower.png"
+            ></img>
+            <img
+              className="z-0 relative md:-ml-6 -ml-7 hover:z-20 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              src="bouquetSprites/goldenroseFlower.png"
+            ></img>
+          </div>
+
+          {/* <div className="bg-purple-500 flex flex-row justify-center">
             <img
               className="z-0 relative md:-mr-4 -mr-7 hover:z-40 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
               src="bouquetSprites/azaleaFlower.png"
@@ -188,10 +291,10 @@ export default function BouquetTesting() {
               className="z-0 relative md:-ml-4 -ml-7 hover:z-40 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
               src="bouquetSprites/daisyFlower.png"
             ></img>
-          </div>
+          </div> */}
           <div className="flex justify-center  ">
             <img
-              className="md:-mt-2 md:scale-100 -mt-4 scale-75"
+              className="md:-mt-4 md:scale-100 -mt-4 scale-75"
               src="stemSprites/fiveStem.png"
             ></img>
           </div>
@@ -200,8 +303,44 @@ export default function BouquetTesting() {
         </div>
         <div className="m-5 dark:border-white border-2">
           <h1>8 Words</h1>
-
+          <div className="bg-purple-500 -mb-6 flex flex-row justify-center">
+            <img
+              className="z-0 relative md:-mr-6 -mr-7 hover:z-20 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              src="bouquetSprites/azaleaFlower.png"
+            ></img>
+            <img
+              className="z-10 relative md:-mr-3 -mr-4 hover:z-10 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              src="bouquetSprites/daisyFlower.png"
+            ></img>
+            <img
+              className="z-10 relative md:-ml-3 -ml-3 hover:z-10 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              src="bouquetSprites/dandelionFlower.png"
+            ></img>
+            <img
+              className="z-0 relative md:-ml-6 -ml-7 hover:z-20 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              src="bouquetSprites/goldenroseFlower.png"
+            ></img>
+          </div>
           <div className="bg-purple-500 flex flex-row justify-center">
+            <img
+              className="z-0 relative md:-mr-6 -mr-7 hover:z-20 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              src="bouquetSprites/azaleaFlower.png"
+            ></img>
+            <img
+              className="z-10 relative md:-mr-3 -mr-4 hover:z-10 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              src="bouquetSprites/daisyFlower.png"
+            ></img>
+            <img
+              className="z-10 relative md:-ml-3 -ml-3 hover:z-10 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              src="bouquetSprites/dandelionFlower.png"
+            ></img>
+            <img
+              className="z-0 relative md:-ml-6 -ml-7 hover:z-20 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              src="bouquetSprites/goldenroseFlower.png"
+            ></img>
+          </div>
+
+          {/* <div className="bg-purple-500 flex flex-row justify-center">
             <img
               className="z-0 relative md:-mr-4 -mr-7 hover:z-40 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
               src="bouquetSprites/azaleaFlower.png"
@@ -234,7 +373,7 @@ export default function BouquetTesting() {
               className="z-0 relative md:-ml-4 -ml-7 hover:z-40 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
               src="bouquetSprites/azaleaFlower.png"
             ></img>
-          </div>
+          </div> */}
           <div className="flex justify-center  ">
             <img
               className="md:-mt-2 md:scale-100 -mt-4 scale-75"
@@ -246,7 +385,61 @@ export default function BouquetTesting() {
         </div>
         <div className="m-5 dark:border-white border-2">
           <h1>9 Words</h1>
+          <div className="bg-purple-500 -mb-6 flex flex-row justify-center">
+            <img
+              className="z-10 relative md:-mr-4 -mr-6 hover:z-10 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              src="bouquetSprites/azaleaFlower.png"
+              alt="Azalea Flower"
+            ></img>
+            <img
+              className="z-10 relative md:-ml-6 -ml-4 hover:z-10 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              src="bouquetSprites/daisyFlower.png"
+              alt="Daisy Flower"
+            ></img>
+          </div>
+          <div className="bg-purple-500 -mb-6 flex flex-row justify-center">
+            <img
+              className="relative md:-mr-6 -mr-7 hover:z-20 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              src="bouquetSprites/azaleaFlower.png"
+              alt="Azalea Flower"
+            ></img>
+            <img
+              className="z-10 relative hover:z-10 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              src="bouquetSprites/daisyFlower.png"
+              alt="Daisy Flower"
+            ></img>
+            <img
+              className="relative md:-ml-6 -ml-7 hover:z-20 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              src="bouquetSprites/dandelionFlower.png"
+            ></img>
+          </div>
+
           <div className="bg-purple-500 flex flex-row justify-center">
+            <img
+              className="z-0 relative md:-mr-6 -mr-7 hover:z-20 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              src="bouquetSprites/azaleaFlower.png"
+            ></img>
+            <img
+              className="z-10 relative md:-mr-3 -mr-4 hover:z-10 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              src="bouquetSprites/daisyFlower.png"
+            ></img>
+            <img
+              className="z-10 relative md:-ml-3 -ml-3 hover:z-10 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              src="bouquetSprites/dandelionFlower.png"
+            ></img>
+            <img
+              className="z-0 relative md:-ml-6 -ml-7 hover:z-20 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              src="bouquetSprites/goldenroseFlower.png"
+            ></img>
+          </div>
+          <div className="flex justify-center  ">
+            <img
+              className="md:-mt-4 md:scale-100 -mt-4 scale-75"
+              src="stemSprites/fiveStem.png"
+            ></img>
+          </div>
+
+          {/* <div className="bg-purple-500 flex flex-row justify-center">
             <img
               className="z-0 relative md:-mr-4 -mr-7 hover:z-50 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
               src="bouquetSprites/azaleaFlower.png"
@@ -289,13 +482,68 @@ export default function BouquetTesting() {
               className="md:-mt-2 md:scale-100 -mt-4 scale-75"
               src="stemSprites/fiveStem.png"
             ></img>
-          </div>
+          </div> */}
           <h2 className="bg-blue-500">5 stems</h2>
         </div>
-        <div className="m-5 dark:border-white border-2">
+        <div className="m-5  dark:border-white border-2">
           <h1>10 Words</h1>
+          <div className="bg-purple-500 -mb-6 flex flex-row justify-center">
+            <img
+              className="z-10 relative md:-mr-4 -mr-6 hover:z-10 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              src="bouquetSprites/azaleaFlower.png"
+              alt="Azalea Flower"
+            ></img>
+            <img
+              className="z-10 relative md:-ml-6 -ml-4 hover:z-10 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              src="bouquetSprites/daisyFlower.png"
+              alt="Daisy Flower"
+            ></img>
+          </div>
 
+          <div className="bg-purple-500 -mb-6 flex flex-row justify-center">
+            <img
+              className="z-0 relative md:-mr-6 -mr-7 hover:z-20 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              src="bouquetSprites/azaleaFlower.png"
+            ></img>
+            <img
+              className="z-10 relative md:-mr-3 -mr-4 hover:z-10 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              src="bouquetSprites/daisyFlower.png"
+            ></img>
+            <img
+              className="z-10 relative md:-ml-3 -ml-3 hover:z-10 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              src="bouquetSprites/dandelionFlower.png"
+            ></img>
+            <img
+              className="z-0 relative md:-ml-6 -ml-7 hover:z-20 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              src="bouquetSprites/goldenroseFlower.png"
+            ></img>
+          </div>
           <div className="bg-purple-500 flex flex-row justify-center">
+            <img
+              className="z-0 relative md:-mr-6 -mr-7 hover:z-20 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              src="bouquetSprites/azaleaFlower.png"
+            ></img>
+            <img
+              className="z-10 relative md:-mr-3 -mr-4 hover:z-10 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              src="bouquetSprites/daisyFlower.png"
+            ></img>
+            <img
+              className="z-10 relative md:-ml-3 -ml-3 hover:z-10 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              src="bouquetSprites/dandelionFlower.png"
+            ></img>
+            <img
+              className="z-0 relative md:-ml-6 -ml-7 hover:z-20 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
+              src="bouquetSprites/goldenroseFlower.png"
+            ></img>
+          </div>
+          <div className="flex justify-center  ">
+            <img
+              className="md:-mt-4 md:scale-100 -mt-4 scale-75"
+              src="stemSprites/fiveStem.png"
+            ></img>
+          </div>
+
+          {/* <div className="bg-purple-500 flex flex-row justify-center">
             <img
               className="z-0 relative md:-mr-4 -mr-7 hover:z-50 hover:scale-75 md:hover:scale-125 md:scale-100 scale-50"
               src="bouquetSprites/azaleaFlower.png"
@@ -342,7 +590,7 @@ export default function BouquetTesting() {
               className="md:-mt-2 md:scale-100 -mt-4 scale-75"
               src="stemSprites/fiveStem.png"
             ></img>
-          </div>
+          </div> */}
 
           <h2 className="bg-blue-500">5 stems</h2>
         </div>
