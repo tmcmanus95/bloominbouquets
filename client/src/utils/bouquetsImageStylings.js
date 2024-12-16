@@ -9,27 +9,27 @@ export function bouquetsImageStylings(wordAmount, word) {
   }
   if (wordAmount == 3) {
     if (word == 0) {
-      return "md:-mr-6 -mr-7 z-10 hover:z-20";
+      return "md:-mr-6 -mr-6 z-10 hover:z-20";
     }
     if (word == 1) {
       return "z-10";
     }
     if (word == 2) {
-      return "md:-ml-6 -ml-7 z-10 hover:z-20";
+      return "md:-ml-6 -ml-6 z-10 hover:z-20";
     }
   }
   if (wordAmount == 4) {
     if (word == 0) {
-      return "md:-mr-6 -mr-7 z-0 z-10 hover:z-20";
+      return "-mr-6  z-0  z-20";
     }
     if (word == 1) {
-      return "md:-mr-2 -mr-4 z-10";
+      return "-mr-2  z-20";
     }
     if (word == 2) {
-      return "md:-ml-4 -ml-6 z-10 ";
+      return "-ml-4  z-20 ";
     }
     if (word == 3) {
-      return "md:-ml-4 -ml-6 z-0 hover:z-20";
+      return "-ml-5  z-0 z-10";
     }
   }
   if (wordAmount == 5) {

@@ -52,6 +52,12 @@ export default function SendWord() {
   const handleFriendInputChange = (e) => {
     setSearchUsername(e.target.value);
   };
+  const handleResetBouquet = () => {
+    setWordSent(false);
+    setWordsToSend([]);
+    setSearchTerm("");
+    setSelectedRecipient(false);
+  };
 
   useEffect(() => {
     if (data) {
@@ -77,12 +83,26 @@ export default function SendWord() {
     word.toLowerCase().includes(searchTerm.toLowerCase())
   );
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center mt-20">
       {wordSent ? (
-        <h1>Thanks for sending!</h1>
+        <div className="md:mt-40 mt-0 text-center border-2 border-black rounded-lg p-5">
+          <div className="md:text-3xl text-3xl">Success!</div>
+          <div>
+            <Bouquet words={wordsToSend} senderUsername={data?.me.username} />
+          </div>
+          <div className="-mt-5 mb-5">Sent to {recipientUsername}</div>
+          <div>
+            <button
+              className="bg-green-500 hover:bg-green-800 hover:text-white"
+              onClick={() => handleResetBouquet()}
+            >
+              Send Another
+            </button>
+          </div>
+        </div>
       ) : (
-        <div className="flex bg-green-100 p-5 justify-center align-center">
-          <div className="dark:bg-slate-700 dark:text-white">
+        <div className="flex  p-5 justify-center align-center">
+          <div className="dark:bg-slate-950 dark:text-white">
             <h1 className="border-2 border-black text-xl flex justify-center p-3 rounded-lg">
               Send a Bouquet
             </h1>
@@ -91,55 +111,55 @@ export default function SendWord() {
               senderUsername={data?.me.username}
               senderId={data?.me._id}
             />
-            <div className="flex flex-row mt-3">
+            <div className="flex flex-row mt-3 ">
               {wordsToSend.map((word, index) => (
-                <div key={index} className="flex flex-row">
+                <div key={index} className="flex flex-row items-center">
                   <h1>{word}</h1>
                   <FlowerSprite wordLength={word.length} />
                 </div>
               ))}
             </div>
             {selectedRecipient ? (
-              <div className="flex flex-row">
+              <div className="flex flex-row items-center">
                 <h1 className="mr-3">To:</h1>
-                <h1 className="border-2 border-black rounded-lg p-2">
-                  {recipientUsername}
-                </h1>
+                <h1 className=" rounded-lg p-2">{recipientUsername}</h1>
               </div>
             ) : (
               <></>
             )}
             <div className="flex flex-col">
               <div className="flex md:flex-row flex-col">
-                <div className="flex flex-col">
-                  <div>
-                    <h1 className="mx-2 md:mx-5">Select Words to Send</h1>
-                    <input
-                      className="text-black text-xl md:text-3xl mx-2 md:mx-5 border-2 border-gray-400 pt-2 px-4 rounded"
-                      type="text"
-                      placeholder="Search for a word..."
-                      value={searchTerm}
-                      onChange={handleWordInputChange}
-                    />
+                {wordsToSend.length <= 9 && (
+                  <div className="flex flex-col">
+                    <div>
+                      <h1 className="mx-2 md:mx-5">Select Words to Send</h1>
+                      <input
+                        className="text-black text-xl md:text-3xl mx-2 md:mx-5 border-2 border-gray-400 pt-2 px-4 rounded"
+                        type="text"
+                        placeholder="Search for a word..."
+                        value={searchTerm}
+                        onChange={handleWordInputChange}
+                      />
 
-                    {searchTerm && (
-                      <div>
-                        <ul className="mt-1 bg-white border border-gray-300 mx-2 md:mx-5">
-                          {filteredWords &&
-                            filteredWords.map((word) => (
-                              <li
-                                key={word}
-                                onClick={() => addWordToSend(word)}
-                                className={`cursor-pointer text-black px-4 hover:bg-blue-300 hover:text-black`}
-                              >
-                                {word}
-                              </li>
-                            ))}
-                        </ul>
-                      </div>
-                    )}
+                      {searchTerm && (
+                        <div>
+                          <ul className="mt-1 bg-white border border-gray-300 mx-2 md:mx-5">
+                            {filteredWords &&
+                              filteredWords.map((word) => (
+                                <li
+                                  key={word}
+                                  onClick={() => addWordToSend(word)}
+                                  className={`cursor-pointer text-black px-4 hover:bg-blue-300 hover:text-black`}
+                                >
+                                  {word}
+                                </li>
+                              ))}
+                          </ul>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
+                )}
 
                 <div className="flex flex-col md:mt-0 mt-3">
                   <h1 className="mx-2 md:mx-5">Select Recipient</h1>
@@ -169,12 +189,14 @@ export default function SendWord() {
                 </div>
               </div>
               {selectedRecipient ? (
-                <button
-                  onClick={() => handleSendWord(wordsToSend)}
-                  className="bg-green-500 hover:bg-green-800 hover:text-white"
-                >
-                  Send
-                </button>
+                <div className="flex flex-col items-center">
+                  <button
+                    onClick={() => handleSendWord(wordsToSend)}
+                    className="bg-green-500 hover:bg-green-800 hover:text-white mt-5 px-5 py-2 rounded-lg"
+                  >
+                    Send
+                  </button>
+                </div>
               ) : (
                 <></>
               )}
