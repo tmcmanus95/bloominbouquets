@@ -102,7 +102,7 @@ export default function SendWord() {
         </div>
       ) : (
         <div className="flex  p-5 justify-center align-center">
-          <div className="dark:bg-slate-700 dark:text-white">
+          <div className="dark:bg-slate-950 dark:text-white">
             <h1 className="border-2 border-black text-xl flex justify-center p-3 rounded-lg">
               Send a Bouquet
             </h1>
@@ -129,7 +129,7 @@ export default function SendWord() {
             )}
             <div className="flex flex-col">
               <div className="flex md:flex-row flex-col">
-                {wordsToSend.length <= 10 && (
+                {wordsToSend.length <= 9 && (
                   <div className="flex flex-col">
                     <div>
                       <h1 className="mx-2 md:mx-5">Select Words to Send</h1>

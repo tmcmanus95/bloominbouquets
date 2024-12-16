@@ -63,7 +63,7 @@ export default function Bouquet({
           {bouquet?.map((word, index) => (
             <img
               key={index}
-              className={`relative  md:hover:scale-125 md:scale-100 scale-50 ${bouquetsImageStylings(
+              className={`relative scale-150  ${bouquetsImageStylings(
                 wordAmount,
                 index
               )}`}
@@ -75,7 +75,7 @@ export default function Bouquet({
         <div className="flex justify-center">
           {wordAmount > 0 && (
             <img
-              className="md:-mt-4 scale-100 -mt-8 z-0"
+              className="md:-mt-4 scale-125 -mt-5 z-0"
               src={wordsToStemMatching(wordAmount)}
             ></img>
           )}
@@ -108,7 +108,7 @@ export default function Bouquet({
             {bouquet?.map((word, index) => (
               <img
                 key={index}
-                className={`relative  md:hover:scale-125 md:scale-125  ${bouquetsImageStylings(
+                className={`relative  scale-150  ${bouquetsImageStylings(
                   wordAmount,
                   index
                 )}`}
@@ -120,7 +120,7 @@ export default function Bouquet({
           <div className="flex justify-center">
             {wordAmount > 0 && (
               <img
-                className="md:-mt-4  -mt-8 z-0"
+                className="md:-mt-4 scale-125 -mt-5 z-0"
                 src={wordsToStemMatching(wordAmount)}
               ></img>
             )}
@@ -198,35 +198,35 @@ export default function Bouquet({
             />
           )}
           <div>
-            <div className="-mb-6 flex flex-row justify-center">
+            <div className="-mb-5 flex flex-row justify-center">
               <img
-                className="z-10 relative md:-mr-4 -mr- hover:scale-200 scale-125 "
+                className="z-10 relative -mr-1 scale-150 "
                 src={flowerSourceFinder(bouquet[0].length)}
-                alt="Azalea Flower"
+                alt="Flower"
               ></img>
               <img
-                className="z-10 relative md:-ml-6 -ml-4 hover:z-10  hover:scale-200 scale-125 "
+                className="z-10 relative  -ml-3  scale-150 "
                 src={flowerSourceFinder(bouquet[1].length)}
-                alt="Daisy Flower"
+                alt="Flower"
               ></img>
             </div>
             <div className="flex flex-row justify-center">
               <img
-                className="relative md:-mr-6 -mr-7 hover:z-20  hover:scale-200 scale-125 z-10 "
+                className="relative -mr-5 scale-150 z-20 "
                 src={flowerSourceFinder(bouquet[2].length)}
                 alt="Flower"
               ></img>
               <img
-                className="z-10 relative hover:z-10  hover:scale-200 scale-125 "
+                className="z-20 relative scale-150"
                 src={flowerSourceFinder(bouquet[3].length)}
                 alt="Flower"
               ></img>
               <img
-                className="relative md:-ml-6 -ml-7 hover:z-20  hover:scale-200 scale-125 z-10"
+                className="relative -ml-5 hover:z-20 scale-150 z-10"
                 src={flowerSourceFinder(bouquet[4].length)}
               ></img>
             </div>
-            <div className="flex justify-center  ">
+            <div className="flex justify-center">
               <img
                 className="md:-mt-4 scale-100  -mt-4 z-0"
                 src={wordsToStemMatching(wordAmount)}
@@ -259,35 +259,35 @@ export default function Bouquet({
             />
           )}
 
-          <div className="-mb-6 flex flex-row justify-center">
+          <div className="-mb-5 flex flex-row justify-center">
             <img
-              className="relative md:-mr-6 -mr-7 hover:z-20  md:hover:scale-125 md:scale-100 z-10"
+              className="relative -mr-5 scale-150 z-20 "
               src={flowerSourceFinder(bouquet[0].length)}
               alt="Flower"
             ></img>
             <img
-              className="z-10 relative hover:z-10  md:hover:scale-125 md:scale-100 "
+              className="z-20 relative scale-150"
               src={flowerSourceFinder(bouquet[1].length)}
               alt="Flower"
             ></img>
             <img
-              className="relative md:-ml-6 -ml-7 hover:z-20  md:hover:scale-125 md:scale-100 z-10"
+              className="relative -ml-5 hover:z-20 scale-150 z-10"
               src={flowerSourceFinder(bouquet[2].length)}
             ></img>
           </div>
           <div className=" flex flex-row justify-center">
             <img
-              className="relative md:-mr-6 -mr-7 hover:z-20  md:hover:scale-125 md:scale-100 z-10 "
+              className="relative -mr-5 scale-150 z-20 "
               src={flowerSourceFinder(bouquet[3].length)}
               alt="Flower"
             ></img>
             <img
-              className="z-10 relative hover:z-10  md:hover:scale-125 md:scale-100 "
+              className="z-20 relative scale-150"
               src={flowerSourceFinder(bouquet[4].length)}
               alt="Flower"
             ></img>
             <img
-              className="relative md:-ml-6 -ml-7 hover:z-20  md:hover:scale-125 md:scale-100 z-10"
+              className="relative -ml-5 hover:z-20 scale-150 z-10"
               src={flowerSourceFinder(bouquet[5].length)}
             ></img>
           </div>
@@ -322,49 +322,45 @@ export default function Bouquet({
             />
           )}
 
-          <div className="-mb-6 flex flex-row justify-center">
+          <div className="-mb-5 flex flex-row justify-center">
             <img
-              className="relative md:-mr-6 -mr-7 hover:z-20 mg>
-               md:hover:scale-125 md:scale-100 "
+              className="relative -mr-5 scale-150 z-20 "
               src={flowerSourceFinder(bouquet[0].length)}
               alt="Flower"
             ></img>
             <img
-              className="z-10 relative hover:z-10 mg>
-               md:hover:scale-125 md:scale-100 "
+              className="z-20 relative scale-150"
               src={flowerSourceFinder(bouquet[1].length)}
               alt="Flower"
             ></img>
             <img
-              className="relative md:-ml-6 -ml-7 hover:z-20 mg>
-               md:hover:scale-125 md:scale-100 "
+              className="relative -ml-5  scale-150 z-10"
               src={flowerSourceFinder(bouquet[2].length)}
-              alt="Flower"
             ></img>
           </div>
 
           <div className="flex flex-row justify-center">
             <img
-              className="z-0 relative md:-mr-6 -mr-7 hover:z-20 mg>
-               md:hover:scale-125 md:scale-100 "
+              className="z-10 -mr-5 relative   
+               scale-150"
               src={flowerSourceFinder(bouquet[3].length)}
               alt="Flower"
             ></img>
             <img
-              className="z-10 relative md:-mr-3 -mr-4 hover:z-10 mg>
-               md:hover:scale-125 md:scale-100 "
+              className="z-10 -mr-5 relative hover:z-10 
+               scale-150"
               src={flowerSourceFinder(bouquet[4].length)}
               alt="Flower"
             ></img>
             <img
-              className="z-10 relative md:-ml-3 -ml-3 hover:z-10 mg>
-               md:hover:scale-125 md:scale-100 "
+              className="z-10 -mr-5 relative hover:z-10 
+               scale-150"
               src={flowerSourceFinder(bouquet[5].length)}
               alt="Flower"
             ></img>
             <img
-              className="z-0 relative md:-ml-6 -ml-7 hover:z-20 mg>
-               md:hover:scale-125 md:scale-100 "
+              className="z-10 relative  hover:z-20 
+               scale-150"
               src={flowerSourceFinder(bouquet[6].length)}
               alt="Flower"
             ></img>
@@ -401,53 +397,54 @@ export default function Bouquet({
             />
           )}
 
-          <div className="-mb-6 flex flex-row justify-center">
+          <div className="-mb-5 flex flex-row justify-center">
             <img
-              className="z-0 relative md:-mr-6 -mr-7 hover:z-20 mg>
-               md:hover:scale-125 md:scale-100 "
+              className="z-10 -mr-5 relative   
+               scale-150"
               src={flowerSourceFinder(bouquet[0].length)}
               alt="Flower"
             ></img>
             <img
-              className="z-10 relative md:-mr-3 -mr-4 hover:z-10 mg>
-               md:hover:scale-125 md:scale-100 "
+              className="z-10 -mr-5 relative hover:z-10 
+               scale-150"
               src={flowerSourceFinder(bouquet[1].length)}
+              alt="Flower"
             ></img>
             <img
-              className="z-10 relative md:-ml-3 -ml-3 hover:z-10 mg>
-               md:hover:scale-125 md:scale-100 "
+              className="z-10 -mr-5 relative hover:z-10 
+               scale-150"
               src={flowerSourceFinder(bouquet[2].length)}
               alt="Flower"
             ></img>
             <img
-              className="z-0 relative md:-ml-6 -ml-7 hover:z-20 mg>
-               md:hover:scale-125 md:scale-100 "
+              className="z-10 relative  hover:z-20 
+               scale-150"
               src={flowerSourceFinder(bouquet[3].length)}
               alt="Flower"
             ></img>
           </div>
           <div className="flex flex-row justify-center">
             <img
-              className="z-0 relative md:-mr-6 -mr-7 hover:z-20 mg>
-               md:hover:scale-125 md:scale-100 "
+              className="z-10 -mr-5 relative   
+               scale-150"
               src={flowerSourceFinder(bouquet[4].length)}
               alt="Flower"
             ></img>
             <img
-              className="z-10 relative md:-mr-3 -mr-4 hover:z-10 mg>
-               md:hover:scale-125 md:scale-100 "
+              className="z-10 -mr-5 relative hover:z-10 
+               scale-150"
               src={flowerSourceFinder(bouquet[5].length)}
               alt="Flower"
             ></img>
             <img
-              className="z-10 relative md:-ml-3 -ml-3 hover:z-10 mg>
-               md:hover:scale-125 md:scale-100 "
+              className="z-10 -mr-5 relative hover:z-10 
+               scale-150"
               src={flowerSourceFinder(bouquet[6].length)}
               alt="Flower"
             ></img>
             <img
-              className="z-0 relative md:-ml-6 -ml-7 hover:z-20 mg>
-               md:hover:scale-125 md:scale-100 "
+              className="z-10 relative  hover:z-20 
+               scale-150"
               src={flowerSourceFinder(bouquet[7].length)}
               alt="Flower"
             ></img>
@@ -486,61 +483,55 @@ export default function Bouquet({
 
           <div className="-mb-6 flex flex-row justify-center">
             <img
-              className="z-10 relative md:-mr-4 -mr-6 hover:z-10 mg>
-               md:hover:scale-125 md:scale-100 "
+              className="z-10 relative -mr-1 scale-150 "
               src={flowerSourceFinder(bouquet[0].length)}
               alt="Flower"
             ></img>
             <img
-              className="z-10 relative md:-ml-6 -ml-4 hover:z-10 mg>
-               md:hover:scale-125 md:scale-100 "
+              className="z-10 relative  -ml-3  scale-150 "
               src={flowerSourceFinder(bouquet[1].length)}
               alt="Flower"
             ></img>
           </div>
           <div className="-mb-6 flex flex-row justify-center">
             <img
-              className="relative md:-mr-6 -mr-7 hover:z-20 mg>
-               md:hover:scale-125 md:scale-100 "
+              className="relative -mr-5 scale-150 z-20 "
               src={flowerSourceFinder(bouquet[2].length)}
               alt="Flower"
             ></img>
             <img
-              className="z-10 relative hover:z-10 mg>
-               md:hover:scale-125 md:scale-100 "
+              className="z-20 relative scale-150"
               src={flowerSourceFinder(bouquet[3].length)}
               alt="Flower"
             ></img>
             <img
-              className="relative md:-ml-6 -ml-7 hover:z-20 mg>
-               md:hover:scale-125 md:scale-100 "
+              className="relative -ml-5  scale-150 z-10"
               src={flowerSourceFinder(bouquet[4].length)}
-              alt="Flower"
             ></img>
           </div>
 
           <div className="flex flex-row justify-center">
             <img
-              className="z-0 relative md:-mr-6 -mr-7 hover:z-20 mg>
-               md:hover:scale-125 md:scale-100 "
+              className="z-10 -mr-5 relative   
+               scale-150"
               src={flowerSourceFinder(bouquet[5].length)}
               alt="Flower"
             ></img>
             <img
-              className="z-10 relative md:-mr-3 -mr-4 hover:z-10 mg>
-               md:hover:scale-125 md:scale-100 "
+              className="z-10 -mr-5 relative hover:z-10 
+               scale-150"
               src={flowerSourceFinder(bouquet[6].length)}
               alt="Flower"
             ></img>
             <img
-              className="z-10 relative md:-ml-3 -ml-3 hover:z-10 mg>
-               md:hover:scale-125 md:scale-100 "
+              className="z-10 -mr-5 relative hover:z-10 
+               scale-150"
               src={flowerSourceFinder(bouquet[7].length)}
               alt="Flower"
             ></img>
             <img
-              className="z-0 relative md:-ml-6 -ml-7 hover:z-20 mg>
-               md:hover:scale-125 md:scale-100 "
+              className="z-10 relative  hover:z-20 
+               scale-150"
               src={flowerSourceFinder(bouquet[8].length)}
               alt="Flower"
             ></img>
@@ -579,14 +570,12 @@ export default function Bouquet({
 
           <div className="-mb-6 flex flex-row justify-center">
             <img
-              className="z-10 relative md:-mr-4 -mr-6 hover:z-10 mg>
-               md:hover:scale-125 md:scale-100 "
+              className="z-10 relative -mr-1 scale-150 "
               src={flowerSourceFinder(bouquet[0].length)}
               alt="Flower"
             ></img>
             <img
-              className="z-10 relative md:-ml-6 -ml-4 hover:z-10 mg>
-               md:hover:scale-125 md:scale-100 "
+              className="z-10 relative  -ml-3  scale-150 "
               src={flowerSourceFinder(bouquet[1].length)}
               alt="Flower"
             ></img>
@@ -594,52 +583,52 @@ export default function Bouquet({
 
           <div className="-mb-6 flex flex-row justify-center">
             <img
-              className="z-0 relative md:-mr-6 -mr-7 hover:z-20 mg>
-               md:hover:scale-125 md:scale-100 "
+              className="z-10 -mr-5 relative   
+               scale-150"
               src={flowerSourceFinder(bouquet[2].length)}
               alt="Flower"
             ></img>
             <img
-              className="z-10 relative md:-mr-3 -mr-4 hover:z-10 mg>
-               md:hover:scale-125 md:scale-100 "
+              className="z-10 -mr-5 relative hover:z-10 
+               scale-150"
               src={flowerSourceFinder(bouquet[3].length)}
               alt="Flower"
             ></img>
             <img
-              className="z-10 relative md:-ml-3 -ml-3 hover:z-10 mg>
-               md:hover:scale-125 md:scale-100 "
+              className="z-10 -mr-5 relative hover:z-10 
+               scale-150"
               src={flowerSourceFinder(bouquet[4].length)}
               alt="Flower"
             ></img>
             <img
-              className="z-0 relative md:-ml-6 -ml-7 hover:z-20 mg>
-               md:hover:scale-125 md:scale-100 "
+              className="z-10 relative  hover:z-20 
+               scale-150"
               src={flowerSourceFinder(bouquet[5].length)}
               alt="Flower"
             ></img>
           </div>
           <div className="flex flex-row justify-center">
             <img
-              className="z-0 relative md:-mr-6 -mr-7 hover:z-20 mg>
-               md:hover:scale-125 md:scale-100 "
+              className="z-10 -mr-5 relative   
+               scale-150"
               src={flowerSourceFinder(bouquet[6].length)}
               alt="Flower"
             ></img>
             <img
-              className="z-10 relative md:-mr-3 -mr-4 hover:z-10 mg>
-               md:hover:scale-125 md:scale-100 "
+              className="z-10 -mr-5 relative hover:z-10 
+               scale-150"
               src={flowerSourceFinder(bouquet[7].length)}
               alt="Flower"
             ></img>
             <img
-              className="z-10 relative md:-ml-3 -ml-3 hover:z-10 mg>
-               md:hover:scale-125 md:scale-100 "
+              className="z-10 -mr-5 relative hover:z-10 
+               scale-150"
               src={flowerSourceFinder(bouquet[8].length)}
               alt="Flower"
             ></img>
             <img
-              className="z-0 relative md:-ml-6 -ml-7 hover:z-20 
-              md:hover:scale-125 md:scale-100 "
+              className="z-10 relative  hover:z-20 
+               scale-150"
               src={flowerSourceFinder(bouquet[9].length)}
               alt="Flower"
             ></img>
