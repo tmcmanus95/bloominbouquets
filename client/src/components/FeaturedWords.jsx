@@ -1,5 +1,6 @@
-export default function FeaturedWords() {
+export default function FeaturedWords({ onWordClick }) {
   const featuredWords = ["First", "Featured", "Words", "Go", "Here", "Bucko"];
+
   return (
     <div>
       <div className="text-center text-2xl mt-5">Featured Words</div>
@@ -8,6 +9,7 @@ export default function FeaturedWords() {
           <div
             key={index}
             className="border-green-700 border-2 dark:text-white m-4 hover:bg-green-700 hover:text-white text-center"
+            onClick={() => onWordClick(word)}
           >
             {word}
           </div>

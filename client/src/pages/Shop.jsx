@@ -9,6 +9,7 @@ export default function Shop() {
   const [initialSeedsToSpend, setInitialSeedsToSpend] = useState(0);
   const [initialWords, setInitialWords] = useState([]);
   const [userId, setUserId] = useState("");
+  const [searchedWord, setSearchedWord] = useState("");
 
   useEffect(() => {
     if (data) {
@@ -21,6 +22,11 @@ export default function Shop() {
   const handleUpdateSeeds = (newSeeds) => {
     setInitialSeedsToSpend(newSeeds);
   };
+
+  const handleSetSearchedWord = (word) => {
+    setSearchedWord(word);
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -41,12 +47,13 @@ export default function Shop() {
         </span>
       </div>
 
-      <FeaturedWords />
+      <FeaturedWords onWordClick={handleSetSearchedWord} />
 
       <WordSearch
         initialWords={initialWords}
         initialSeedsToSpend={initialSeedsToSpend}
         updateSeeds={handleUpdateSeeds}
+        inputValue={searchedWord}
       />
     </div>
   );

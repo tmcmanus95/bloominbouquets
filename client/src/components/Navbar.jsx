@@ -155,6 +155,7 @@ export default function Navbar() {
                 </Link>
                 <Link
                   to="/sendABouquet"
+                  onClick={toggleMenu}
                   className="py-2 px-3 block w-full hover:bg-green-950 hover:text-white"
                 >
                   Send a Bouquet
