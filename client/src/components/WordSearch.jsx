@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import { BUY_WORD } from "../utils/mutations";
 import wordLengthToSeedPrice from "../utils/wordLengthToSeedPrice";
@@ -12,6 +12,7 @@ export default function WordSearch({
   initialSeedsToSpend,
   updateSeeds,
   userId,
+  searchedWord,
 }) {
   const [inputValue, setInputValue] = useState("");
   const [wordSearched, setWordSearched] = useState(false);
@@ -33,8 +34,15 @@ export default function WordSearch({
     setInputValue(e.target.value);
     setWordSearched(false);
   };
+  useEffect(() => {
+    if (searchedWord) {
+      setInputValue(searchedWord);
+      handleSearchWord({ preventDefault: () => {} });
+    }
+  }, [searchedWord]);
 
   async function handleSearchWord(e) {
+    console.log("input value", inputValue);
     e.preventDefault();
     setWordSearched(true);
     try {

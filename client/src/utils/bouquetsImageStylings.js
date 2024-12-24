@@ -1,4 +1,7 @@
 export function bouquetsImageStylings(wordAmount, word) {
+  if (wordAmount == 1) {
+    return "z-10";
+  }
   if (wordAmount == 2) {
     if (word == 0) {
       return "md:-mr-4 -mr-6 z-10";

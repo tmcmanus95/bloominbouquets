@@ -46,7 +46,49 @@ export default function Bouquet({
   };
   const wordAmount = bouquet?.length;
   console.log("toggle edit is", toggleEdit);
-
+  if (bouquet && bouquet.length == 1) {
+    return (
+      <div className="m-5 dark:border-white border-2">
+        <Link to={`/user/${senderId}`}>
+          <h1>From: {senderUsername}</h1>
+        </Link>
+        {isMyProfile && toggleEdit && (
+          <IoIosCloseCircle
+            className="text-red-500 hover:text-red-900"
+            onClick={handleDeleteBouquet}
+          />
+        )}
+        <div className=" flex flex-row justify-center">
+          {bouquet?.map((word, index) => (
+            <img
+              key={index}
+              className={`relative scale-150  ${bouquetsImageStylings(
+                wordAmount,
+                index
+              )}`}
+              src={flowerSourceFinder(word.length)}
+              alt="Flower"
+            ></img>
+          ))}
+        </div>
+        <div className="flex justify-center">
+          {wordAmount > 0 && (
+            <img
+              className="md:-mt-4 scale-125 -mt-5 z-0"
+              src={wordsToStemMatching(wordAmount)}
+            ></img>
+          )}
+        </div>
+        <div>
+          <h2>
+            {bouquet?.map((word, index) => (
+              <span key={index}>{word} </span>
+            ))}
+          </h2>
+        </div>
+      </div>
+    );
+  }
   if (bouquet && bouquet.length == 2) {
     return (
       <div className="m-5 dark:border-white border-2">
