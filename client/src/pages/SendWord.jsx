@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { SEND_WORD } from "../utils/mutations";
 import { QUERY_MY_WORDS_AND_MY_FRIENDS } from "../utils/queries";
 import FlowerSprite from "../components/FlowerSprite";
 import Bouquet from "../components/Bouquet";
+import { flowerSourceFinder } from "../utils/flowerSourceFinder";
+import { setFlowerForWordLength } from "../utils/setFlowerForWordLength";
 export default function SendWord() {
   const { data, loading } = useQuery(QUERY_MY_WORDS_AND_MY_FRIENDS);
   const [sendWord, error] = useMutation(SEND_WORD);
@@ -86,12 +88,14 @@ export default function SendWord() {
     <div className="flex justify-center mt-20">
       <div className="flex ">
         {wordSent ? (
-          <div className="md:mt-40 mt-0 text-center border-2 border-black rounded-lg p-5 ">
+          <div className="md:mt-40 mt-0 text-center border-2 border-black rounded-lg p-5 w-72">
             <div className="md:text-3xl text-3xl">Success!</div>
             <div>
               <Bouquet words={wordsToSend} senderUsername={data?.me.username} />
             </div>
-            <div className="-mt-5 mb-5">Sent to {recipientUsername}</div>
+            <Link to={`/user/${recipientId}`}>
+              <div className="-mt-5 mb-5">Sent to {recipientUsername}</div>
+            </Link>
             <div>
               <button
                 className="bg-green-500 hover:bg-green-800 hover:text-white"
@@ -142,9 +146,12 @@ export default function SendWord() {
                                   <li
                                     key={word}
                                     onClick={() => addWordToSend(word)}
-                                    className={`cursor-pointer text-black px-4 hover:bg-blue-300 hover:text-black`}
+                                    className={`cursor-pointer text-black px-4 hover:bg-blue-300 hover:text-black flex-row flex`}
                                   >
-                                    {word}
+                                    <div>{word}</div>
+                                    <img
+                                      src={flowerSourceFinder(word.length)}
+                                    />
                                   </li>
                                 ))}
                             </ul>
