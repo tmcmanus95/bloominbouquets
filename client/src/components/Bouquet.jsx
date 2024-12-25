@@ -15,11 +15,13 @@ export default function Bouquet({
   bouquetId,
   onDelete,
   isMyProfile,
+  senderColor,
 }) {
   const [bouquet, setBouquet] = useState([]);
   // let bouquet;
   if (words) {
     console.log(words);
+    console.log("sendercolor,", senderColor);
   }
   // if (!words[1]) {
   //   bouquet = words[0]?.split(",");
@@ -91,7 +93,14 @@ export default function Bouquet({
   }
   if (bouquet && bouquet.length == 2) {
     return (
-      <div className="m-5 dark:border-white border-2">
+      <div
+        className="m-5  border-2"
+        style={{
+          borderColor: senderColor,
+          borderStyle: "solid",
+          borderWidth: "2px",
+        }}
+      >
         <Link to={`/user/${senderId}`}>
           <h1>From: {senderUsername}</h1>
         </Link>
@@ -136,7 +145,14 @@ export default function Bouquet({
     return (
       <div>
         {" "}
-        <div className="m-5 dark:border-white border-2">
+        <div
+          className="m-5 "
+          style={{
+            borderColor: senderColor,
+            borderStyle: "solid",
+            borderWidth: "2px",
+          }}
+        >
           <Link to={`/user/${senderId}`}>
             <h1>From: {senderUsername}</h1>
           </Link>
@@ -182,7 +198,14 @@ export default function Bouquet({
     return (
       <div>
         {" "}
-        <div className="m-5 dark:border-white border-2">
+        <div
+          className="m-5 "
+          style={{
+            borderColor: senderColor,
+            borderStyle: "solid",
+            borderWidth: "2px",
+          }}
+        >
           <Link to={`/user/${senderId}`}>
             <h1>From: {senderUsername}</h1>
           </Link>
@@ -229,7 +252,14 @@ export default function Bouquet({
     return (
       <div>
         {" "}
-        <div className="m-5 dark:border-white border-2">
+        <div
+          className="m-5 "
+          style={{
+            borderColor: senderColor,
+            borderStyle: "solid",
+            borderWidth: "2px",
+          }}
+        >
           <Link to={`/user/${senderId}`}>
             <h1>From: {senderUsername}</h1>
           </Link>
@@ -290,7 +320,14 @@ export default function Bouquet({
   if (bouquet && bouquet.length == 6) {
     return (
       <div>
-        <div className="m-5 dark:border-white border-2">
+        <div
+          className="m-5 "
+          style={{
+            borderColor: senderColor,
+            borderStyle: "solid",
+            borderWidth: "2px",
+          }}
+        >
           <Link to={`/user/${senderId}`}>
             <h1>From: {senderUsername}</h1>
           </Link>
@@ -340,7 +377,7 @@ export default function Bouquet({
             ></img>
           </div>
           <div>
-            <h2>
+            <h2 className="overflow-hidden text-xs md:text-base">
               {bouquet?.map((word, index) => (
                 <span key={index}>{word} </span>
               ))}
@@ -353,7 +390,14 @@ export default function Bouquet({
   if (bouquet && bouquet.length == 7) {
     return (
       <div>
-        <div className="m-5 dark:border-white border-2">
+        <div
+          className="m-5 "
+          style={{
+            borderColor: senderColor,
+            borderStyle: "solid",
+            borderWidth: "2px",
+          }}
+        >
           <Link to={`/user/${senderId}`}>
             <h1>From: {senderUsername}</h1>
           </Link>
@@ -415,7 +459,7 @@ export default function Bouquet({
           </div>
 
           <div>
-            <h2>
+            <h2 className="overflow-hidden text-xs md:text-base">
               {bouquet?.map((word, index) => (
                 <span key={index}>{word} </span>
               ))}
@@ -428,7 +472,14 @@ export default function Bouquet({
   if (bouquet && bouquet.length == 8) {
     return (
       <div>
-        <div className="m-5 dark:border-white border-2">
+        <div
+          className="m-5 "
+          style={{
+            borderColor: senderColor,
+            borderStyle: "solid",
+            borderWidth: "2px",
+          }}
+        >
           <Link to={`/user/${senderId}`}>
             <h1>From: {senderUsername}</h1>
           </Link>
@@ -499,7 +550,7 @@ export default function Bouquet({
           </div>
 
           <div>
-            <h2>
+            <h2 className="overflow-hidden text-xs md:text-base">
               {bouquet?.map((word, index) => (
                 <span key={index}>{word} </span>
               ))}
@@ -512,7 +563,14 @@ export default function Bouquet({
   if (bouquet && bouquet.length == 9) {
     return (
       <div>
-        <div className="m-5 dark:border-white border-2">
+        <div
+          className="m-5 "
+          style={{
+            borderColor: senderColor,
+            borderStyle: "solid",
+            borderWidth: "2px",
+          }}
+        >
           <Link to={`/user/${senderId}`}>
             <h1>From: {senderUsername}</h1>
           </Link>
@@ -586,7 +644,7 @@ export default function Bouquet({
           </div>
 
           <div>
-            <h2>
+            <h2 className="overflow-hidden text-xs md:text-base">
               {bouquet?.map((word, index) => (
                 <span key={index}>{word} </span>
               ))}
@@ -599,7 +657,14 @@ export default function Bouquet({
   if (bouquet && bouquet.length == 10) {
     return (
       <div>
-        <div className="m-5 dark:border-white border-2">
+        <div
+          className="m-5 "
+          style={{
+            borderColor: senderColor,
+            borderStyle: "solid",
+            borderWidth: "2px",
+          }}
+        >
           <Link to={`/user/${senderId}`}>
             <h1>From: {senderUsername}</h1>
           </Link>
@@ -682,7 +747,7 @@ export default function Bouquet({
             ></img>
           </div>
           <div>
-            <h2>
+            <h2 className="overflow-hidden text-xs md:text-base">
               {bouquet?.map((word, index) => (
                 <span key={index}>{word} </span>
               ))}

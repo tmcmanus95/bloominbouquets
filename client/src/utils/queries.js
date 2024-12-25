@@ -52,6 +52,7 @@ export const QUERY_USER = gql`
         sender {
           _id
           username
+          color
         }
       }
     }
@@ -72,6 +73,7 @@ export const QUERY_MY_WORDS_AND_MY_FRIENDS = gql`
       _id
       words
       username
+      color
       friends {
         _id
         username

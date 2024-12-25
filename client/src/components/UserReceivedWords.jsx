@@ -52,6 +52,7 @@ export default function UserReceivedWords({ bouquets: initialBouquets }) {
               bouquetId={bouquet._id}
               words={bouquet.giftedWords}
               senderUsername={bouquet.sender.username}
+              senderColor={bouquet.sender.color}
               senderId={bouquet.sender._id}
               toggleEdit={toggleEdit}
               onDelete={handleDeleteBouquet}

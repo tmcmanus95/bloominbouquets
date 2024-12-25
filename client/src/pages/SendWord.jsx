@@ -19,6 +19,7 @@ export default function SendWord() {
   const [searchTerm, setSearchTerm] = useState("");
   const [words, setWords] = useState([]);
   const [wordsToSend, setWordsToSend] = useState([]);
+  const [senderColor, setSenderColor] = useState();
   const initialRecipient = useParams();
   const handleSendWord = async (wordsToSend) => {
     let userId = data.me._id;
@@ -63,17 +64,16 @@ export default function SendWord() {
 
   useEffect(() => {
     if (data) {
-      if (data.me.friends.length > 0) {
-        setFriends(data.me.friends);
-        setRecipientId(initialRecipient.userId);
-        for (let i = 0; i < data.me.friends.length; i++) {
-          if (data.me.friends[i]._id == initialRecipient.userId) {
-            setRecipientUsername(data.me.friends[i].username);
-          }
+      console.log("data", data);
+      setFriends(data.me.friends);
+      setRecipientId(initialRecipient.userId);
+      for (let i = 0; i < data.me.friends.length; i++) {
+        if (data.me.friends[i]._id == initialRecipient.userId) {
+          setRecipientUsername(data.me.friends[i].username);
         }
+
         setSelectedRecipient(true);
-      }
-      if (data.me.words.length > 0) {
+        setSenderColor(data.me.color);
         setWords(data.me.words);
       }
     }
@@ -115,6 +115,7 @@ export default function SendWord() {
                 words={wordsToSend}
                 senderUsername={data?.me.username}
                 senderId={data?.me._id}
+                senderColor={senderColor}
               />
               {selectedRecipient ? (
                 <div className="flex flex-row items-center">

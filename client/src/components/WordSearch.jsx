@@ -18,7 +18,7 @@ export default function WordSearch({
   const [wordSearched, setWordSearched] = useState(false);
   const [wordDisplayed, setWordDisplayed] = useState("");
   const [seedsToSpend, setSeedsToSpend] = useState(initialSeedsToSpend);
-  const [words, setWords] = useState(initialWords);
+  const [words, setWords] = useState();
   const [wordPrice, setWordPrice] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [alertText, setAlertText] = useState("");
@@ -35,11 +35,12 @@ export default function WordSearch({
     setWordSearched(false);
   };
   useEffect(() => {
+    setWords(initialWords);
     if (searchedWord) {
       setInputValue(searchedWord);
       handleSearchWord({ preventDefault: () => {} });
     }
-  }, [searchedWord]);
+  }, [searchedWord, initialWords]);
 
   async function handleSearchWord(e) {
     console.log("input value", inputValue);
@@ -61,9 +62,6 @@ export default function WordSearch({
           setWordDisplayed(inputValue);
           setIsValidWord(true);
           setWordPrice(wordLengthToSeedPrice(inputValue.length));
-          console.log(
-            `seeds to spend ${seedsToSpend} | word price ${wordPrice}`
-          );
           if (seedsToSpend >= wordPrice) {
             setBuyable(true);
           }
@@ -130,7 +128,14 @@ export default function WordSearch({
           className="text-black border-2 border-green-700 text-3xl"
         ></input>
       </form>
-      <div className="text-xl">{alertText}</div>
+      <div className="flex justify-center">
+        {alertText && (
+          <div className="text-xl border-2 border-green-700 rounded-lg p-2 mt-2">
+            {alertText}
+          </div>
+        )}
+      </div>
+
       <div
         className={`buyable-div flex flex-row text-center justify-center mt-10 ${
           wordSearched ? "visible border-r-2 border-black" : ""

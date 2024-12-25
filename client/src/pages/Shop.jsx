@@ -13,8 +13,8 @@ export default function Shop() {
 
   useEffect(() => {
     if (data) {
-      setInitialSeedsToSpend(data?.me?.goldenSeeds || 0);
-      setInitialWords(data?.me?.words || []);
+      setInitialSeedsToSpend(data?.me?.goldenSeeds);
+      setInitialWords(data?.me?.words);
       setUserId(data?.me?._id);
     }
   }, [data]);
