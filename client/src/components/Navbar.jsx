@@ -50,13 +50,17 @@ export default function Navbar() {
               {Auth.loggedIn ? (
                 <Link
                   to="/me"
-                  className="hover:bg-green-900 lg:p-2 rounded-lg dark:hover:bg-green-950"
+                  className={`hover:bg-green-900 dark:hover:bg-green-950 lg:p-2 rounded-lg ${
+                    userSearchOpen ? "text-xs" : ""
+                  }`}
                 >
                   Welcome {data?.me?.username}
                 </Link>
               ) : (
                 <Link
-                  className="hover:bg-green-900 dark:hover:bg-green-950 lg:p-2 rounded-lg"
+                  className={`hover:bg-green-900 dark:hover:bg-green-950 lg:p-2 rounded-lg ${
+                    userSearchOpen ? "text-xs" : ""
+                  }`}
                   to="/"
                 >
                   Bloomin Bouquets
@@ -66,7 +70,9 @@ export default function Navbar() {
           ) : (
             <div className="hidden md:gap-5 md:flex md:flex-row">
               <Link
-                className="hover:bg-green-900 dark:hover:bg-green-950 lg:p-2 rounded-lg"
+                className={`hover:bg-green-900 dark:hover:bg-green-950 lg:p-2 rounded-lg ${
+                  userSearchOpen ? "text-xs" : ""
+                }`}
                 to="/"
               >
                 Bloomin Bouquets
@@ -76,13 +82,17 @@ export default function Navbar() {
 
           <Link
             to="/howToPlay"
-            className="hover:bg-green-900 dark:hover:bg-green-950 lg:p-2 rounded-lg"
+            className={`hover:bg-green-900 dark:hover:bg-green-950 lg:p-2 rounded-lg ${
+              userSearchOpen ? "text-xs" : ""
+            }`}
           >
             How To Play
           </Link>
           <Link
             to="/contact"
-            className="hover:bg-green-900 dark:hover:bg-green-950 lg:p-2 rounded-lg"
+            className={`hover:bg-green-900 dark:hover:bg-green-950 lg:p-2 rounded-lg ${
+              userSearchOpen ? "text-xs" : ""
+            }`}
           >
             Contact
           </Link>
@@ -90,20 +100,26 @@ export default function Navbar() {
             <>
               <Link
                 to="/buyGoldenSeeds"
-                className="hover:bg-green-900 dark:hover:bg-green-950 lg:p-2 rounded-lg"
+                className={`hover:bg-green-900 dark:hover:bg-green-950 lg:p-2 rounded-lg ${
+                  userSearchOpen ? "text-xs" : ""
+                }`}
               >
                 Buy More Seeds
               </Link>
 
               <Link
                 to="/shop"
-                className="hover:bg-green-900  dark:hover:bg-green-950 lg:p-2 rounded-lg"
+                className={`hover:bg-green-900 dark:hover:bg-green-950 lg:p-2 rounded-lg ${
+                  userSearchOpen ? "text-xs" : ""
+                }`}
               >
                 Shop
               </Link>
               <Link
                 to="/sendABouquet"
-                className="hover:bg-green-900 dark:hover:bg-green-950 lg:p-2 rounded-lg"
+                className={`hover:bg-green-900 dark:hover:bg-green-950 lg:p-2 rounded-lg ${
+                  userSearchOpen ? "text-xs" : ""
+                }`}
               >
                 Send a Bouquet
               </Link>
