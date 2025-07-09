@@ -60,12 +60,16 @@ export default function ProfilesReceivedFriendRequestsList({ userId }) {
             <h1 className="md:text-sm text-xs">No friend requests</h1>
           </div>
         )}
-        <Link
-          to={`/me/friendRequests`}
-          className="border-green-500 border-2 hover:cursor:pointer text-center hover:border-green-700 absolute bottom-2 right-2 p-1 bg-white dark:bg-black"
-        >
-          All Friend Requests
-        </Link>
+        {receivedFriendRequests.length > 0 ? (
+          <Link
+            to={`/me/friendRequests`}
+            className="border-green-500 border-2 hover:cursor:pointer text-center hover:border-green-700 absolute bottom-2 right-2 p-1 bg-white dark:bg-black"
+          >
+            All Friend Requests
+          </Link>
+        ) : (
+          <></>
+        )}
       </div>
     </section>
   );

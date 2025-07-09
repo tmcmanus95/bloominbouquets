@@ -24,8 +24,8 @@ export default function ProfileWords({ words, userId }) {
     .sort((a, b) => b.length - a.length)
     .slice(0, sliceValue);
   return (
-    <section className="relative m-2 flex justify-center flex-col border-black dark:border-white border-2">
-      <h1 className="md:text-3xl text-center">Best Words</h1>
+    <section className="relative m-2 flex  flex-col border-black dark:border-white border-2 min-h-20">
+      <h1 className="md:text-2xl text-center">Best Words</h1>
 
       <div className="">
         <div className="grid grid-cols-2 md:grid-cols-8 content-start">
@@ -45,12 +45,16 @@ export default function ProfileWords({ words, userId }) {
           ) : (
             <></>
           )}
-          <Link
-            to={`/user/${userId}/allWords`}
-            className="border-green-500 border-2 hover:cursor:pointer text-center hover:border-green-700 m-0 absolute bottom-2 right-2 p-1 bg-white dark:bg-black"
-          >
-            All Words
-          </Link>
+          {words.length > 0 ? (
+            <Link
+              to={`/user/${userId}/allWords`}
+              className="border-green-500 border-2 hover:cursor:pointer text-center hover:border-green-700 m-0 absolute bottom-2 right-2 p-1 bg-white dark:bg-black"
+            >
+              All Words
+            </Link>
+          ) : (
+            <div>No words yet</div>
+          )}
         </div>
       </div>
     </section>

@@ -71,10 +71,13 @@ export default function OtherProfile() {
                     <h6 className="text-xs">Friends</h6>
                   </div>
                 ) : !friendRequestSent ? (
-                  <IoMdPersonAdd
-                    onClick={handleAddFriend}
-                    className="text-xs"
-                  />
+                  <div className="flex flex-row">
+                    <IoMdPersonAdd
+                      onClick={handleAddFriend}
+                      className="text-lg"
+                    />
+                    <h6 className="text-xs">Add friend</h6>
+                  </div>
                 ) : (
                   <></>
                 )}
