@@ -1,5 +1,10 @@
 import { useState, useEffect } from "react";
+import { useQuery } from "@apollo/client";
+import { setTileStatus } from "../../utils/setTileStatus";
+import { GET_DAILY_BOARD } from "../../utils/queries";
 export default function NewGameBoard() {
+  const { loading, error, data } = useQuery(GET_DAILY_BOARD);
+  const [allTiles, setAllTiles] = useState([]);
   const [selectedTiles, setSelectedTiles] = useState([]);
   const testingTiles = [
     { id: 0, row: 0, col: 0, letter: "A", status: "available" },
@@ -29,16 +34,46 @@ export default function NewGameBoard() {
     { id: 24, row: 4, col: 4, letter: "B", status: "available" },
   ];
   useEffect(() => {
-    setSelectedTiles(testingTiles);
-  }, []);
+    if (data && data.dailyRandomization) {
+      let rows = 5;
+      let cols = 5;
+      for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+          const id = i * cols + j;
+          const letter = data.dailyRandomization.dailyBoard[id];
+          const tile = {
+            id: id,
+            letter: letter,
+            row: i,
+            col: j,
+            status: "available",
+          };
+          setSelectedTiles((prevTiles) => [...prevTiles, tile]);
+        }
+      }
+    }
+  }, [data]);
 
   return (
     <section className="relative m-2 flex flex-col border-black dark:border-white border-2 min-h-20">
-      <div>Game Board</div>
+      <div>New Game Board</div>
       <div className="flex flex-col items-center justify-center">
         <div className="grid grid-cols-5 gap-2">
           {selectedTiles.map((tile) => (
-            <div key={tile.id} className={`tile m-5 ${tile.status}`}>
+            <div
+              key={tile.id}
+              className={`tile m-5 ${tile.status}`}
+              onClick={() => {
+                const updatedTiles = setTileStatus({
+                  tile,
+                  cols: 5,
+                  rows: 5,
+                  selectedTiles,
+                });
+                setSelectedTiles(updatedTiles);
+              }}
+            >
+              <div className="text-xs">{tile.status}</div>
               {tile.letter}
             </div>
           ))}

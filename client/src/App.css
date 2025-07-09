@@ -84,6 +84,10 @@
   background-color: lightblue;
 }
 
+.adjacent {
+  background-color: lightcoral;
+}
+
 .current-word-container {
   display: flex;
   height: 100px !important;
